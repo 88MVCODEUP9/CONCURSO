@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS com tema Dark + Azul (já atualizado) -->
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/GMA/QUEST%C3%95ES.css">
+    <title>Seleção de Questões</title>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <div class="header-icon">
+                <!-- Ícone trocado para azul (#2563eb) -->
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="M9 12l2 2 4-4"></path>
+                </svg>
+            </div>
+            <h1>Guarda Municipal de Aracaju</h1>
+            <p class="subtitle">
+                <span>📚 Material de Estudo</span>
+                <span class="badge">Concurso 2026</span>
+            </p>
+        </header>
+
+        <!-- Cards gerados dinamicamente pelo JavaScript -->
+        <div class="cards-grid" id="cardsGrid"></div>
+
+        <p class="footer">
+            Clique em um card para acessar o conteúdo da <span>matéria</span>.
+        </p>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose" title="Fechar">✕</button>
+            <h2 id="modalTitle"></h2>
+            <p class="modal-subtitle" id="modalSubtitle"></p>
+            <ul class="topic-list" id="modalTopics"></ul>
+            <div class="info-bar" id="modalInfo"></div>
+        </div>
+    </div>
+
+    <script>
+        // Dados das matérias (10 módulos)
+        const materias = [{
+            id: 1,
+            nome: 'Língua\nPortuguesa',
+            nomeLinha: 'Língua Portuguesa',
+            tipo: 'Módulo 01',
+            subtitulo: 'Gramática e Interpretação',
+            topicos: [
+                { nome: 'Compreensão e interpretação de textos', link: '/ABAS/Questões/Material/Português/Interpretação e compreensão de textos.html' },
+                { nome: 'Tipologia textual e gêneros discursivos', link: '#' },
+                { nome: 'Ortografia oficial e acentuação gráfica', link: '#' },
+                { nome: 'Classes de palavras e análise morfológica', link: '#' },
+                { nome: 'Sintaxe do período simples e composto', link: '#' },
+                { nome: 'Regência verbal e nominal', link: '#' },
+                { nome: 'Crase, pontuação e concordância', link: '#' },
+                { nome: 'Semântica: sinonímia, antonímia, polissemia', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~15 questões',
+        }, {
+            id: 2,
+            nome: 'Raciocínio\nLógico',
+            nomeLinha: 'Raciocínio Lógico',
+            tipo: 'Módulo 02',
+            subtitulo: 'Lógica e Matemática',
+            topicos: [
+                { nome: 'Proposições Compostas e Conectivos Lógicos', link: '/ABAS/Questões/Material/Raciocínio Lógico/Proposições Compostas e Conectivos Lógicos.html' },
+                { nome: 'Lógica de argumentação', link: '#' },
+                { nome: 'Raciocínio sequencial e analítico', link: '#' },
+                { nome: 'Problemas com matrizes e determinantes', link: '#' },
+                { nome: 'Análise combinatória e probabilidade', link: '#' },
+                { nome: 'Geometria básica e raciocínio espacial', link: '#' },
+                { nome: 'Problemas envolvendo conjuntos', link: '#' },
+                { nome: 'Sequências numéricas e padrões', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 3,
+            nome: 'Noções de\nInformática',
+            nomeLinha: 'Noções de Informática',
+            tipo: 'Módulo 03',
+            subtitulo: 'Tecnologia e Sistemas',
+            topicos: [
+                { nome: 'Sistemas operacionais Windows e Linux', link: '#' },
+                { nome: 'Pacote Microsoft Office e LibreOffice', link: '#' },
+                { nome: 'Internet: navegadores, e-mail e segurança', link: '#' },
+                { nome: 'Redes de computadores: conceitos básicos', link: '#' },
+                { nome: 'Segurança da informação e criptografia', link: '#' },
+                { nome: 'Computação em nuvem e armazenamento', link: '#' },
+                { nome: 'Hardware: componentes e periféricos', link: '#' },
+                { nome: 'Noções de banco de dados', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 4,
+            nome: 'Direito\nConstitucional',
+            nomeLinha: 'Direito Constitucional',
+            tipo: 'Módulo 04',
+            subtitulo: 'Constituição Federal',
+            topicos: [
+                { nome: 'Princípios fundamentais da CF/88', link: '#' },
+                { nome: 'Direitos e garantias fundamentais', link: '#' },
+                { nome: 'Organização do Estado brasileiro', link: '#' },
+                { nome: 'Poder Legislativo, Executivo e Judiciário', link: '#' },
+                { nome: 'Defesa do Estado e instituições democráticas', link: '#' },
+                { nome: 'Segurança pública na Constituição (art. 144)', link: '#' },
+                { nome: 'Municípios na Constituição Federal', link: '#' },
+                { nome: 'Controle de constitucionalidade', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~12 questões',
+        }, {
+            id: 5,
+            nome: 'Direito\nAdministrativo',
+            nomeLinha: 'Direito Administrativo',
+            tipo: 'Módulo 05',
+            subtitulo: 'Administração Pública',
+            topicos: [
+                { nome: 'Princípios da Administração Pública', link: '#' },
+                { nome: 'Atos administrativos: classificação e atributos', link: '#' },
+                { nome: 'Poderes administrativos', link: '#' },
+                { nome: 'Servidores públicos: regime jurídico', link: '#' },
+                { nome: 'Responsabilidade civil do Estado', link: '#' },
+                { nome: 'Licitações e contratos (Lei 14.133/2021)', link: '#' },
+                { nome: 'Improbidade administrativa', link: '#' },
+                { nome: 'Processo administrativo disciplinar', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~12 questões',
+        }, {
+            id: 6,
+            nome: 'Direito\nPenal',
+            nomeLinha: 'Direito Penal',
+            tipo: 'Módulo 06',
+            subtitulo: 'Crimes e Penas',
+            topicos: [
+                { nome: 'Princípios do Direito Penal', link: '#' },
+                { nome: 'Aplicação da lei penal no tempo e espaço', link: '#' },
+                { nome: 'Teoria do crime: tipicidade, ilicitude, culpabilidade', link: '#' },
+                { nome: 'Crimes contra a pessoa', link: '#' },
+                { nome: 'Crimes contra o patrimônio', link: '#' },
+                { nome: 'Crimes contra a Administração Pública', link: '#' },
+                { nome: 'Lei de Drogas (Lei 11.343/2006)', link: '#' },
+                { nome: 'Estatuto do Desarmamento (Lei 10.826/2003)', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 7,
+            nome: 'Direito\nProcessual Penal',
+            nomeLinha: 'Direito Processual Penal',
+            tipo: 'Módulo 07',
+            subtitulo: 'Processo e Investigação',
+            topicos: [
+                { nome: 'Inquérito policial e investigação criminal', link: '#' },
+                { nome: 'Ação penal: pública e privada', link: '#' },
+                { nome: 'Jurisdição e competência', link: '#' },
+                { nome: 'Provas no processo penal', link: '#' },
+                { nome: 'Prisão em flagrante e preventiva', link: '#' },
+                { nome: 'Medidas cautelares diversas da prisão', link: '#' },
+                { nome: 'Procedimentos processuais penais', link: '#' },
+                { nome: 'Recursos no processo penal', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~8 questões',
+        }, {
+            id: 8,
+            nome: 'Legislação\nEspecífica',
+            nomeLinha: 'Legislação Específica',
+            tipo: 'Módulo 08',
+            subtitulo: 'Leis Municipais e Estatuto',
+            topicos: [
+                { nome: 'Lei Orgânica do Município de Aracaju', link: '#' },
+                { nome: 'Estatuto dos Servidores Públicos de Aracaju', link: '#' },
+                { nome: 'Lei 13.022/2014 – Estatuto Geral das Guardas Municipais', link: '#' },
+                { nome: 'Plano de Cargos e Carreiras da GMA', link: '#' },
+                { nome: 'Código de Posturas do Município', link: '#' },
+                { nome: 'Legislação municipal de segurança urbana', link: '#' },
+                { nome: 'Poder de polícia administrativo municipal', link: '#' },
+                { nome: 'Regulamento interno da Guarda Municipal', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~15 questões',
+        }, {
+            id: 9,
+            nome: 'Atualidades',
+            nomeLinha: 'Atualidades',
+            tipo: 'Módulo 09',
+            subtitulo: 'Cenário Nacional e Mundial',
+            topicos: [
+                { nome: 'Política nacional e internacional', link: '#' },
+                { nome: 'Economia brasileira e indicadores sociais', link: '#' },
+                { nome: 'Meio ambiente e sustentabilidade', link: '#' },
+                { nome: 'Tecnologia, inovação e inteligência artificial', link: '#' },
+                { nome: 'Direitos humanos e cidadania', link: '#' },
+                { nome: 'Segurança pública e violência urbana', link: '#' },
+                { nome: 'Cultura, educação e saúde no Brasil', link: '#' },
+                { nome: 'Acontecimentos recentes em Sergipe e Aracaju', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~8 questões',
+        }, {
+            id: 10,
+            nome: 'Legislação Municipal',
+            nomeLinha: 'Legislação Municipal',
+            tipo: 'Módulo 10',
+            subtitulo: 'Conduta e Deontologia',
+            topicos: [
+                { nome: 'Código de Ética do Servidor Público', link: '#' },
+                { nome: 'Princípios constitucionais da Administração', link: '#' },
+                { nome: 'Moralidade, impessoalidade e eficiência', link: '#' },
+                { nome: 'Deveres e vedações do servidor público', link: '#' },
+                { nome: 'Ética profissional e relações interpessoais', link: '#' },
+                { nome: 'Assédio moral e sexual no serviço público', link: '#' },
+                { nome: 'Transparência e acesso à informação', link: '#' },
+                { nome: 'Responsabilidade funcional e social', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~5 questões',
+        }];
+
+        // Gerar os cards dinamicamente
+        const cardsGrid = document.getElementById('cardsGrid');
+        materias.forEach((materia) => {
+            const ticketHTML = `
+                <div class="ticket-canvas" data-id="${materia.id}">
+                    <div class="ticket-wrapper" onclick="abrirMateria(${materia.id})" title="Clique para acessar ${materia.nomeLinha}">
+                        <div class="ticket">
+                            <div class="t-main">
+                                <div class="t-content">
+                                    <div class="t-header">
+                                        <div class="t-logo">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke-linecap="round"/>
+                                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke-linecap="round"/>
+                                            </svg>
+                                            GMA
+                                        </div>
+                                        <div class="t-type">${materia.tipo}</div>
+                                    </div>
+                                    <div class="t-title">${materia.nome.replace('\n', '<br>')}</div>
+                                    <div class="t-subtitle">${materia.subtitulo}</div>
+                                    <div class="t-details">
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Concurso</span>
+                                            <span class="t-value">GMA 2026</span>
+                                        </div>
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Data</span>
+                                            <span class="t-value">${materia.data}</span>
+                                        </div>
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Cidade</span>
+                                            <span class="t-value">Aracaju/SE</span>
+                                        </div>
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Banca</span>
+                                            <span class="t-value">IDECAN</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="t-perforation">
+                                    <div class="t-perf-line"></div>
+                                </div>
+                            </div>
+                            <div class="t-stub">
+                                <div class="t-barcode-container">
+                                    <div class="t-barcode"></div>
+                                    <div class="t-barcode-id">GMA-2026-MOD-${String(materia.id).padStart(2, '0')}</div>
+                                </div>
+                                <div class="t-admit">
+                                    <div class="t-admit-text">Módulo</div>
+                                    <div class="t-admit-num">${String(materia.id).padStart(2, '0')}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            cardsGrid.insertAdjacentHTML('beforeend', ticketHTML);
+        });
+
+        // Modal
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const modalTopics = document.getElementById('modalTopics');
+        const modalInfo = document.getElementById('modalInfo');
+        const modalClose = document.getElementById('modalClose');
+
+        function abrirMateria(id) {
+            const materia = materias.find(m => m.id === id);
+            if (!materia) return;
+
+            modalTitle.textContent = materia.nomeLinha;
+            modalSubtitle.textContent = `${materia.subtitulo} — Guarda Municipal de Aracaju 2026`;
+
+            modalTopics.innerHTML = materia.topicos.map(t => `
+                <li>
+                    <button>
+                        <a href="${t.link}">${t.nome}</a>
+                    </button>
+                </li>
+            `).join('');
+
+            modalInfo.innerHTML = `
+                <span class="info-pill">📋 ${materia.questoes}</span>
+                <span class="info-pill">🏛️ ${materia.banca}</span>
+                <span class="info-pill">📅 ${materia.data}</span>
+                <span class="info-pill">📍 Aracaju/SE</span>
+            `;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', fecharModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) fecharModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                fecharModal();
+            }
+        });
+    </script>
+</body>
+</html>

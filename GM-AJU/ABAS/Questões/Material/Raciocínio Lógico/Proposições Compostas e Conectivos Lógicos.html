@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raciocínio Lógico – Proposições e Conectivos (IDECAN)</title>
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/GMA/SIMULADOS.css">
+</head>
+<body>
+
+    <!-- OVERLAY MOBILE -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-robot"></i> Raciocínio
+        </div>
+        <button class="menu-item active" data-page="questoes" id="menuQuestoes">
+            <i class="fas fa-list-ul"></i> Questões
+        </button>
+        <button class="menu-item" data-page="gabarito" id="menuGabarito">
+            <i class="fas fa-check-circle"></i> Gabarito
+        </button>
+        <div class="menu-bottom">
+            <div style="color:#484F58; font-size:0.75rem; padding:0.5rem 0;">
+                <i class="fas fa-graduation-cap"></i> 50 questões • Concursos
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <h1>
+                <i class="fas fa-puzzle-piece" style="color:#2d9d5e;"></i>
+                Raciocínio Lógico
+                <small>50 questões (prioridade IDECAN)</small>
+            </h1>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- PÁGINA QUESTÕES -->
+        <div class="page active" id="pageQuestoes">
+            <div id="questoesContainer"></div>
+        </div>
+
+        <!-- PÁGINA GABARITO -->
+        <div class="page" id="pageGabarito">
+            <h2 style="margin-bottom:1.5rem; font-weight:600; display:flex; align-items:center; gap:10px;">
+                <i class="fas fa-check-double" style="color:#2d9d5e;"></i> Gabarito Oficial
+            </h2>
+            <div id="gabaritoContainer"></div>
+        </div>
+    </main>
+
+    <script>
+        // ================================================================
+        // 50 QUESTÕES DE RACIOCÍNIO LÓGICO – PROPOSIÇÕES E CONECTIVOS
+        // PRIORIDADE: BANCA IDECAN (17 questões)
+        // COMPLEMENTO: CESPE, FCC, VUNESP, FGV, CEBRASPE, etc.
+        // ================================================================
+        const questoes = [
+            // ---------- QUESTÕES IDECAN (1 a 17) ----------
+            {
+                id: 1,
+                texto: '(IDECAN) Considere a proposição: "Se Pedro é médico, então Maria é dentista."',
+                pergunta: 'Assinale a alternativa que apresenta a negação correta dessa proposição.',
+                alternativas: [
+                    'Pedro é médico e Maria não é dentista.',
+                    'Pedro não é médico e Maria é dentista.',
+                    'Se Pedro não é médico, então Maria não é dentista.',
+                    'Maria é dentista ou Pedro é médico.',
+                    'Pedro não é médico ou Maria não é dentista.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 2,
+                texto: '(IDECAN) A tabela-verdade a seguir foi construída para a proposição composta P(p,q,r) = (p → q) ∧ (q ∨ r).',
+                pergunta: 'Em quantas linhas da tabela-verdade o valor lógico de P é verdadeiro?',
+                alternativas: [
+                    '2',
+                    '3',
+                    '4',
+                    '5',
+                    '6'
+                ],
+                gabarito: 2 // C (4 linhas)
+            },
+            {
+                id: 3,
+                texto: '(IDECAN) Dadas as proposições: p: "César é advogado"; q: "Diana é enfermeira"; r: "Amanda é cientista".',
+                pergunta: 'Sabendo que a afirmação "Se César é advogado, então Diana é enfermeira" é verdadeira, e que "Amanda é cientista ou Diana é enfermeira" é falsa, é correto concluir que:',
+                alternativas: [
+                    'Ou Amanda não é cientista ou César não é advogado.',
+                    'César é advogado e Diana é enfermeira.',
+                    'Amanda é cientista ou Diana não é enfermeira.',
+                    'Amanda é cientista ou César é advogado.',
+                    'Se César não é advogado, então Amanda é cientista.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 4,
+                texto: '(IDECAN) A negação da proposição composta "Se goleia o rival, então é campeão" é:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Goleia o rival e não é campeão.',
+                    'Não goleia o rival e é campeão.',
+                    'Se não goleia o rival, então não é campeão.',
+                    'É campeão ou goleia o rival.',
+                    'Não goleia o rival ou não é campeão.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 5,
+                texto: '(IDECAN) Qual das proposições abaixo é uma tautologia?',
+                pergunta: 'Identifique a alternativa que representa uma tautologia (sempre verdadeira).',
+                alternativas: [
+                    'p ∧ ¬p',
+                    'p ∨ ¬p',
+                    'p → ¬p',
+                    'p ↔ ¬p',
+                    'p ∧ q'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 6,
+                texto: '(IDECAN) A proposição "p ∧ (q ∨ r)" é classificada como:',
+                pergunta: 'Assinale a classificação correta dessa proposição composta.',
+                alternativas: [
+                    'Tautologia',
+                    'Contradição',
+                    'Contingência',
+                    'Equivalência',
+                    'Nenhuma das anteriores'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 7,
+                texto: '(IDECAN) A contrapositiva da proposição "Se chove, então a rua fica molhada" é:',
+                pergunta: 'Marque a alternativa correta.',
+                alternativas: [
+                    'Se a rua não fica molhada, então não chove.',
+                    'Se não chove, então a rua não fica molhada.',
+                    'Se a rua fica molhada, então chove.',
+                    'Se não chove, então a rua fica molhada.',
+                    'Se a rua fica molhada, então não chove.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 8,
+                texto: '(IDECAN) Quantas linhas possui a tabela-verdade de uma proposição composta com 4 proposições simples?',
+                pergunta: 'Assinale o número correto.',
+                alternativas: [
+                    '8',
+                    '12',
+                    '16',
+                    '20',
+                    '24'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 9,
+                texto: '(IDECAN) A negação de "p ∨ q" é logicamente equivalente a:',
+                pergunta: 'Segundo as leis de De Morgan, assinale a alternativa correta.',
+                alternativas: [
+                    '¬p ∧ ¬q',
+                    '¬p ∨ ¬q',
+                    'p ∧ q',
+                    'p ∨ q',
+                    '¬p → ¬q'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 10,
+                texto: '(IDECAN) Dada a proposição "p → q", sua equivalente lógica é:',
+                pergunta: 'Assinale a alternativa que apresenta uma proposição logicamente equivalente à condicional.',
+                alternativas: [
+                    '¬q → ¬p',
+                    '¬p → ¬q',
+                    'q → p',
+                    '¬p ∧ q',
+                    'p ∧ ¬q'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 11,
+                texto: '(IDECAN) Considere as proposições: p: "Estudo"; q: "Passo no concurso".',
+                pergunta: 'A proposição "p ∨ q" é falsa quando:',
+                alternativas: [
+                    'Estudo e passo.',
+                    'Estudo e não passo.',
+                    'Não estudo e passo.',
+                    'Não estudo e não passo.',
+                    'Nunca é falsa.'
+                ],
+                gabarito: 3 // D
+            },
+            {
+                id: 12,
+                texto: '(IDECAN) A proposição "¬(¬p)" é logicamente equivalente a:',
+                pergunta: 'Assinale a simplificação correta.',
+                alternativas: [
+                    'p',
+                    '¬p',
+                    'p ∧ p',
+                    'p ∨ p',
+                    '¬p ∨ p'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 13,
+                texto: '(IDECAN) Qual das alternativas é uma contradição?',
+                pergunta: 'Identifique a proposição que é sempre falsa.',
+                alternativas: [
+                    'p ∨ ¬p',
+                    'p ∧ ¬p',
+                    'p → p',
+                    'p ↔ p',
+                    'p ∨ q'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 14,
+                texto: '(IDECAN) A proposição "p ↔ q" é verdadeira em quantas linhas da tabela-verdade?',
+                pergunta: 'Assinale o número correto.',
+                alternativas: [
+                    '1',
+                    '2',
+                    '3',
+                    '4',
+                    '0'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 15,
+                texto: '(IDECAN) Se p é "O número é par" e q é "O número é divisível por 2", então a bicondicional p ↔ q é:',
+                pergunta: 'Para qualquer número inteiro, qual é o valor lógico dessa bicondicional?',
+                alternativas: [
+                    'Verdadeira',
+                    'Falsa',
+                    'Contingente',
+                    'Contradição',
+                    'Não é proposição'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 16,
+                texto: '(IDECAN) A proposição "ou estudo ou trabalho" (disjunção exclusiva) é verdadeira quando:',
+                pergunta: 'Em qual situação a disjunção exclusiva é verdadeira?',
+                alternativas: [
+                    'Ambas as proposições são verdadeiras.',
+                    'Ambas são falsas.',
+                    'Apenas uma das proposições é verdadeira.',
+                    'Nenhuma das anteriores.',
+                    'Sempre é verdadeira.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 17,
+                texto: '(IDECAN) A negação da proposição "Todos os gatos são pretos" é:',
+                pergunta: 'Assinale a alternativa que apresenta a negação correta.',
+                alternativas: [
+                    'Nenhum gato é preto.',
+                    'Algum gato não é preto.',
+                    'Todos os gatos não são pretos.',
+                    'Algum gato é preto.',
+                    'Nenhum gato não é preto.'
+                ],
+                gabarito: 1 // B
+            },
+
+            // ---------- QUESTÕES DE OUTRAS BANCAS (18 a 50) ----------
+            {
+                id: 18,
+                texto: '(CESPE) Considere a proposição composta "Se João é engenheiro, então Maria é arquiteta".',
+                pergunta: 'Assinale a alternativa que apresenta a negação correta.',
+                alternativas: [
+                    'João é engenheiro e Maria não é arquiteta.',
+                    'João não é engenheiro e Maria é arquiteta.',
+                    'Se João não é engenheiro, então Maria não é arquiteta.',
+                    'Maria é arquiteta ou João é engenheiro.',
+                    'João não é engenheiro ou Maria não é arquiteta.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 19,
+                texto: '(CESPE) A proposição "p → q" é falsa apenas quando:',
+                pergunta: 'Em qual combinação de valores de p e q a condicional é falsa?',
+                alternativas: [
+                    'p verdadeiro, q verdadeiro',
+                    'p verdadeiro, q falso',
+                    'p falso, q verdadeiro',
+                    'p falso, q falso',
+                    'Nunca é falsa'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 20,
+                texto: '(FCC) Dada a proposição composta "p ∧ q", onde p e q são proposições simples.',
+                pergunta: 'Em quantas linhas da tabela-verdade essa proposição é verdadeira?',
+                alternativas: [
+                    '0',
+                    '1',
+                    '2',
+                    '3',
+                    '4'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 21,
+                texto: '(FCC) Se p é "Hoje é domingo" e q é "Amanhã é segunda-feira", então a expressão "p ↔ q" é:',
+                pergunta: 'Qual o valor lógico de "p ↔ q" quando p é verdadeira e q é verdadeira?',
+                alternativas: [
+                    'Verdadeira',
+                    'Falsa',
+                    'Não é possível determinar',
+                    'Depende de outras variáveis',
+                    'Nenhuma das anteriores'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 22,
+                texto: '(FGV) A proposição "¬(p ∧ q)" é equivalente a:',
+                pergunta: 'Segundo as leis de De Morgan, a negação da conjunção é:',
+                alternativas: [
+                    '¬p ∧ ¬q',
+                    '¬p ∨ ¬q',
+                    'p ∨ q',
+                    'p ∧ q',
+                    '¬p → ¬q'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 23,
+                texto: '(FGV) Considere a proposição: "Se estudo, então passo; se passo, então comemoro."',
+                pergunta: 'Essa proposição composta é um exemplo de:',
+                alternativas: [
+                    'Conjunção',
+                    'Disjunção',
+                    'Condicional encadeada (silogismo hipotético)',
+                    'Bicondicional',
+                    'Negação'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 24,
+                texto: '(VUNESP) A proposição "p ∨ (q ∧ r)" é equivalente a:',
+                pergunta: 'Usando a propriedade distributiva, qual é a forma equivalente?',
+                alternativas: [
+                    '(p ∨ q) ∧ (p ∨ r)',
+                    '(p ∧ q) ∨ (p ∧ r)',
+                    'p ∧ (q ∨ r)',
+                    'p ∨ (q ∨ r)',
+                    'p ∧ (q ∧ r)'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 25,
+                texto: '(VUNESP) Qual das alternativas é uma proposição simples?',
+                pergunta: 'Identifique a proposição que não contém conectivo lógico.',
+                alternativas: [
+                    'O número 7 é primo.',
+                    'Se chove, então a rua fica molhada.',
+                    'Estudo e trabalho.',
+                    'Ou vou ao cinema ou vou ao teatro.',
+                    'Não é verdade que o céu é azul.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 26,
+                texto: '(CESPE) A proposição "Se p, então q" é logicamente equivalente a "¬p ∨ q".',
+                pergunta: 'Essa afirmação é:',
+                alternativas: [
+                    'Verdadeira',
+                    'Falsa',
+                    'Às vezes verdadeira',
+                    'Contraditória',
+                    'Não é uma proposição'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 27,
+                texto: '(CESPE) A proposição "¬(p ∨ q)" é equivalente a:',
+                pergunta: 'Usando De Morgan, a negação da disjunção é:',
+                alternativas: [
+                    '¬p ∧ ¬q',
+                    '¬p ∨ ¬q',
+                    'p ∧ q',
+                    'p ∨ ¬q',
+                    '¬p ∧ q'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 28,
+                texto: '(FCC) Se p é verdadeiro e q é falso, qual o valor de "p ∨ q"?',
+                pergunta: 'Valor lógico da disjunção inclusiva quando uma é V e a outra F.',
+                alternativas: [
+                    'Verdadeiro',
+                    'Falso',
+                    'Indeterminado',
+                    'Depende de outras variáveis',
+                    'Nenhuma das anteriores'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 29,
+                texto: '(FGV) Dadas as proposições p, q e r, a proposição "(p ∧ q) → r" é falsa quando:',
+                pergunta: 'Em qual situação a condicional composta é falsa?',
+                alternativas: [
+                    'p e q verdadeiros e r falso',
+                    'p verdadeiro, q falso e r verdadeiro',
+                    'p falso, q verdadeiro e r falso',
+                    'p falso, q falso e r verdadeiro',
+                    'p verdadeiro, q verdadeiro e r verdadeiro'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 30,
+                texto: '(VUNESP) A proposição "¬p ∨ ¬q" é equivalente a:',
+                pergunta: 'Qual é a negação de "p ∧ q"?',
+                alternativas: [
+                    '¬(p ∨ q)',
+                    '¬(p ∧ q)',
+                    '¬(¬p ∨ q)',
+                    'p ∧ q',
+                    'p ∨ q'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 31,
+                texto: '(VUNESP) Considere as proposições: p: "Trabalho", q: "Ganho dinheiro".',
+                pergunta: 'A proposição "Se não trabalho, então não ganho dinheiro" é equivalente a:',
+                alternativas: [
+                    'p → q',
+                    '¬p → ¬q',
+                    'q → p',
+                    '¬q → ¬p',
+                    'p ↔ q'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 32,
+                texto: '(FGV) A proposição "p ∧ q" é verdadeira apenas quando:',
+                pergunta: 'Condição para a conjunção ser verdadeira.',
+                alternativas: [
+                    'Ambas são verdadeiras.',
+                    'Pelo menos uma é verdadeira.',
+                    'Uma é verdadeira e a outra falsa.',
+                    'Ambas são falsas.',
+                    'Nunca é verdadeira.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 33,
+                texto: '(CESPE) A proposição "¬(p → q)" é equivalente a:',
+                pergunta: 'Qual a negação da condicional?',
+                alternativas: [
+                    'p ∧ ¬q',
+                    '¬p ∧ q',
+                    'p ∨ ¬q',
+                    '¬p ∨ q',
+                    'p ∧ q'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 34,
+                texto: '(CESPE) Se p é "O sol brilha" e q é "O dia está claro", então a proposição "p → q" é equivalente a:',
+                pergunta: 'Qual das alternativas é logicamente equivalente à condicional?',
+                alternativas: [
+                    '¬p ∨ q',
+                    '¬p ∧ q',
+                    'p ∧ ¬q',
+                    '¬q → ¬p',
+                    'p ∨ ¬q'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 35,
+                texto: '(FCC) Dada a proposição composta "p ∧ (q ∨ r)", quantas linhas tem sua tabela-verdade?',
+                pergunta: 'Número de linhas da tabela-verdade para três proposições simples.',
+                alternativas: [
+                    '4',
+                    '6',
+                    '8',
+                    '10',
+                    '12'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 36,
+                texto: '(FCC) A proposição "Se as aranhas têm 8 patas, então os cães têm 4 patas" é:',
+                pergunta: 'Sabendo que aranhas têm 8 patas (V) e cães têm 4 (V), qual o valor lógico?',
+                alternativas: [
+                    'Verdadeira',
+                    'Falsa',
+                    'Contingente',
+                    'Contradição',
+                    'Tautologia'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 37,
+                texto: '(FGV) Qual das proposições abaixo é uma contingência?',
+                pergunta: 'Identifique a proposição que pode ser verdadeira ou falsa dependendo dos valores de p e q.',
+                alternativas: [
+                    'p ∨ ¬p',
+                    'p ∧ ¬p',
+                    'p → q',
+                    'p ↔ p',
+                    'p ∧ p'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 38,
+                texto: '(VUNESP) Se p é "Vou à praia" e q é "Está ensolarado", a proposição "p ∧ q" significa:',
+                pergunta: 'Qual a interpretação correta?',
+                alternativas: [
+                    'Vou à praia ou está ensolarado.',
+                    'Se vou à praia, então está ensolarado.',
+                    'Vou à praia e está ensolarado.',
+                    'Vou à praia se e somente se está ensolarado.',
+                    'Não vou à praia e está ensolarado.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 39,
+                texto: '(CESPE) A proposição "¬q → ¬p" é a contrapositiva de "p → q".',
+                pergunta: 'Essa afirmação é:',
+                alternativas: [
+                    'Verdadeira',
+                    'Falsa',
+                    'Às vezes verdadeira',
+                    'Contraditória',
+                    'Não é proposição'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 40,
+                texto: '(FCC) Dadas as proposições p e q, a proposição "p ∧ ¬p" é:',
+                pergunta: 'Classifique essa proposição composta:',
+                alternativas: [
+                    'Tautologia',
+                    'Contradição',
+                    'Contingência',
+                    'Equivalência',
+                    'Nenhuma'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 41,
+                texto: '(FGV) A negação de "p ↔ q" é:',
+                pergunta: 'Qual a negação da bicondicional?',
+                alternativas: [
+                    'p ∧ ¬q',
+                    '¬p ∧ q',
+                    '(p ∧ ¬q) ∨ (¬p ∧ q)',
+                    '¬p ↔ ¬q',
+                    'p ↔ ¬q'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 42,
+                texto: '(VUNESP) Se p é "O gato mia" e q é "O cão late", então "p ∧ q" é:',
+                pergunta: 'Interpretação da conjunção:',
+                alternativas: [
+                    'O gato mia ou o cão late.',
+                    'O gato mia e o cão late.',
+                    'Se o gato mia, então o cão late.',
+                    'O gato mia se e somente se o cão late.',
+                    'O gato não mia e o cão não late.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 43,
+                texto: '(CESPE) A proposição "p ∨ ¬p" é uma tautologia, enquanto "p ∧ ¬p" é uma contradição.',
+                pergunta: 'Essa afirmação é:',
+                alternativas: [
+                    'Verdadeira',
+                    'Falsa',
+                    'Parcialmente verdadeira',
+                    'Contraditória',
+                    'Não é proposição'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 44,
+                texto: '(FCC) A tabela-verdade da proposição "p ∨ (q ∧ ¬q)" é:',
+                pergunta: 'Simplificando a expressão, qual o resultado?',
+                alternativas: [
+                    'p',
+                    '¬p',
+                    'p ∧ q',
+                    'p ∨ q',
+                    'Verdadeiro sempre'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 45,
+                texto: '(FGV) A proposição "p → (q → p)" é uma:',
+                pergunta: 'Classifique essa proposição composta:',
+                alternativas: [
+                    'Tautologia',
+                    'Contradição',
+                    'Contingência',
+                    'Equivalência',
+                    'Nenhuma'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 46,
+                texto: '(VUNESP) Se p é "O número é par" e q é "O número é ímpar", então "p ∨ q" é:',
+                pergunta: 'Para um número inteiro, essa disjunção é:',
+                alternativas: [
+                    'Sempre verdadeira',
+                    'Sempre falsa',
+                    'Contingente',
+                    'Tautologia',
+                    'Contradição'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 47,
+                texto: '(CESPE) A proposição "¬(¬p ∨ ¬q)" é equivalente a:',
+                pergunta: 'Simplifique a expressão usando De Morgan:',
+                alternativas: [
+                    'p ∧ q',
+                    'p ∨ q',
+                    '¬p ∧ ¬q',
+                    '¬p ∨ ¬q',
+                    'p → q'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 48,
+                texto: '(FCC) A proposição "Se p, então q; se q, então r; logo, se p, então r" é um exemplo de:',
+                pergunta: 'Esse argumento é conhecido como:',
+                alternativas: [
+                    'Modus ponens',
+                    'Modus tollens',
+                    'Silogismo hipotético',
+                    'Silogismo disjuntivo',
+                    'Falácia'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 49,
+                texto: '(VUNESP) Considere a proposição: "Todo número par é divisível por 2."',
+                pergunta: 'Essa proposição é:',
+                alternativas: [
+                    'Simples',
+                    'Composta com conjunção',
+                    'Composta com disjunção',
+                    'Composta com condicional',
+                    'Composta com bicondicional'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 50,
+                texto: '(FGV) Se p é "2+2=4" e q é "3+3=7", então "p ∨ q" é:',
+                pergunta: 'Valor lógico da disjunção quando p é V e q é F.',
+                alternativas: [
+                    'Verdadeiro',
+                    'Falso',
+                    'Contradição',
+                    'Tautologia',
+                    'Indeterminado'
+                ],
+                gabarito: 0 // A
+            }
+        ];
+
+        // ================================================================
+        // RENDERIZAÇÃO (mesmo padrão do exemplo)
+        // ================================================================
+        const letras = ['A', 'B', 'C', 'D', 'E'];
+
+        function renderQuestoes() {
+            const container = document.getElementById('questoesContainer');
+            container.innerHTML = '';
+            questoes.forEach((q, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'questao-wrapper';
+                wrapper.dataset.index = idx;
+
+                const header = document.createElement('div');
+                header.className = 'questao-header';
+                header.innerHTML = `
+                    <span class="numero">Q${q.id}</span>
+                    <span class="badge">${q.texto.split(')')[0].replace('(','')}</span>
+                `;
+                wrapper.appendChild(header);
+
+                if (q.texto) {
+                    const textoDiv = document.createElement('div');
+                    textoDiv.className = 'questao-texto';
+                    textoDiv.textContent = q.texto;
+                    wrapper.appendChild(textoDiv);
+                }
+
+                const pergunta = document.createElement('div');
+                pergunta.className = 'questao-pergunta';
+                pergunta.textContent = q.pergunta;
+                wrapper.appendChild(pergunta);
+
+                const altDiv = document.createElement('div');
+                altDiv.className = 'alternativas';
+                q.alternativas.forEach((alt, i) => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `q${idx}`;
+                    radio.value = i;
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(`${letras[i]}) ${alt}`));
+                    altDiv.appendChild(label);
+                });
+                wrapper.appendChild(altDiv);
+
+                const actions = document.createElement('div');
+                actions.className = 'questao-actions';
+
+                const btn = document.createElement('button');
+                btn.className = 'btn-verificar';
+                btn.innerHTML = '<i class="fas fa-check"></i> Verificar';
+                btn.addEventListener('click', () => verificarQuestao(idx));
+
+                const feedback = document.createElement('span');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${idx}`;
+
+                const gabDiv = document.createElement('span');
+                gabDiv.className = 'gabarito-revelado';
+                gabDiv.id = `gabarito-revelado-${idx}`;
+
+                actions.appendChild(btn);
+                actions.appendChild(feedback);
+                actions.appendChild(gabDiv);
+                wrapper.appendChild(actions);
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        function verificarQuestao(idx) {
+            const q = questoes[idx];
+            const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+            let selecionado = null;
+            radios.forEach(r => { if (r.checked) selecionado = parseInt(r.value); });
+
+            const feedback = document.getElementById(`feedback-${idx}`);
+            const gabDiv = document.getElementById(`gabarito-revelado-${idx}`);
+
+            if (selecionado === null) {
+                feedback.textContent = '⚠️ Selecione uma alternativa.';
+                feedback.className = 'feedback';
+                feedback.style.color = '#f0a030';
+                gabDiv.textContent = '';
+                return;
+            }
+
+            const correta = q.gabarito;
+            if (selecionado === correta) {
+                feedback.textContent = '✅ Correta!';
+                feedback.className = 'feedback correto';
+                gabDiv.textContent = '';
+            } else {
+                feedback.textContent = '❌ Incorreta.';
+                feedback.className = 'feedback incorreto';
+                gabDiv.textContent = `Resposta correta: ${letras[correta]}`;
+            }
+        }
+
+        function renderGabarito() {
+            const container = document.getElementById('gabaritoContainer');
+            let html = `
+                <table class="gabarito-tabela">
+                    <thead><tr><th>Questão</th><th>Resposta</th></tr></thead>
+                    <tbody>
+            `;
+            questoes.forEach(q => {
+                html += `<tr><td>Q${q.id}</td><td class="resp">${letras[q.gabarito]}</td></tr>`;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        // ================================================================
+        // NAVEGAÇÃO ENTRE ABAS
+        // ================================================================
+        function navegarPara(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page${page.charAt(0).toUpperCase() + page.slice(1)}`).classList.add('active');
+
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            if (page === 'questoes') {
+                document.getElementById('menuQuestoes').classList.add('active');
+            } else {
+                document.getElementById('menuGabarito').classList.add('active');
+            }
+
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('menuQuestoes').addEventListener('click', () => navegarPara('questoes'));
+        document.getElementById('menuGabarito').addEventListener('click', () => navegarPara('gabarito'));
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // ================================================================
+        // INICIALIZAÇÃO
+        // ================================================================
+        renderQuestoes();
+        renderGabarito();
+    </script>
+
+</body>
+</html>

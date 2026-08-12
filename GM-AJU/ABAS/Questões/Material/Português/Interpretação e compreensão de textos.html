@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interpretação e compreensão de textos</title>
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/GMA/SIMULADOS.css">
+    
+</head>
+<body>
+
+    <!-- OVERLAY MOBILE -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-pencil-alt"></i> Português
+        </div>
+        <button class="menu-item active" data-page="questoes" id="menuQuestoes">
+            <i class="fas fa-list-ul"></i> Questões
+        </button>
+        <button class="menu-item" data-page="gabarito" id="menuGabarito">
+            <i class="fas fa-check-circle"></i> Gabarito
+        </button>
+        <div class="menu-bottom">
+            <div style="color:#484F58; font-size:0.75rem; padding:0.5rem 0;">
+                <i class="fas fa-graduation-cap"></i> 22 questões • IDECAN
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <h1>
+                <i class="fas fa-book-open" style="color:#2d9d5e;"></i>
+                Treino de Português
+                <small>22 questões</small>
+            </h1>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- PÁGINA QUESTÕES -->
+        <div class="page active" id="pageQuestoes">
+            <div id="questoesContainer"></div>
+        </div>
+
+        <!-- PÁGINA GABARITO -->
+        <div class="page" id="pageGabarito">
+            <h2 style="margin-bottom:1.5rem; font-weight:600; display:flex; align-items:center; gap:10px;">
+                <i class="fas fa-check-double" style="color:#2d9d5e;"></i> Gabarito Oficial
+            </h2>
+            <div id="gabaritoContainer"></div>
+        </div>
+    </main>
+
+    <script>
+        // ============================================================
+        // DADOS DAS 22 QUESTÕES (baseados no material fornecido)
+        // ============================================================
+        const questoes = [{
+            id: 1,
+            texto: `"Sabia que a casca das frutas também tem nutrientes? Aproveite a fruta inteira: casca, polpa e semente. Além de evitar o desperdício, você garante mais fibras, vitaminas e minerais. Faça receitas com cascas de banana, laranja, abóbora e muito mais. Sua saúde agradece!"`,
+            pergunta: `O texto, que pertence ao gênero campanha, tem como finalidade principal:`,
+            alternativas: [
+                "apresentar os benefícios da casca das frutas à saúde.",
+                "persuadir o destinatário a incentivar o consumo integral dos alimentos.",
+                "sugerir que a casca é mais nutritiva do que a própria fruta.",
+                "combater o desperdício de alimentos oferecendo receitas de pratos feitos apenas com a casca das frutas.",
+                "alertar a população acerca da importância das frutas para a saúde."
+            ],
+            gabarito: 1 // índice B (0=A,1=B,...)
+        }, {
+            id: 2,
+            texto: `(mesmo texto da questão 1)`,
+            pergunta: `Assinale a alternativa que reproduz uma mensagem compatível com a da pergunta "Sabia que a casca das frutas também tem nutrientes?"`,
+            alternativas: [
+                "Também sabia que a casca das frutas tem substâncias que nutrem?",
+                "Você sabia também que a casca das frutas é nutritiva?",
+                "Sabia que a polpa das frutas também tem nutrientes?",
+                "A casca das frutas tem nutrientes. Também sabia disso?",
+                "Sabia que nutrientes também estão na casca das frutas?"
+            ],
+            gabarito: 4 // E
+        }, {
+            id: 3,
+            texto: `"Depois dos táxis, as 'caronas' - Os aplicativos de transporte mudaram a mobilidade urbana. Com um toque na tela, é possível chamar um carro particular a preços acessíveis. Essa inovação trouxe mais comodidade, mas também gerou conflitos com os taxistas tradicionais, que veem sua clientela diminuir."`,
+            pergunta: `De acordo com o texto, a evolução do tema central aborda:`,
+            alternativas: [
+                "a substituição completa dos táxis por aplicativos.",
+                "a concorrência entre táxis e aplicativos e as mudanças na mobilidade.",
+                "a vantagem exclusiva dos aplicativos sobre os táxis.",
+                "a extinção dos táxis nas cidades.",
+                "a falta de regulamentação dos aplicativos."
+            ],
+            gabarito: 1 // B
+        }, {
+            id: 4,
+            texto: `"Todos eles são presidiários da ternura e andarão por toda a parte acorrentados..." – Paulo Mendes Campos. A metáfora do presidiário e da corrente remete à ideia de que as pessoas estão aprisionadas por sentimentos ou relações afetivas, muitas vezes sem perceber.`,
+            pergunta: `Tendo em vista o foco narrativo do texto, pode-se afirmar que:`,
+            alternativas: [
+                "O autor adota uma visão crítica sobre a sociedade moderna.",
+                "O texto é uma crônica de caráter objetivo e descritivo.",
+                "A metáfora sugere que as pessoas são vítimas de suas próprias emoções.",
+                "O autor defende a liberdade emocional como ideal.",
+                "O texto é um ensaio filosófico sobre a ternura."
+            ],
+            gabarito: 2 // C
+        }, {
+            id: 5,
+            texto: `O autor afirma a necessidade de reconhecer "que não somos o umbigo do mundo". Essa expressão significa que devemos ter humildade para perceber que existem outras perspectivas além da nossa.`,
+            pergunta: `A expressão "que não somos o umbigo do mundo" significa:`,
+            alternativas: [
+                "Que devemos nos colocar no centro das atenções.",
+                "Que cada pessoa é única e insubstituível.",
+                "Que precisamos reconhecer a importância dos outros e de suas visões.",
+                "Que o mundo gira em torno de nós.",
+                "Que somos o centro do universo."
+            ],
+            gabarito: 2 // C
+        }, {
+            id: 6,
+            texto: `Ao iniciar o conceito de "memória coletiva", a autora recorre a argumentos de autoridade para fundamentar sua tese de que a história de um povo é construída por narrativas compartilhadas.`,
+            pergunta: `Em relação à organização das ideias, NÃO se pode afirmar que:`,
+            alternativas: [
+                "A autora usa exemplos históricos para ilustrar.",
+                "A autora faz referência a outros pensadores.",
+                "A autora defende que a memória é individual.",
+                "A autora apresenta uma definição clara de memória coletiva.",
+                "A autora questiona a validade da memória coletiva."
+            ],
+            gabarito: 2 // C
+        }, {
+            id: 7,
+            texto: `"Para se ouvir de verdade, é preciso colocar entre parênteses as nossas opiniões." Essa afirmação sugere que a escuta ativa requer suspensão do julgamento.`,
+            pergunta: `O sentido da expressão "colocar entre parênteses" é:`,
+            alternativas: [
+                "Ignorar completamente as próprias opiniões.",
+                "Adiar o julgamento para compreender melhor o outro.",
+                "Expressar opiniões de forma indireta.",
+                "Desconsiderar a fala do outro.",
+                "Concordar com tudo o que é dito."
+            ],
+            gabarito: 1 // B
+        }, {
+            id: 8,
+            texto: `"Todos eles são presidiários da ternura e andarão por toda a parte acorrentados..." – A imagem do presidiário e da corrente sugere uma condição de aprisionamento afetivo.`,
+            pergunta: `As imagens "acorrentados" e "presidiários" demonstram:`,
+            alternativas: [
+                "Uma crítica à falta de liberdade nas relações amorosas.",
+                "Uma defesa da solidão como alternativa.",
+                "Uma visão romântica do sofrimento.",
+                "Uma metáfora para a dependência emocional.",
+                "Uma ironia sobre a felicidade."
+            ],
+            gabarito: 3 // D
+        }, {
+            id: 9,
+            texto: `O autor afirma que "não somos o umbigo do mundo" para nos lembrar de que há outras realidades além da nossa.`,
+            pergunta: `A expressão "não somos o umbigo do mundo" é usada para:`,
+            alternativas: [
+                "Destacar a individualidade.",
+                "Enfatizar a necessidade de empatia.",
+                "Criticar o egocentrismo.",
+                "Promover a autoestima.",
+                "Defender o isolamento."
+            ],
+            gabarito: 2 // C
+        }, {
+            id: 10,
+            texto: `A humildade é a chave para reconhecer que o outro vê mundos que nós não vemos. Essa percepção amplia nossa compreensão da realidade.`,
+            pergunta: `De acordo com o texto, a humildade permite:`,
+            alternativas: [
+                "Impor nossa visão ao outro.",
+                "Reconhecer a limitação da nossa perspectiva.",
+                "Ignorar as opiniões alheias.",
+                "Afirmar nossa superioridade.",
+                "Fechar-se para novas ideias."
+            ],
+            gabarito: 1 // B
+        }, {
+            id: 11,
+            texto: `"Uma experiência realizada na Universidade New School mostrou que pessoas com o hábito de reservar um tempo às letras costumam ter maior empatia, ou seja, uma capacidade ampliada de entender e se colocar no lugar do próximo."`,
+            pergunta: `A expressão "ou seja" foi empregada com a finalidade de:`,
+            alternativas: [
+                "estabelecer uma conexão de pressupostos.",
+                "inserir uma informação adicional.",
+                "introduzir uma explicação adicional em relação a algo que foi dito anteriormente.",
+                "construir uma paráfrase anafórica definicional.",
+                "indicar uma oposição de ideias."
+            ],
+            gabarito: 2 // C
+        }, {
+            id: 12,
+            texto: `"Da mesma maneira que vão à drogaria comprar remédios, eles levam o receituário à biblioteca..."`,
+            pergunta: `Em relação à crase e ao sentido do trecho, assinale a alternativa correta:`,
+            alternativas: [
+                "A crase em 'à biblioteca' é facultativa.",
+                "A crase indica a fusão da preposição 'a' com o artigo 'a'.",
+                "A crase está incorreta, pois não há artigo antes de 'biblioteca'.",
+                "A crase é obrigatória por se tratar de locução adverbial.",
+                "A crase indica apenas o gênero feminino."
+            ],
+            gabarito: 1 // B
+        }, {
+            id: 13,
+            texto: `"AS MOSCAS TAMBÉM AMAM" (Juliano Martinz - adaptado). Narra a vida breve e "depressiva" de uma mosca que tenta fazer o bem e é esmagada. A mosca, após várias tentativas de ajudar outros insetos, acaba sendo morta por um humano.`,
+            pergunta: `Por meio dos elementos constituintes do texto, é correto afirmar que a intencionalidade discursiva do autor é:`,
+            alternativas: [
+                "informar acerca das peculiaridades das relações humanas por meio de um lugar de fala.",
+                "expor, por meio de pesquisa de campo, a vida dos insetos.",
+                "criticar a indiferença humana em relação à natureza.",
+                "fazer uma metáfora sobre a condição humana e a efemeridade da vida.",
+                "promover uma campanha de proteção aos insetos."
+            ],
+            gabarito: 3 // D
+        }, {
+            id: 14,
+            texto: `(mesmo texto da questão 13)`,
+            pergunta: `O texto é predominantemente:`,
+            alternativas: [
+                "descritivo",
+                "narrativo",
+                "dissertativo",
+                "injuntivo",
+                "expositivo"
+            ],
+            gabarito: 1 // B
+        }, {
+            id: 15,
+            texto: `(mesmo texto da questão 13)`,
+            pergunta: `A figura de linguagem que predomina no texto é:`,
+            alternativas: [
+                "metáfora",
+                "comparação",
+                "ironia",
+                "personificação",
+                "hipérbole"
+            ],
+            gabarito: 0 // A
+        }, {
+            id: 16,
+            texto: `"Perdemos nossas casas em Alcântara para ricaços brincarem de astronautas" (Folha de S. Paulo). O texto discute a situação da comunidade quilombola de Alcântara (MA), que foi deslocada para dar lugar a uma base de lançamento de foguetes e, mais recentemente, para turismo espacial.`,
+            pergunta: `De acordo com o texto, a comunidade de Alcântara sofreu com:`,
+            alternativas: [
+                "A perda de suas terras e de sua renda tradicional.",
+                "A falta de acesso à educação.",
+                "A extinção de sua cultura.",
+                "O aumento da violência.",
+                "A falta de água potável."
+            ],
+            gabarito: 0 // A
+        }, {
+            id: 17,
+            texto: `(mesmo texto da questão 16)`,
+            pergunta: `A referência a Luke Skywalker (Star Wars) no texto tem a função de:`,
+            alternativas: [
+                "Ilustrar o poder da ficção científica.",
+                "Comparar a situação dos moradores com a de personagens de filmes.",
+                "Criticar a glamorização do turismo espacial em detrimento dos direitos humanos.",
+                "Mostrar a influência da cultura pop.",
+                "Fazer uma analogia entre a luta dos quilombolas e a luta dos Jedi."
+            ],
+            gabarito: 2 // C
+        }, {
+            id: 18,
+            texto: `(mesmo texto da questão 16)`,
+            pergunta: `O termo "ricaços" no título tem conotação:`,
+            alternativas: [
+                "positiva, elogiando a riqueza.",
+                "neutra, apenas descrevendo a classe social.",
+                "pejorativa, indicando desigualdade social.",
+                "técnica, referindo-se a investidores.",
+                "irônica, sugerindo que são pobres."
+            ],
+            gabarito: 2 // C
+        }, {
+            id: 19,
+            texto: `Mário de Andrade, em "O turista aprendiz", descreve a foz do Amazonas com exuberância, destacando a grandiosidade da natureza e a sensação de deslumbramento diante do encontro das águas.`,
+            pergunta: `No contexto, a palavra "exuberância" significa:`,
+            alternativas: [
+                "Austeridade",
+                "Pobreza",
+                "Abundância e vigor",
+                "Simplicidade",
+                "Fragilidade"
+            ],
+            gabarito: 2 // C
+        }, {
+            id: 20,
+            texto: `"Andorinhas-azuis intrigam cientistas por seu comportamento migratório. Elas se reproduzem em uma ilha no rio Negro e enfrentam riscos devido à intervenção humana e à construção de hidrelétricas."`,
+            pergunta: `O principal problema ambiental abordado no texto é:`,
+            alternativas: [
+                "A poluição do ar.",
+                "A caça predatória.",
+                "A destruição do habitat devido à construção de hidrelétricas.",
+                "A mudança climática.",
+                "A introdução de espécies exóticas."
+            ],
+            gabarito: 2 // C
+        }, {
+            id: 21,
+            texto: `(mesmo texto da questão 20)`,
+            pergunta: `As andorinhas-azuis são afetadas principalmente por:`,
+            alternativas: [
+                "A falta de alimento.",
+                "A perda de áreas de nidificação.",
+                "A competição com outras aves.",
+                "As doenças.",
+                "A poluição sonora."
+            ],
+            gabarito: 1 // B
+        }, {
+            id: 22,
+            texto: `(mesmo texto da questão 20)`,
+            pergunta: `O texto sobre as andorinhas-azuis tem caráter:`,
+            alternativas: [
+                "Lúdico",
+                "Científico",
+                "Publicitário",
+                "Literário",
+                "Filosófico"
+            ],
+            gabarito: 1 // B
+        }];
+
+        // ============================================================
+        // RENDERIZAÇÃO
+        // ============================================================
+        const letras = ['A', 'B', 'C', 'D', 'E'];
+
+        function renderQuestoes() {
+            const container = document.getElementById('questoesContainer');
+            container.innerHTML = '';
+            questoes.forEach((q, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'questao-wrapper';
+                wrapper.dataset.index = idx;
+
+                // Header
+                const header = document.createElement('div');
+                header.className = 'questao-header';
+                header.innerHTML = `
+                    <span class="numero">Q${q.id}</span>
+                    <span class="badge">IDECAN</span>
+                `;
+                wrapper.appendChild(header);
+
+                // Texto (se houver)
+                if (q.texto && !q.texto.includes('(mesmo texto')) {
+                    const textoDiv = document.createElement('div');
+                    textoDiv.className = 'questao-texto';
+                    textoDiv.textContent = q.texto;
+                    wrapper.appendChild(textoDiv);
+                } else if (q.texto && q.texto.includes('(mesmo texto')) {
+                    // exibe apenas como referência
+                    const textoDiv = document.createElement('div');
+                    textoDiv.className = 'questao-texto';
+                    textoDiv.style.borderLeftColor = '#8b949e';
+                    textoDiv.textContent = '🔁 Mesmo texto da questão anterior.';
+                    wrapper.appendChild(textoDiv);
+                }
+
+                // Pergunta
+                const pergunta = document.createElement('div');
+                pergunta.className = 'questao-pergunta';
+                pergunta.textContent = q.pergunta;
+                wrapper.appendChild(pergunta);
+
+                // Alternativas
+                const altDiv = document.createElement('div');
+                altDiv.className = 'alternativas';
+                q.alternativas.forEach((alt, i) => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `q${idx}`;
+                    radio.value = i;
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(`${letras[i]}) ${alt}`));
+                    altDiv.appendChild(label);
+                });
+                wrapper.appendChild(altDiv);
+
+                // Actions
+                const actions = document.createElement('div');
+                actions.className = 'questao-actions';
+
+                const btn = document.createElement('button');
+                btn.className = 'btn-verificar';
+                btn.innerHTML = '<i class="fas fa-check"></i> Verificar';
+                btn.addEventListener('click', () => verificarQuestao(idx));
+
+                const feedback = document.createElement('span');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${idx}`;
+
+                const gabDiv = document.createElement('span');
+                gabDiv.className = 'gabarito-revelado';
+                gabDiv.id = `gabarito-revelado-${idx}`;
+
+                actions.appendChild(btn);
+                actions.appendChild(feedback);
+                actions.appendChild(gabDiv);
+                wrapper.appendChild(actions);
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        function verificarQuestao(idx) {
+            const q = questoes[idx];
+            const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+            let selecionado = null;
+            radios.forEach(r => { if (r.checked) selecionado = parseInt(r.value); });
+
+            const feedback = document.getElementById(`feedback-${idx}`);
+            const gabDiv = document.getElementById(`gabarito-revelado-${idx}`);
+
+            if (selecionado === null) {
+                feedback.textContent = '⚠️ Selecione uma alternativa.';
+                feedback.className = 'feedback';
+                feedback.style.color = '#f0a030';
+                gabDiv.textContent = '';
+                return;
+            }
+
+            const correta = q.gabarito;
+            if (selecionado === correta) {
+                feedback.textContent = '✅ Correta!';
+                feedback.className = 'feedback correto';
+                gabDiv.textContent = '';
+            } else {
+                feedback.textContent = '❌ Incorreta.';
+                feedback.className = 'feedback incorreto';
+                gabDiv.textContent = `Resposta correta: ${letras[correta]}`;
+            }
+        }
+
+        function renderGabarito() {
+            const container = document.getElementById('gabaritoContainer');
+            let html = `
+                <table class="gabarito-tabela">
+                    <thead><tr><th>Questão</th><th>Resposta</th></tr></thead>
+                    <tbody>
+            `;
+            questoes.forEach(q => {
+                html += `<tr><td>Q${q.id}</td><td class="resp">${letras[q.gabarito]}</td></tr>`;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // NAVEGAÇÃO ENTRE ABAS
+        // ============================================================
+        function navegarPara(page) {
+            // páginas
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page${page.charAt(0).toUpperCase() + page.slice(1)}`).classList.add('active');
+
+            // menu
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            if (page === 'questoes') {
+                document.getElementById('menuQuestoes').classList.add('active');
+            } else {
+                document.getElementById('menuGabarito').classList.add('active');
+            }
+
+            // fechar sidebar mobile
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('menuQuestoes').addEventListener('click', () => navegarPara('questoes'));
+        document.getElementById('menuGabarito').addEventListener('click', () => navegarPara('gabarito'));
+
+        // toggle mobile
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // ============================================================
+        // INICIALIZAÇÃO
+        // ============================================================
+        renderQuestoes();
+        renderGabarito();
+    </script>
+
+</body>
+</html>
