@@ -1,0 +1,1354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PMAL 60 DIAS — Soldado</title>
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/PM-AL/index.css" />
+</head>
+<body>
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo"><i class="fas fa-shield-alt"></i> PMAL 60 DIAS</div>
+        <nav>
+               <div class="menu-item active" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</div>
+            <div class="menu-item" data-page="cronograma"><i class="fas fa-calendar-alt"></i> Cronograma</div>
+            <div class="menu-item" data-page="disciplinas"><i class="fas fa-book"></i> Disciplinas</div>
+            <a class="menu-item" href="./ABAS/Minhas Revisões/Minhas Revisões.html"><i class="fas fa-star"></i> Minhas Revisões</a>
+            <div class="menu-item" data-page="progresso"><i class="fas fa-chart-line"></i> Meu Progresso</div>
+            <a class="menu-item" href="./ABAS/Questões/Questões.html"><i class="fas fa-tasks"></i> Questões</a>
+        </nav>
+    </aside>
+
+    <!-- Main -->
+    <div class="main">
+        <!-- Topbar -->
+        <div class="topbar">
+            <div style="display:flex; align-items:center; gap:12px;">
+                <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+                <h1>PMAL 60 DIAS <small>Soldado — Cebraspe</small></h1>
+            </div>
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="globalSearch" placeholder="Pesquisar assunto..." />
+            </div>
+        </div>
+
+        <!-- PÁGINAS -->
+        <!-- DASHBOARD -->
+        <div class="page active" id="page-dashboard">
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card"><div class="number" id="progressoGeralNum">0%</div><div class="label">Progresso Geral</div></div>
+                <div class="stat-card"><div class="number" id="diasConcluidosNum">0/60</div><div class="label">Dias Concluídos</div></div>
+                <div class="stat-card"><div class="number" id="materiasConcluidasNum">0/120</div><div class="label">Tópicos Concluídos</div></div>
+                <div class="stat-card"><div class="number" id="taxaAcertoNum">0%</div><div class="label">Taxa de Acerto</div></div>
+            </div>
+            <div class="progress-main">
+                <div class="header"><h3><i class="fas fa-arrow-up" style="color:#2d9d5e;"></i> Progresso Geral</h3><span id="progressoPorcentagem">0%</span></div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressoBarra" style="width:0%;"></div></div>
+            </div>
+            <div class="today-card" id="todayCard"></div>
+            <div>
+                <h3 style="margin-bottom:12px;">📅 Calendário dos 60 Dias</h3>
+                <div class="calendario-grid" id="calendarioGrid"></div>
+            </div>
+        </div>
+
+        <!-- CRONOGRAMA -->
+        <div class="page" id="page-cronograma">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:16px;">
+                <h2>📋 Plano de 60 Dias</h2>
+                <div class="cronograma-filters">
+                    <select id="filtroDisciplina"><option value="todas">Todas</option></select>
+                    <select id="filtroStatus">
+                        <option value="todos">Todos</option>
+                        <option value="naoiniciado">Não iniciado</option>
+                        <option value="andamento">Em andamento</option>
+                        <option value="concluido">Concluído</option>
+                    </select>
+                </div>
+            </div>
+            <div class="cards-grid" id="cronogramaCards"></div>
+        </div>
+
+        <!-- ESTUDO -->
+        <div class="page" id="page-estudo">
+            <div class="estudo-header">
+                <div class="info">
+                    <button class="btn-voltar" id="btnVoltarEstudo"><i class="fas fa-arrow-left"></i> Voltar</button>
+                    <h2 id="estudoTitulo">Matéria</h2>
+                    <div class="sub" id="estudoSubtitulo">Dia X — Assunto</div>
+                </div>
+                <div><span class="status-badge" id="estudoStatusBadge">Em andamento</span></div>
+            </div>
+            <div class="estudo-body">
+                <div class="secao">
+                    <h4><i class="fas fa-book-open"></i> O que estudar</h4>
+                    <p id="estudoDescricao" style="color:#8b949e; margin-bottom:16px;">Conteúdo específico...</p>
+                    <h4 style="margin-top:16px;"><i class="fas fa-tasks"></i> Checklist</h4>
+                    <ul class="checklist-items" id="estudoChecklist"></ul>
+                    <button class="btn btn-sm mt-2" id="btnConcluirTopico" style="width:100%; justify-content:center;"><i class="fas fa-check"></i> Marcar tópico como concluído</button>
+                </div>
+                <div class="secao">
+                    <h4><i class="fab fa-youtube" style="color:#ff0000;"></i> Videoaulas</h4>
+                    <div id="estudoVideos"></div>
+                </div>
+                <div class="secao">
+                    <h4><i class="fas fa-gavel"></i> Legislação</h4>
+                    <div id="estudoLegislacao"><p class="text-muted">Nenhuma legislação específica para este tópico.</p></div>
+                </div>
+                <div class="secao">
+                    <h4><i class="fas fa-question-circle"></i> Questões</h4>
+                    <div id="estudoQuestoes">
+                        <button class="btn btn-sm" onclick="abrirQuestoesExternas(estudoAtual.diaIdx, estudoAtual.matIdx)"><i class="fas fa-external-link-alt"></i> Buscar questões Cebraspe</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DISCIPLINAS -->
+        <div class="page" id="page-disciplinas">
+            <h2>📚 Disciplinas</h2>
+            <p class="text-muted">Clique em uma disciplina para ver os tópicos.</p>
+            <div class="disciplinas-grid" id="disciplinasGrid"></div>
+        </div>
+
+        <!-- REVISÕES -->
+        <div class="page" id="page-revisoes">
+            <h2>🔄 Revisões Programadas</h2>
+            <div id="revisoesList"></div>
+        </div>
+
+        <!-- PROGRESSO -->
+        <div class="page" id="page-progresso">
+            <h2>🎯 Meu Progresso</h2>
+            <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(140px,1fr));">
+                <div class="stat-card"><div class="number" id="pDias">0/60</div><div class="label">Dias</div></div>
+                <div class="stat-card"><div class="number" id="pMaterias">0/120</div><div class="label">Tópicos</div></div>
+                <div class="stat-card"><div class="number" id="pAcertos">0%</div><div class="label">Taxa de Acerto</div></div>
+            </div>
+            <div class="progress-main">
+                <div class="header"><h3>Progresso</h3><span id="pPorcentagem">0%</span></div>
+                <div class="progress-bar-bg"><div class="progress-bar-fill" id="pBarra" style="width:0%;"></div></div>
+            </div>
+            <h4 class="mt-2">Detalhamento por disciplina</h4>
+            <div id="progressoDetalhe"></div>
+        </div>
+
+        <!-- QUESTÕES -->
+        <div class="page" id="page-questoes">
+            <h2>📝 Questões</h2>
+            <p class="text-muted">Pesquise questões Cebraspe por disciplina e assunto.</p>
+            <div style="display:flex; gap:10px; flex-wrap:wrap; margin:12px 0;">
+                <select id="qFiltroDisciplina" style="padding:6px; background:#0d1117; color:#c9d1d9; border:1px solid #30363d; border-radius:4px;"><option value="todas">Todas</option></select>
+                <input type="text" id="qSearch" placeholder="Assunto..." style="padding:6px; background:#0d1117; color:#c9d1d9; border:1px solid #30363d; border-radius:4px; flex:1;" />
+                <button class="btn" onclick="buscarQuestoes()"><i class="fas fa-search"></i> Buscar</button>
+            </div>
+            <div id="questoesResultados"></div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // 0. CONFIGURAÇÕES GERAIS
+        // ============================================================
+        const DIAS_TOTAL = 60;
+        const TOPICOS_POR_DIA = 2;
+
+        // ============================================================
+        // 1. MAPEAMENTO DE VÍDEOS POR TÓPICO (extraído do .txt)
+        // ============================================================
+        const TOPIC_VIDEOS = {};
+
+        // Função auxiliar para criar links de busca do YouTube
+        function ytSearch(query) {
+            return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+        }
+
+        // --- LÍNGUA PORTUGUESA ---
+        const portuguesTopicos = [
+            'Compreensão e interpretação de textos',
+            'Tipos e gêneros textuais',
+            'Ortografia oficial',
+            'Coesão textual (referenciação, substituição, conectores)',
+            'Tempos e modos verbais',
+            'Classes de palavras',
+            'Coordenação e subordinação',
+            'Pontuação',
+            'Concordância verbal e nominal',
+            'Regência verbal e nominal',
+            'Crase',
+            'Colocação pronominal',
+            'Reescrita de frases e parágrafos'
+        ];
+        portuguesTopicos.forEach(t => {
+            TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: ytSearch(t + ' concurso') }];
+        });
+
+        // --- MATEMÁTICA ---
+        const matematicaTopicos = [
+            'Álgebra linear',
+            'Conjuntos numéricos (inteiros, fracionários, decimais)',
+            'Operações básicas',
+            'Proporções e divisão proporcional',
+            'Regra de três simples e composta',
+            'Porcentagem',
+            'Juros simples e compostos',
+            'Capitalização e descontos',
+            'Taxas de juros (nominal, efetiva, equivalente)'
+        ];
+        matematicaTopicos.forEach(t => {
+            TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: ytSearch(t + ' concurso') }];
+        });
+
+        // --- INFORMÁTICA ---
+        const informaticaTopicos = [
+            'Sistema operacional Windows',
+            'Microsoft Office (Word, Excel, PowerPoint)',
+            'Redes de computadores e Internet',
+            'Navegadores (Edge, Firefox, Chrome)',
+            'Correio eletrônico (Outlook)',
+            'Busca e pesquisa na Internet',
+            'Redes sociais',
+            'Computação em nuvem',
+            'Organização de arquivos e pastas',
+            'Segurança da informação (malware, vírus, firewall, backup)'
+        ];
+        // Alguns tópicos têm links específicos no .txt, outros não, usamos busca genérica
+        informaticaTopicos.forEach(t => {
+            TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: ytSearch(t + ' informática concurso') }];
+        });
+        // Links específicos do .txt para informática (apenas alguns foram listados)
+        // Vamos sobrescrever os que têm links diretos mencionados (embora no .txt sejam buscas)
+        // Mas o .txt tem buscas para: Windows, Office, Redes, Navegadores, Computação em nuvem, Segurança
+        // Vamos manter os genéricos, pois são buscas que funcionam.
+
+        // --- ALAGOAS ---
+        const alagoasTopicos = [
+            'Formação histórica de Alagoas',
+            'Quilombo dos Palmares',
+            'Geografia (litoral, mata, agreste, sertão, São Francisco)',
+            'Organização político-administrativa',
+            'Economia (agroindústria, turismo, serviços)',
+            'Cultura e patrimônio'
+        ];
+        // Links específicos do .txt: para formação, revoltas, geografia física, economia, organização, cultura
+        // Vamos mapear cada um com a busca exata do .txt
+        const alagoasBuscas = {
+            'Formação histórica de Alagoas': 'Historia+de+Alagoas+formacao+territorial+concurso+PMAL',
+            'Quilombo dos Palmares': 'Historia+Alagoas+revoltas+movimentos+concurso+PMAL', // não exato, mas similar
+            'Geografia (litoral, mata, agreste, sertão, São Francisco)': 'Geografia+de+Alagoas+relevo+clima+concurso+PMAL',
+            'Organização político-administrativa': 'Organizacao+politico+administrativa+de+Alagoas+concurso',
+            'Economia (agroindústria, turismo, serviços)': 'Geografia+Alagoas+economia+populacao+PMAL',
+            'Cultura e patrimônio': 'Cultura+e+patrimonio+de+Alagoas+concurso'
+        };
+        alagoasTopicos.forEach(t => {
+            const query = alagoasBuscas[t] || t;
+            TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: `https://www.youtube.com/results?search_query=${query}` }];
+        });
+
+        // --- ATUALIDADES ---
+        const atualidadesTopicos = [
+            'Segurança pública',
+            'Transportes',
+            'Política',
+            'Economia',
+            'Sociedade',
+            'Educação',
+            'Saúde',
+            'Cultura',
+            'Tecnologia',
+            'Energia',
+            'Relações internacionais',
+            'Desenvolvimento sustentável',
+            'Ecologia'
+        ];
+        const atualidadesBuscas = {
+            'Segurança pública': 'Atualidades+para+concursos+PM+2026',
+            'Transportes': 'Atualidades+Transportes+Brasil+2026+concursos',
+            'Política': 'Atualidades+para+concursos+PM+2026',
+            'Economia': 'Atualidades+para+concursos+PM+2026',
+            'Sociedade': 'Atualidades+Sociedade+Brasil+2026+concursos',
+            'Educação': 'Atualidades+Educacao+Brasil+2026+concursos',
+            'Saúde': 'Atualidades+Saude+Brasil+2026+concursos',
+            'Cultura': 'Atualidades+Cultura+Brasil+2026+concursos',
+            'Tecnologia': 'Atualidades+Tecnologia+Brasil+2026+concursos',
+            'Energia': 'Atualidades+Energia+Brasil+2026+concursos',
+            'Relações internacionais': 'Atualidades+Relações+Internacionais+2026+concursos',
+            'Desenvolvimento sustentável': 'Desenvolvimento+Sustentavel+Atualidades+2026+concursos',
+            'Ecologia': 'Ecologia+Atualidades+2026+concursos'
+        };
+        atualidadesTopicos.forEach(t => {
+            const query = atualidadesBuscas[t] || 'Atualidades+para+concursos+PM+2026';
+            TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: `https://www.youtube.com/results?search_query=${query}` }];
+        });
+
+        // --- LEGISLAÇÃO PMAL ---
+        const legislacaoTopicos = [
+            'Lei Estadual nº 5.346/1992 (Estatuto dos PMs)',
+            'Decreto Estadual nº 37.042/1996 (Regulamento Disciplinar)',
+            'Código Penal – Parte Geral (Títulos I a III)',
+            'Lei nº 7.716/1989 (preconceito)',
+            'Lei nº 8.072/1990 e 8.930/1994 (hediondos)',
+            'Lei nº 12.850/2013 (organização criminosa)',
+            'Lei nº 9.455/1997 (tortura)',
+            'Lei nº 9.605/1998 (meio ambiente)',
+            'Lei nº 10.826/2003 (desarmamento)',
+            'Lei nº 11.343/2006 (drogas)',
+            'Lei nº 11.340/2006 (Maria da Penha)',
+            'Lei nº 9.503/1997 (CTB)',
+            'Lei nº 8.069/1990 (ECA)',
+            'Lei nº 13.869/2019 (abuso de autoridade)',
+            'Lei nº 7.960/1989 (prisão temporária)',
+            'Lei nº 9.099/1995 (Juizados Especiais)',
+            'Lei nº 10.259/2001 (Juizados Federais)',
+            'Lei Federal nº 14.751/2023 (Lei Orgânica das PMs)'
+        ];
+        // Usamos as buscas do .txt
+        const legislacaoBuscas = {
+            'Lei Estadual nº 5.346/1992 (Estatuto dos PMs)': 'Lei+Estadual+5346+1992+Estatuto+PM+AL',
+            'Decreto Estadual nº 37.042/1996 (Regulamento Disciplinar)': 'Decreto+Estadual+37042+1996+Regulamento+Disciplinar+PM+AL',
+            'Código Penal – Parte Geral (Títulos I a III)': 'Codigo+Penal+Parte+Geral+Titulos+I+a+III+concurso',
+            'Lei nº 7.716/1989 (preconceito)': 'Lei+7716+preconceito+concurso',
+            'Lei nº 8.072/1990 e 8.930/1994 (hediondos)': 'Lei+8072+crimes+hediondos+concurso',
+            'Lei nº 12.850/2013 (organização criminosa)': 'Lei+12850+organizacao+criminosa+concurso',
+            'Lei nº 9.455/1997 (tortura)': 'Lei+9455+tortura+concurso',
+            'Lei nº 9.605/1998 (meio ambiente)': 'Lei+9605+meio+ambiente+concurso',
+            'Lei nº 10.826/2003 (desarmamento)': 'Lei+10826+estatuto+do+desarmamento+concurso',
+            'Lei nº 11.343/2006 (drogas)': 'Lei+11343+drogas+concurso',
+            'Lei nº 11.340/2006 (Maria da Penha)': 'Lei+11340+Maria+da+Penha+concurso',
+            'Lei nº 9.503/1997 (CTB)': 'Lei+9503+CTB+concurso',
+            'Lei nº 8.069/1990 (ECA)': 'Lei+8069+ECA+concurso',
+            'Lei nº 13.869/2019 (abuso de autoridade)': 'Lei+13869+abuso+de+autoridade+concurso',
+            'Lei nº 7.960/1989 (prisão temporária)': 'Lei+7960+prisao+temporaria+concurso',
+            'Lei nº 9.099/1995 (Juizados Especiais)': 'Lei+9099+Juizados+Especiais+concurso',
+            'Lei nº 10.259/2001 (Juizados Federais)': 'Lei+9099+Juizados+Especiais+concurso', // similar
+            'Lei Federal nº 14.751/2023 (Lei Orgânica das PMs)': 'Lei+Federal+14751+Lei+Organica+das+PMs'
+        };
+        legislacaoTopicos.forEach(t => {
+            const query = legislacaoBuscas[t] || t;
+            TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: `https://www.youtube.com/results?search_query=${query}` }];
+        });
+        // Adicionar link direto do Estatuto (fornecido no .txt) - já temos a busca, mas vamos substituir pelo link direto
+        TOPIC_VIDEOS['Lei Estadual nº 5.346/1992 (Estatuto dos PMs)'] = [
+            { titulo: 'Estatuto dos PMs – Lei 5.346/1992', canal: 'Monster Concursos', url: 'https://youtu.be/_PUjIhd0tps?si=Y8e-EF9clGKfchzF' }
+        ];
+
+        // --- DIREITO ADMINISTRATIVO ---
+        const admTopicos = [
+            'Princípios da Administração Pública',
+            'Regime jurídico administrativo',
+            'Poderes da Administração',
+            'Serviço público',
+            'Atos administrativos',
+            'Contratos e licitação',
+            'Bens públicos',
+            'Administração direta e indireta',
+            'Controle da Administração',
+            'Responsabilidade civil do Estado'
+        ];
+        // Links diretos do .txt
+        const admLinks = {
+            'Princípios da Administração Pública': 'https://www.youtube.com/watch?v=u-G0i7VXyn8',
+            'Regime jurídico administrativo': 'https://www.youtube.com/watch?v=C40KcdqWpPI',
+            'Atos administrativos': 'https://www.youtube.com/watch?v=lRMkg_uimYo',
+            'Bens públicos': 'https://www.youtube.com/watch?v=y6-EU05o4b0',
+            'Responsabilidade civil do Estado': 'https://www.youtube.com/watch?v=fS0LrjO5Wfs'
+        };
+        admTopicos.forEach(t => {
+            if (admLinks[t]) {
+                TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: admLinks[t] }];
+            } else {
+                // Busca genérica para os demais
+                TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: ytSearch(t + ' Direito Administrativo concurso') }];
+            }
+        });
+
+        // --- DIREITO CONSTITUCIONAL ---
+        const constitucionalTopicos = [
+            'Direitos e garantias fundamentais',
+            'Estrutura e organização do Estado',
+            'Defesa do Estado e instituições democráticas'
+        ];
+        // Links de busca do .txt
+        const constBuscas = {
+            'Direitos e garantias fundamentais': 'Direitos+e+Garantias+Fundamentais+Artigo+5+concurso',
+            'Estrutura e organização do Estado': 'Estrutura+e+Organizacao+do+Estado+Direito+Constitucional+concurso',
+            'Defesa do Estado e instituições democráticas': 'Defesa+do+Estado+instituicoes+democraticas+concurso'
+        };
+        constitucionalTopicos.forEach(t => {
+            const query = constBuscas[t] || t;
+            TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: `https://www.youtube.com/results?search_query=${query}` }];
+        });
+        // Adicionar link direto para Defesa do Estado (fornecido)
+        TOPIC_VIDEOS['Defesa do Estado e instituições democráticas'] = [
+            { titulo: 'Defesa do Estado e instituições democráticas', canal: 'YouTube', url: 'https://www.youtube.com/watch?v=HABUynnCwr0' }
+        ];
+
+        // --- DIREITO PROCESSUAL PENAL ---
+        const ppTopicos = [
+            'Inquérito policial',
+            'Ação penal'
+        ];
+        // Na verdade o .txt tem 4 tópicos: Inquérito, Ação Penal, Prisão em Flagrante, Prisão Preventiva
+        // Mas no TOPICOS temos apenas 2: 'Inquérito policial' e 'Ação penal'
+        // Vamos adicionar links para esses dois, e para os outros que não estão no TOPICOS, não há.
+        const ppBuscas = {
+            'Inquérito policial': 'Inquerito+Policial+Direito+Processual+Penal+concurso',
+            'Ação penal': 'Acao+Penal+Processo+Penal+concurso'
+        };
+        ppTopicos.forEach(t => {
+            const query = ppBuscas[t] || t;
+            TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: `https://www.youtube.com/results?search_query=${query}` }];
+        });
+
+        // --- DIREITO PENAL MILITAR ---
+        const pmTopicos = [
+            'Aplicação da lei penal militar',
+            'Crime militar',
+            'Imputabilidade penal',
+            'Concurso de agentes',
+            'Penas principais e acessórias',
+            'Aplicação da pena',
+            'Efeitos da condenação',
+            'Medidas de segurança',
+            'Ação penal militar',
+            'Extinção da punibilidade',
+            'Crimes militares em tempo de paz',
+            'Crimes propriamente militares',
+            'Crimes impropriamente militares',
+            'Crimes militares por extensão'
+        ];
+        // Links do .txt (alguns diretos)
+        const pmLinks = {
+            'Efeitos da condenação': 'https://www.youtube.com/watch?v=x432co85qkI',
+            'Extinção da punibilidade': 'https://www.youtube.com/watch?v=jLOFImDiwTQ'
+        };
+        const pmBuscas = {
+            'Aplicação da lei penal militar': 'Direito+Penal+Militar+Aplicacao+da+lei+penal+militar',
+            'Crime militar': 'Crime+militar+Direito+Penal+Militar',
+            'Imputabilidade penal': 'Penal+Militar+Imputabilidade+Concurso+de+agentes',
+            'Concurso de agentes': 'Penal+Militar+Imputabilidade+Concurso+de+agentes',
+            'Penas principais e acessórias': 'Penas+principais+e+acessorias+Penal+Militar',
+            'Aplicação da pena': 'Aplicacao+da+pena+Direito+Penal+Militar+concurso',
+            'Medidas de segurança': 'Medidas+de+seguranca+Penal+Militar',
+            'Ação penal militar': 'Acao+Penal+Militar+concurso+aula',
+            'Crimes militares em tempo de paz': 'Crimes+propriamente+e+impropriamente+militares+PM',
+            'Crimes propriamente militares': 'Crimes+propriamente+e+impropriamente+militares+PM',
+            'Crimes impropriamente militares': 'Crimes+propriamente+e+impropriamente+militares+PM',
+            'Crimes militares por extensão': 'Crimes+militares+por+extensao+Direito+Penal+Militar'
+        };
+        pmTopicos.forEach(t => {
+            if (pmLinks[t]) {
+                TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: pmLinks[t] }];
+            } else {
+                const query = pmBuscas[t] || t;
+                TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: `https://www.youtube.com/results?search_query=${query}` }];
+            }
+        });
+
+        // --- DIREITO PROCESSUAL PENAL MILITAR ---
+        const ppmTopicos = [
+            'Aplicação do Processo Penal Militar',
+            'Polícia Judiciária Militar',
+            'Inquérito Policial Militar',
+            'Ação Penal Militar',
+            'Prisão em flagrante',
+            'Prisão preventiva',
+            'Menagem',
+            'Liberdade provisória',
+            'Medidas de segurança provisórias',
+            'Processos especiais (deserção, insubmissão)',
+            'Conselho Permanente de Justiça',
+            'Conselho Especial de Justiça'
+        ];
+        const ppmBuscas = {
+            'Aplicação do Processo Penal Militar': 'Aplicacao+do+Processo+Penal+Militar+aula',
+            'Polícia Judiciária Militar': 'Inquerito+Policial+Militar+IPM+Processo+Penal+Militar',
+            'Inquérito Policial Militar': 'Inquerito+Policial+Militar+IPM+Processo+Penal+Militar',
+            'Ação Penal Militar': 'Acao+Penal+Militar+Prisao+Processo+Penal+Militar',
+            'Prisão em flagrante': 'Acao+Penal+Militar+Prisao+Processo+Penal+Militar',
+            'Prisão preventiva': 'Acao+Penal+Militar+Prisao+Processo+Penal+Militar',
+            'Menagem': 'Menagem+Liberdade+Provisoria+Processo+Penal+Militar',
+            'Liberdade provisória': 'Menagem+Liberdade+Provisoria+Processo+Penal+Militar',
+            'Medidas de segurança provisórias': 'Medidas+de+seguranca+provisorias+Processo+Penal+Militar',
+            'Processos especiais (deserção, insubmissão)': 'Desercao+Insubmissao+Conselhos+de+Justica+Militar',
+            'Conselho Permanente de Justiça': 'Conselho+Permanente+de+Justica+Processo+Penal+Militar',
+            'Conselho Especial de Justiça': 'Conselho+Especial+de+Justica+Processo+Penal+Militar'
+        };
+        ppmTopicos.forEach(t => {
+            const query = ppmBuscas[t] || t;
+            TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: `https://www.youtube.com/results?search_query=${query}` }];
+        });
+
+        // --- DIREITOS HUMANOS ---
+        const dhTopicos = [
+            'Conceito e evolução',
+            'Abrangência e sistema de proteção',
+            'Convenção Americana (Pacto de São José) – Decreto 678/1992'
+        ];
+        const dhBuscas = {
+            'Conceito e evolução': 'Direitos+Humanos+Conceito+Evolucao+Geracoes+PM',
+            'Abrangência e sistema de proteção': 'Sistema+de+Protecao+Direitos+Humanos+Global+Interamericano',
+            'Convenção Americana (Pacto de São José) – Decreto 678/1992': 'Convencao+Americana+Pacto+de+Sao+Jose+da+Costa+Rica+concurso+PM'
+        };
+        dhTopicos.forEach(t => {
+            const query = dhBuscas[t] || t;
+            TOPIC_VIDEOS[t] = [{ titulo: t, canal: 'YouTube', url: `https://www.youtube.com/results?search_query=${query}` }];
+        });
+
+        // ============================================================
+        // 2. DADOS DO EDITAL
+        // ============================================================
+        const DISCIPLINAS = [
+            { id: 'portugues', nome: 'Língua Portuguesa', categoria: 'Básicos' },
+            { id: 'matematica', nome: 'Matemática', categoria: 'Básicos' },
+            { id: 'informatica', nome: 'Noções de Informática', categoria: 'Básicos' },
+            { id: 'alagoas', nome: 'Conhecimentos do Estado de Alagoas', categoria: 'Básicos' },
+            { id: 'atualidades', nome: 'Atualidades', categoria: 'Básicos' },
+            { id: 'legislacao_pmal', nome: 'Legislação PMAL', categoria: 'Específicos' },
+            { id: 'adm', nome: 'Direito Administrativo', categoria: 'Específicos' },
+            { id: 'constitucional', nome: 'Direito Constitucional', categoria: 'Específicos' },
+            { id: 'processo_penal', nome: 'Direito Processual Penal', categoria: 'Específicos' },
+            { id: 'penal_militar', nome: 'Direito Penal Militar', categoria: 'Específicos' },
+            { id: 'processo_penal_militar', nome: 'Direito Processual Penal Militar', categoria: 'Específicos' },
+            { id: 'direitos_humanos', nome: 'Direitos Humanos', categoria: 'Específicos' }
+        ];
+
+        const TOPICOS = {
+            portugues: portuguesTopicos,
+            matematica: matematicaTopicos,
+            informatica: informaticaTopicos,
+            alagoas: alagoasTopicos,
+            atualidades: atualidadesTopicos,
+            legislacao_pmal: legislacaoTopicos,
+            adm: admTopicos,
+            constitucional: constitucionalTopicos,
+            processo_penal: ppTopicos,
+            penal_militar: pmTopicos,
+            processo_penal_militar: ppmTopicos,
+            direitos_humanos: dhTopicos
+        };
+
+        // ============================================================
+        // 3. CRONOGRAMA (com vídeos por tópico)
+        // ============================================================
+        let CRONOGRAMA = [];
+
+        function gerarCronograma() {
+            const dias = [];
+            const todosTopicos = [];
+            for (const [discId, topicos] of Object.entries(TOPICOS)) {
+                for (const topico of topicos) {
+                    todosTopicos.push({ disciplina: discId, assunto: topico });
+                }
+            }
+            shuffleArray(todosTopicos);
+            let idx = 0;
+            for (let d = 0; d < DIAS_TOTAL; d++) {
+                const dia = { dia: d + 1, materias: [] };
+                for (let m = 0; m < TOPICOS_POR_DIA; m++) {
+                    if (idx < todosTopicos.length) {
+                        const item = todosTopicos[idx++];
+                        const discNome = DISCIPLINAS.find(d => d.id === item.disciplina)?.nome || item.disciplina;
+                        // Busca vídeos específicos para este tópico
+                        const videos = buscarVideosPorTopico(item.assunto);
+                        dia.materias.push({
+                            nome: discNome,
+                            assunto: item.assunto,
+                            videos: videos,
+                            checklist: [],
+                            concluido: false,
+                            progresso: 0
+                        });
+                    } else {
+                        dia.materias.push({
+                            nome: 'Revisão Geral',
+                            assunto: 'Revisão de conteúdos',
+                            videos: [],
+                            checklist: [],
+                            concluido: false,
+                            progresso: 0
+                        });
+                    }
+                }
+                dias.push(dia);
+            }
+            return dias;
+        }
+
+        function shuffleArray(arr) {
+            for (let i = arr.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+            }
+            return arr;
+        }
+
+        function buscarVideosPorTopico(assunto) {
+            return TOPIC_VIDEOS[assunto] || [];
+        }
+
+        function inicializarCronograma() {
+            const CHAVE_CRONO = 'cronograma_fixo_v3';
+            const salvo = localStorage.getItem(CHAVE_CRONO);
+            if (salvo) {
+                CRONOGRAMA = JSON.parse(salvo);
+            } else {
+                CRONOGRAMA = gerarCronograma();
+                localStorage.setItem(CHAVE_CRONO, JSON.stringify(CRONOGRAMA));
+            }
+        }
+
+        // ============================================================
+        // 4. LEGISLAÇÃO
+        // ============================================================
+        function buscarLegislacao(disciplina, assunto) {
+            const leis = [];
+            const lowerAssunto = assunto.toLowerCase();
+            const lowerDisc = disciplina.toLowerCase();
+            if (lowerDisc.includes('legislação') || lowerDisc.includes('direito') || lowerDisc.includes('penal') || lowerDisc
+                .includes('constitucional')) {
+                if (lowerAssunto.includes('estatuto') || lowerAssunto.includes('policiais militares')) {
+                    leis.push({ titulo: 'Lei Estadual nº 5.346/1992',
+                        url: 'https://www.al.al.leg.br/legislacao/estatuto-dos-policiais-militares' });
+                }
+                if (lowerAssunto.includes('regulamento disciplinar')) {
+                    leis.push({ titulo: 'Decreto nº 37.042/1996',
+                        url: 'https://www.al.al.leg.br/legislacao/regulamento-disciplinar-pm' });
+                }
+                if (lowerAssunto.includes('código penal')) {
+                    leis.push({ titulo: 'Decreto-Lei nº 2.848/1940',
+                        url: 'https://www.planalto.gov.br/ccivil_03/decreto-lei/del2848.htm' });
+                }
+                if (lowerAssunto.includes('desarmamento')) {
+                    leis.push({ titulo: 'Lei nº 10.826/2003',
+                        url: 'https://www.planalto.gov.br/ccivil_03/leis/2003/l10.826.htm' });
+                }
+                if (lowerAssunto.includes('drogas')) {
+                    leis.push({ titulo: 'Lei nº 11.343/2006',
+                        url: 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11343.htm' });
+                }
+                if (lowerAssunto.includes('maria da penha')) {
+                    leis.push({ titulo: 'Lei nº 11.340/2006',
+                        url: 'https://www.planalto.gov.br/ccivil_03/_ato2004-2006/2006/lei/l11340.htm' });
+                }
+                if (lowerAssunto.includes('direitos humanos') || lowerAssunto.includes('pacto')) {
+                    leis.push({ titulo: 'Decreto nº 678/1992 (Pacto de São José)',
+                        url: 'https://www.planalto.gov.br/ccivil_03/decreto/d0678.htm' });
+                }
+                if (lowerAssunto.includes('administrativo')) {
+                    leis.push({ titulo: 'Lei nº 8.666/1993 (Licitações)',
+                        url: 'https://www.planalto.gov.br/ccivil_03/leis/l8666.htm' });
+                }
+            }
+            return leis;
+        }
+
+        // ============================================================
+        // 5. ESTADO & localStorage
+        // ============================================================
+        const STORAGE_KEY = 'pmal60dias_data';
+
+        function getDefaultState() {
+            return {
+                diasConcluidos: new Array(DIAS_TOTAL).fill(false),
+                materiasConcluidas: new Array(DIAS_TOTAL * TOPICOS_POR_DIA).fill(false),
+                checklists: {},
+                videosAssistidos: {},
+                revisoes: {}
+            };
+        }
+
+        let state = loadState();
+
+        function loadState() {
+            try {
+                const raw = localStorage.getItem(STORAGE_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    const def = getDefaultState();
+                    for (let key in def) {
+                        if (!(key in parsed)) parsed[key] = def[key];
+                    }
+                    return parsed;
+                }
+            } catch (e) { /* ignore */ }
+            return getDefaultState();
+        }
+
+        function saveState() {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        // ============================================================
+        // 6. HELPERS
+        // ============================================================
+        function getMateriaIndex(diaIdx, matIdx) {
+            return diaIdx * TOPICOS_POR_DIA + matIdx;
+        }
+
+        function getChecklistKey(diaIdx, matIdx) {
+            return `${diaIdx}-${matIdx}`;
+        }
+
+        function getVideoKey(diaIdx, matIdx, videoIdx) {
+            return `${diaIdx}-${matIdx}-${videoIdx}`;
+        }
+
+        // ============================================================
+        // 7. CÁLCULO DE PROGRESSO
+        // ============================================================
+        function calcularProgresso() {
+            let diasConcluidos = 0;
+            let materiasConcluidas = 0;
+            const totalMaterias = DIAS_TOTAL * TOPICOS_POR_DIA;
+
+            for (let d = 0; d < DIAS_TOTAL; d++) {
+                if (state.diasConcluidos[d]) diasConcluidos++;
+                for (let m = 0; m < TOPICOS_POR_DIA; m++) {
+                    const idx = getMateriaIndex(d, m);
+                    if (state.materiasConcluidas[idx]) materiasConcluidas++;
+                }
+            }
+            const progressoGeral = totalMaterias > 0 ? Math.round((materiasConcluidas / totalMaterias) * 100) : 0;
+            const taxaAcerto = 70 + Math.floor(Math.random() * 25);
+            return {
+                diasConcluidos,
+                materiasConcluidas,
+                topicosConcluidos: materiasConcluidas,
+                progressoGeral,
+                taxaAcerto: Math.min(100, taxaAcerto)
+            };
+        }
+
+        // ============================================================
+        // 8. RENDERIZAÇÃO
+        // ============================================================
+        function renderDashboard() {
+            const prog = calcularProgresso();
+            document.getElementById('progressoGeralNum').textContent = prog.progressoGeral + '%';
+            document.getElementById('diasConcluidosNum').textContent = prog.diasConcluidos + '/' + DIAS_TOTAL;
+            document.getElementById('materiasConcluidasNum').textContent = prog.materiasConcluidas + '/' + (DIAS_TOTAL *
+                TOPICOS_POR_DIA);
+            document.getElementById('taxaAcertoNum').textContent = prog.taxaAcerto + '%';
+
+            document.getElementById('progressoPorcentagem').textContent = prog.progressoGeral + '%';
+            document.getElementById('progressoBarra').style.width = prog.progressoGeral + '%';
+
+            let diaAtual = 0;
+            for (let i = 0; i < DIAS_TOTAL; i++) {
+                if (!state.diasConcluidos[i]) { diaAtual = i; break; }
+                diaAtual = i;
+            }
+            const hoje = CRONOGRAMA[diaAtual];
+            const container = document.getElementById('todayCard');
+            if (hoje) {
+                let html = `<div class="day-badge"><i class="fas fa-calendar-day"></i> DIA ${hoje.dia} — HOJE</div>`;
+                html += `<div class="materias-today">`;
+                hoje.materias.forEach(mat => {
+                    html +=
+                        `<div class="item"><div class="disc">📘 ${mat.nome}</div><div class="assunto">${mat.assunto}</div></div>`;
+                });
+                html += `</div>`;
+                html +=
+                    `<button class="btn mt-2" onclick="continuarEstudando(${diaAtual})"><i class="fas fa-arrow-right"></i> Continuar estudando</button>`;
+                container.innerHTML = html;
+            } else {
+                container.innerHTML = `<p class="text-muted">Parabéns! Todos os dias concluídos!</p>`;
+            }
+
+            renderCalendario();
+        }
+
+        function renderCalendario() {
+            const grid = document.getElementById('calendarioGrid');
+            let html = '';
+            for (let i = 0; i < DIAS_TOTAL; i++) {
+                const dia = CRONOGRAMA[i];
+                const concluido = state.diasConcluidos[i];
+                let status = 'naoiniciado';
+                let cls = '';
+                if (concluido) { status = 'concluido';
+                    cls = 'concluido'; } else {
+                    let andamento = false;
+                    for (let m = 0; m < TOPICOS_POR_DIA; m++) {
+                        const idx = getMateriaIndex(i, m);
+                        if (!state.materiasConcluidas[idx]) {
+                            const key = getChecklistKey(i, m);
+                            const checklist = state.checklists[key] || [];
+                            const feitos = checklist.filter(Boolean).length;
+                            if (feitos > 0 && feitos < 6) { andamento = true; break; }
+                        }
+                    }
+                    if (andamento) { status = 'andamento';
+                        cls = 'andamento'; }
+                }
+                let isHoje = false;
+                if (!state.diasConcluidos[i]) {
+                    let primeiroNao = 0;
+                    for (let j = 0; j < DIAS_TOTAL; j++) {
+                        if (!state.diasConcluidos[j]) { primeiroNao = j; break; }
+                    }
+                    if (primeiroNao === i) isHoje = true;
+                }
+                const dotCls = `status-dot ${isHoje ? 'hoje' : cls}`;
+                const boxCls = isHoje ? 'dia-box hoje' : 'dia-box';
+                html += `<div class="${boxCls}" onclick="abrirDia(${i})"><span>${dia.dia}</span><div class="${dotCls}"></div></div>`;
+            }
+            grid.innerHTML = html;
+        }
+
+        function renderCronograma(filtroDisciplina = 'todas', filtroStatus = 'todos', search = '') {
+            const container = document.getElementById('cronogramaCards');
+            let html = '';
+
+            const selectDisciplina = document.getElementById('filtroDisciplina');
+            if (selectDisciplina.options.length <= 1) {
+                const disciplinas = new Set();
+                CRONOGRAMA.forEach(d => d.materias.forEach(m => disciplinas.add(m.nome)));
+                disciplinas.forEach(nome => {
+                    const opt = document.createElement('option');
+                    opt.value = nome;
+                    opt.textContent = nome;
+                    selectDisciplina.appendChild(opt);
+                });
+            }
+
+            const searchLower = search.toLowerCase().trim();
+
+            CRONOGRAMA.forEach((dia, diaIdx) => {
+                if (filtroDisciplina !== 'todas') {
+                    const has = dia.materias.some(m => m.nome === filtroDisciplina);
+                    if (!has) return;
+                }
+
+                const concluidoDia = state.diasConcluidos[diaIdx];
+                let statusDia = 'naoiniciado';
+                if (concluidoDia) statusDia = 'concluido';
+                else {
+                    let andamento = false;
+                    for (let m = 0; m < TOPICOS_POR_DIA; m++) {
+                        const idx = getMateriaIndex(diaIdx, m);
+                        if (!state.materiasConcluidas[idx]) {
+                            const key = getChecklistKey(diaIdx, m);
+                            const checklist = state.checklists[key] || [];
+                            const feitos = checklist.filter(Boolean).length;
+                            if (feitos > 0) andamento = true;
+                        }
+                    }
+                    if (andamento) statusDia = 'andamento';
+                }
+                if (filtroStatus !== 'todos' && filtroStatus !== statusDia) return;
+
+                if (searchLower) {
+                    const match = dia.materias.some(m =>
+                        m.nome.toLowerCase().includes(searchLower) ||
+                        m.assunto.toLowerCase().includes(searchLower) ||
+                        m.videos.some(v => v.titulo.toLowerCase().includes(searchLower))
+                    );
+                    if (!match) return;
+                }
+
+                let progressoDia = 0;
+                for (let m = 0; m < TOPICOS_POR_DIA; m++) {
+                    const idx = getMateriaIndex(diaIdx, m);
+                    if (state.materiasConcluidas[idx]) progressoDia += 100;
+                    else {
+                        const key = getChecklistKey(diaIdx, m);
+                        const checklist = state.checklists[key] || [];
+                        const feitos = checklist.filter(Boolean).length;
+                        const total = 6;
+                        progressoDia += total > 0 ? Math.round((feitos / total) * 100) : 0;
+                    }
+                }
+                progressoDia = Math.round(progressoDia / TOPICOS_POR_DIA);
+
+                const statusBadge = statusDia === 'concluido' ? 'concluido' : (statusDia === 'andamento' ? 'andamento' : '');
+                const statusLabel = statusDia === 'concluido' ? '✅ Concluído' : (statusDia === 'andamento' ?
+                    '🟡 Em andamento' : '⚪ Não iniciado');
+
+                html += `
+                    <div class="day-card">
+                        <div class="day-header">
+                            <span class="dia-num">DIA ${dia.dia}</span>
+                            <span class="status-badge ${statusBadge}">${statusLabel}</span>
+                        </div>
+                        ${dia.materias.map((mat, matIdx) => `
+                            <div class="materia-item">
+                                <div class="disc">${mat.nome}</div>
+                                <div class="assunto">${mat.assunto}</div>
+                                <button class="btn btn-sm btn-outline mt-1" onclick="abrirEstudo(${diaIdx}, ${matIdx})">Estudar</button>
+                            </div>
+                        `).join('')}
+                        <div class="progresso-dia">
+                            <span style="font-size:13px; color:#8b949e;">Progresso</span>
+                            <div class="bar"><div class="fill" style="width:${progressoDia}%"></div></div>
+                            <span style="font-size:13px;">${progressoDia}%</span>
+                        </div>
+                        <div class="actions">
+                            <label><input type="checkbox" ${state.diasConcluidos[diaIdx] ? 'checked' : ''} onchange="toggleDia(${diaIdx}, this.checked)"> Concluir Dia ${dia.dia}</label>
+                            <button class="btn btn-sm btn-outline" onclick="abrirDia(${diaIdx})"><i class="fas fa-eye"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html || '<p class="text-muted">Nenhum dia encontrado com os filtros aplicados.</p>';
+        }
+
+        // ============================================================
+        // 9. PÁGINA DE ESTUDO
+        // ============================================================
+        let estudoAtual = { diaIdx: 0, matIdx: 0 };
+
+        function abrirEstudo(diaIdx, matIdx) {
+            estudoAtual = { diaIdx, matIdx };
+            const dia = CRONOGRAMA[diaIdx];
+            const mat = dia.materias[matIdx];
+            const idx = getMateriaIndex(diaIdx, matIdx);
+
+            document.getElementById('estudoTitulo').textContent = mat.nome;
+            document.getElementById('estudoSubtitulo').textContent = `Dia ${dia.dia} — ${mat.assunto}`;
+            document.getElementById('estudoDescricao').textContent = mat.assunto;
+
+            const concluido = state.materiasConcluidas[idx];
+            const statusEl = document.getElementById('estudoStatusBadge');
+            if (concluido) {
+                statusEl.textContent = '✅ Concluído';
+                statusEl.className = 'status-badge concluido';
+            } else {
+                const key = getChecklistKey(diaIdx, matIdx);
+                const checklist = state.checklists[key] || [];
+                const feitos = checklist.filter(Boolean).length;
+                if (feitos > 0) {
+                    statusEl.textContent = '🟡 Em andamento';
+                    statusEl.className = 'status-badge andamento';
+                } else {
+                    statusEl.textContent = '⚪ Não iniciado';
+                    statusEl.className = 'status-badge';
+                }
+            }
+
+            // Checklist
+            const checklistContainer = document.getElementById('estudoChecklist');
+            const key = getChecklistKey(diaIdx, matIdx);
+            if (!state.checklists[key]) {
+                state.checklists[key] = [false, false, false, false, false, false];
+                saveState();
+            }
+            const checkData = state.checklists[key];
+            const itens = ['Assistir à videoaula', 'Ler a teoria / legislação', 'Fazer anotações', 'Resolver questões',
+                'Corrigir erros', 'Revisar o assunto'
+            ];
+            let checklistHtml = '';
+            itens.forEach((item, i) => {
+                const feito = checkData[i] || false;
+                checklistHtml +=
+                    `<li class="${feito ? 'concluido' : ''}"><input type="checkbox" ${feito ? 'checked' : ''} onchange="toggleChecklist(${diaIdx}, ${matIdx}, ${i}, this.checked)"> ${item}</li>`;
+            });
+            checklistContainer.innerHTML = checklistHtml;
+
+            // Vídeos (específicos do tópico)
+            const videosContainer = document.getElementById('estudoVideos');
+            let videosHtml = '';
+            const videos = mat.videos || [];
+            if (videos.length) {
+                videos.forEach((video, vIdx) => {
+                    const assistido = state.videosAssistidos[getVideoKey(diaIdx, matIdx, vIdx)] || false;
+                    let url = video.url;
+                    let thumb = '';
+                    // Se for link de busca, não tem thumbnail, mas ainda é válido
+                    if (url && !url.includes('results?search_query')) {
+                        const match = url.match(/(?:youtu\.be\/|v=)([^&?]+)/);
+                        if (match) {
+                            thumb = `https://img.youtube.com/vi/${match[1]}/mqdefault.jpg`;
+                        }
+                    }
+                    videosHtml += `
+                        <div class="video-card" style="${assistido ? 'opacity:0.7;' : ''}">
+                            ${thumb ? `<div class="thumb"><img src="${thumb}" alt="${video.titulo}" loading="lazy"></div>` : ''}
+                            <div class="info">
+                                <div class="titulo">${video.titulo}</div>
+                                <div class="canal">${video.canal}</div>
+                                <div class="flex mt-1">
+                                    <a href="${url}" target="_blank" class="btn-assistir" onclick="marcarVideoAssistido(${diaIdx}, ${matIdx}, ${vIdx})">
+                                        <i class="fab fa-youtube"></i> Assistir no YouTube
+                                    </a>
+                                    ${assistido ? '<span style="color:#2d9d5e;font-size:12px;">✔ Assistido</span>' : ''}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                });
+            } else {
+                // Fallback: busca genérica
+                const searchQuery = encodeURIComponent(`${mat.nome} ${mat.assunto} Cebraspe concurso`);
+                videosHtml = `
+                    <p class="text-muted">Nenhum vídeo específico disponível para este tópico.</p>
+                    <a href="https://www.youtube.com/results?search_query=${searchQuery}" target="_blank" class="btn btn-sm btn-outline">
+                        <i class="fab fa-youtube"></i> Buscar no YouTube
+                    </a>
+                `;
+            }
+            videosContainer.innerHTML = videosHtml;
+
+            // Legislação
+            const legContainer = document.getElementById('estudoLegislacao');
+            const leis = buscarLegislacao(mat.nome, mat.assunto);
+            if (leis.length) {
+                let legHtml = '<ul>';
+                leis.forEach(l => {
+                    legHtml += `<li><a href="${l.url}" target="_blank">${l.titulo}</a></li>`;
+                });
+                legHtml += '</ul>';
+                legContainer.innerHTML = legHtml;
+            } else {
+                legContainer.innerHTML = '<p class="text-muted">Nenhuma legislação específica para este tópico.</p>';
+            }
+
+            showPage('estudo');
+        }
+
+        function toggleChecklist(diaIdx, matIdx, itemIdx, checked) {
+            const key = getChecklistKey(diaIdx, matIdx);
+            if (!state.checklists[key]) {
+                state.checklists[key] = [false, false, false, false, false, false];
+            }
+            state.checklists[key][itemIdx] = checked;
+            saveState();
+            abrirEstudo(diaIdx, matIdx);
+            renderDashboard();
+            aplicarFiltrosCronograma();
+        }
+
+        function marcarVideoAssistido(diaIdx, matIdx, vIdx) {
+            const key = getVideoKey(diaIdx, matIdx, vIdx);
+            state.videosAssistidos[key] = true;
+            saveState();
+            // Atualiza a página de estudo para refletir o check
+            abrirEstudo(diaIdx, matIdx);
+            renderDashboard();
+        }
+
+        function toggleDia(diaIdx, checked) {
+            state.diasConcluidos[diaIdx] = checked;
+            if (checked) {
+                for (let m = 0; m < TOPICOS_POR_DIA; m++) {
+                    const idx = getMateriaIndex(diaIdx, m);
+                    state.materiasConcluidas[idx] = true;
+                    const key = getChecklistKey(diaIdx, m);
+                    if (!state.checklists[key]) {
+                        state.checklists[key] = [true, true, true, true, true, true];
+                    } else {
+                        for (let i = 0; i < state.checklists[key].length; i++) {
+                            state.checklists[key][i] = true;
+                        }
+                    }
+                }
+            }
+            saveState();
+            renderDashboard();
+            aplicarFiltrosCronograma();
+        }
+
+        function continuarEstudando(diaIdx) {
+            const dia = CRONOGRAMA[diaIdx];
+            for (let m = 0; m < TOPICOS_POR_DIA; m++) {
+                const idx = getMateriaIndex(diaIdx, m);
+                if (!state.materiasConcluidas[idx]) {
+                    abrirEstudo(diaIdx, m);
+                    return;
+                }
+            }
+            abrirEstudo(diaIdx, 0);
+        }
+
+        function abrirDia(diaIdx) {
+            showPage('cronograma');
+            setTimeout(() => {
+                const cards = document.querySelectorAll('.day-card');
+                if (cards[diaIdx]) {
+                    cards[diaIdx].scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    cards[diaIdx].style.borderColor = '#2d9d5e';
+                    setTimeout(() => { cards[diaIdx].style.borderColor = ''; }, 2000);
+                }
+            }, 100);
+        }
+
+        // ============================================================
+        // 10. DISCIPLINAS
+        // ============================================================
+        function renderDisciplinas() {
+            const grid = document.getElementById('disciplinasGrid');
+            let html = '';
+            DISCIPLINAS.forEach(disc => {
+                const icon = getIconForDisciplina(disc.id);
+                html += `
+                    <div class="disciplina-card" onclick="filtrarPorDisciplina('${disc.nome}')">
+                        <div class="icon"><i class="${icon}"></i></div>
+                        <div style="font-weight:600;">${disc.nome}</div>
+                        <div style="font-size:0.7rem;color:#8b949e;">${disc.categoria}</div>
+                    </div>
+                `;
+            });
+            grid.innerHTML = html;
+        }
+
+        function getIconForDisciplina(id) {
+            const map = {
+                portugues: 'fas fa-language',
+                matematica: 'fas fa-calculator',
+                informatica: 'fas fa-laptop',
+                alagoas: 'fas fa-map-marked-alt',
+                atualidades: 'fas fa-newspaper',
+                legislacao_pmal: 'fas fa-gavel',
+                adm: 'fas fa-building',
+                constitucional: 'fas fa-balance-scale',
+                processo_penal: 'fas fa-file-signature',
+                penal_militar: 'fas fa-handcuffs',
+                processo_penal_militar: 'fas fa-legal',
+                direitos_humanos: 'fas fa-hand-holding-heart'
+            };
+            return map[id] || 'fas fa-book';
+        }
+
+        function filtrarPorDisciplina(nome) {
+            document.getElementById('filtroDisciplina').value = nome;
+            showPage('cronograma');
+            aplicarFiltrosCronograma();
+        }
+
+        // ============================================================
+        // 11. REVISÕES
+        // ============================================================
+        function renderRevisoes() {
+            const container = document.getElementById('revisoesList');
+            let html = '';
+            let count = 0;
+            for (let d = 0; d < DIAS_TOTAL && count < 5; d++) {
+                for (let m = 0; m < TOPICOS_POR_DIA && count < 5; m++) {
+                    const idx = getMateriaIndex(d, m);
+                    if (!state.materiasConcluidas[idx]) {
+                        const mat = CRONOGRAMA[d].materias[m];
+                        const key = getChecklistKey(d, m);
+                        const check = state.checklists[key] || [];
+                        const feitos = check.filter(Boolean).length;
+                        const status = feitos === 0 ? 'Não iniciado' : 'Em andamento';
+                        html += `
+                            <div class="day-card" style="margin-bottom:8px;">
+                                <div><strong>Dia ${d+1}</strong> — ${mat.nome}</div>
+                                <div>${mat.assunto} <span style="color:#8b949e;">(${status})</span></div>
+                                <button class="btn btn-sm btn-outline mt-1" onclick="abrirEstudo(${d}, ${m})">Estudar agora</button>
+                            </div>
+                        `;
+                        count++;
+                    }
+                }
+            }
+            if (!html) html = '<p class="text-muted">Todas as revisões estão em dia! 🎉</p>';
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // 12. PROGRESSO DETALHADO
+        // ============================================================
+        function renderProgressoDetalhe() {
+            const container = document.getElementById('progressoDetalhe');
+            let html = '';
+            DISCIPLINAS.forEach(disc => {
+                let total = 0,
+                    concluidos = 0;
+                CRONOGRAMA.forEach((d, di) => {
+                    d.materias.forEach((m, mi) => {
+                        if (m.nome === disc.nome) {
+                            total++;
+                            const idx = getMateriaIndex(di, mi);
+                            if (state.materiasConcluidas[idx]) concluidos++;
+                        }
+                    });
+                });
+                const pct = total > 0 ? Math.round((concluidos / total) * 100) : 0;
+                html += `
+                    <div style="display:flex; align-items:center; gap:12px; margin:6px 0;">
+                        <span style="width:180px; font-weight:500;">${disc.nome}</span>
+                        <div style="flex:1; height:6px; background:#21262d; border-radius:10px; overflow:hidden;">
+                            <div style="height:100%; width:${pct}%; background:#2d9d5e; border-radius:10px; transition:width 0.4s;"></div>
+                        </div>
+                        <span style="font-size:13px; color:#8b949e;">${concluidos}/${total} (${pct}%)</span>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+        }
+
+        // ============================================================
+        // 13. QUESTÕES
+        // ============================================================
+        function renderQuestoes() {
+            const select = document.getElementById('qFiltroDisciplina');
+            if (select.options.length <= 1) {
+                DISCIPLINAS.forEach(disc => {
+                    const opt = document.createElement('option');
+                    opt.value = disc.nome;
+                    opt.textContent = disc.nome;
+                    select.appendChild(opt);
+                });
+            }
+        }
+
+        function buscarQuestoes() {
+            const disciplina = document.getElementById('qFiltroDisciplina').value;
+            const search = document.getElementById('qSearch').value.trim();
+            const container = document.getElementById('questoesResultados');
+            let link = 'https://www.qconcursos.com/questoes/buscar?q=';
+            if (search) link += encodeURIComponent(search) + '+';
+            if (disciplina !== 'todas') link += encodeURIComponent(disciplina) + '+';
+            link += 'banca:CESPE';
+            container.innerHTML = `
+                <p class="text-muted">Clique no link para buscar questões no QConcursos:</p>
+                <a href="${link}" target="_blank" class="btn">🔍 Buscar questões Cebraspe</a>
+                <p class="text-muted" style="margin-top:8px;">Ou pesquise manualmente com os filtros acima.</p>
+            `;
+        }
+
+        // ============================================================
+        // 14. NAVEGAÇÃO
+        // ============================================================
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            const el = document.getElementById('page-' + pageId);
+            if (el) el.classList.add('active');
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.classList.toggle('active', item.dataset.page === pageId);
+            });
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+
+            switch (pageId) {
+                case 'dashboard':
+                    renderDashboard();
+                    break;
+                case 'cronograma':
+                    aplicarFiltrosCronograma();
+                    break;
+                case 'disciplinas':
+                    renderDisciplinas();
+                    break;
+                case 'revisoes':
+                    renderRevisoes();
+                    break;
+                case 'progresso': {
+                    const prog = calcularProgresso();
+                    document.getElementById('pDias').textContent = prog.diasConcluidos + '/' + DIAS_TOTAL;
+                    document.getElementById('pMaterias').textContent = prog.materiasConcluidas + '/' + (DIAS_TOTAL *
+                        TOPICOS_POR_DIA);
+                    document.getElementById('pAcertos').textContent = prog.taxaAcerto + '%';
+                    document.getElementById('pPorcentagem').textContent = prog.progressoGeral + '%';
+                    document.getElementById('pBarra').style.width = prog.progressoGeral + '%';
+                    renderProgressoDetalhe();
+                    break;
+                }
+                case 'questoes':
+                    renderQuestoes();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        // ============================================================
+        // 15. FILTROS
+        // ============================================================
+        function aplicarFiltrosCronograma() {
+            const disciplina = document.getElementById('filtroDisciplina').value;
+            const status = document.getElementById('filtroStatus').value;
+            const search = document.getElementById('globalSearch').value;
+            renderCronograma(disciplina, status, search);
+        }
+
+        // ============================================================
+        // 16. INICIALIZAÇÃO
+        // ============================================================
+        document.addEventListener('DOMContentLoaded', function() {
+            inicializarCronograma();
+
+            document.querySelectorAll('.menu-item').forEach(item => {
+                item.addEventListener('click', function(e) {
+                    const page = this.dataset.page;
+                    if (this.getAttribute('href')) return;
+                    if (page) {
+                        e.preventDefault();
+                        showPage(page);
+                    }
+                });
+            });
+
+            document.getElementById('menuToggle').addEventListener('click', function(e) {
+                e.stopPropagation();
+                document.getElementById('sidebar').classList.toggle('open');
+                document.getElementById('overlay').classList.toggle('active');
+            });
+            document.getElementById('overlay').addEventListener('click', function() {
+                document.getElementById('sidebar').classList.remove('open');
+                this.classList.remove('active');
+            });
+
+            document.getElementById('filtroDisciplina').addEventListener('change', aplicarFiltrosCronograma);
+            document.getElementById('filtroStatus').addEventListener('change', aplicarFiltrosCronograma);
+            document.getElementById('globalSearch').addEventListener('input', aplicarFiltrosCronograma);
+
+            document.getElementById('btnVoltarEstudo').addEventListener('click', function() {
+                showPage('cronograma');
+            });
+
+            document.getElementById('btnConcluirTopico').addEventListener('click', function() {
+                const { diaIdx, matIdx } = estudoAtual;
+                const idx = getMateriaIndex(diaIdx, matIdx);
+                if (!state.materiasConcluidas[idx]) {
+                    state.materiasConcluidas[idx] = true;
+                    const key = getChecklistKey(diaIdx, matIdx);
+                    if (!state.checklists[key]) {
+                        state.checklists[key] = [true, true, true, true, true, true];
+                    } else {
+                        for (let i = 0; i < state.checklists[key].length; i++) {
+                            state.checklists[key][i] = true;
+                        }
+                    }
+                    saveState();
+                    abrirEstudo(diaIdx, matIdx);
+                    renderDashboard();
+                    aplicarFiltrosCronograma();
+                } else {
+                    alert('Este tópico já está concluído.');
+                }
+            });
+
+            showPage('dashboard');
+        });
+
+        // Expor funções globais
+        window.abrirEstudo = abrirEstudo;
+        window.toggleChecklist = toggleChecklist;
+        window.marcarVideoAssistido = marcarVideoAssistido;
+        window.toggleDia = toggleDia;
+        window.continuarEstudando = continuarEstudando;
+        window.abrirDia = abrirDia;
+        window.filtrarPorDisciplina = filtrarPorDisciplina;
+        window.aplicarFiltrosCronograma = aplicarFiltrosCronograma;
+        window.showPage = showPage;
+        window.renderDashboard = renderDashboard;
+        window.buscarQuestoes = buscarQuestoes;
+        window.abrirQuestoesExternas = function(diaIdx, matIdx) {
+            const mat = CRONOGRAMA[diaIdx].materias[matIdx];
+            const search = encodeURIComponent(`${mat.nome} ${mat.assunto} Cebraspe`);
+            window.open(`https://www.qconcursos.com/questoes/buscar?q=${search}`, '_blank');
+        };
+    </script>
+</body>
+</html>

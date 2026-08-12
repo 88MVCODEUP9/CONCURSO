@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="msapplication-TileColor" content="#0d0d0d" />
+  <title>CONHECIMENTOS GERAIS — MV ESTUDOS</title>
+ <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+ <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/PM-AL/Minhas%20Revis%C3%B5es.css">
+<base target="_self">
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>Material de Estudo</h1>
+      <div class="header-line"></div>
+      <p>Preparação é a chave para o sucesso no concurso</p>
+    </div>
+
+    <div class="grid" id="cardsGrid"></div>
+
+    <footer class="footer">
+      <p>&copy; <span id="year"></span> — Força e fé</p>
+    </footer>
+  </div>
+
+  <script>
+    const subjects = [
+      {
+        id: "direito-penal",
+        name: "Direito Penal",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z"/><path d="M12 8v4"/><circle cx="12" cy="16" r="1"/></svg>`,
+        url: "https://88mvcode9.github.io/ARQUIVOS/MATERIAL%20DE%20ESTUDOS/direito_penal/",
+        category: "Direito"
+      },
+      {
+      id: "direito-penal-militar",
+      name: "Direito Penal Militar",
+      icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 2l7 3v6c0 5-3.5 8-7 11-3.5-3-7-6-7-11V5l7-3z"/>
+      <path d="M12 7v10"/>
+      <path d="M9 10l3-3 3 3"/>
+      </svg>`,
+      url: "https://88mvcode9.github.io/ARQUIVOS/MATERIAL%20DE%20ESTUDOS/direito_penal_militar/",
+      category: "Direito"
+      },
+      {
+        id: "direito-constitucional",
+        name: "Direito Constitucional",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18"/><path d="M5 7h14"/><path d="M5 12h14"/><path d="M5 17h14"/><path d="M3 3h18v18H3z"/></svg>`,
+        url: "https://88mvcode9.github.io/ARQUIVOS/MATERIAL%20DE%20ESTUDOS/direitos-constitucional/",
+        category: "Direito"
+      },
+      {
+        id: "direito-processo-penal",
+        name: "Processo Penal",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>`,
+        url: "https://88mvcode9.github.io/ARQUIVOS/MATERIAL%20DE%20ESTUDOS/processo_penal/",
+        category: "Direito"
+      },
+      {
+        id: "direito-administrativo",
+        name: "Direito Administrativo",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>`,
+        url: "https://88mvcode9.github.io/ARQUIVOS/MATERIAL%20DE%20ESTUDOS/direitos-administrativos/",
+        category: "Direito"
+      },
+
+           {
+        id: "legislacao-especifica",
+        name: "Legislação",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/><path d="M8 7h8"/><path d="M8 11h6"/></svg>`,
+        url: "https://88mvcode9.github.io/ARQUIVOS/MATERIAL%20DE%20ESTUDOS/legislacao/",
+        category: "Direito"
+      },
+      {
+        id: "direitos-humanos",
+        name: "Direitos Humanos",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>`,
+        url: "https://88mvcode9.github.io/ARQUIVOS/MATERIAL%20DE%20ESTUDOS/direitos-humanos/",
+        category: "Direito"
+      },
+      {
+        id: "estatuto-alagoas",
+        name: "Estatuto de Alagoas",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M9 13h6"/><path d="M9 17h6"/><path d="M9 9h1"/></svg>`,
+        url: "https://88mvcode9.github.io/ARQUIVOS/MATERIAL%20DE%20ESTUDOS/estatuto-pm-alagoas/",
+        category: "Direito"
+      },
+           {
+        id: "informatica",
+        name: "Informática",
+        icon: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>`,
+        url: "https://88mvcode9.github.io/ARQUIVOS/MATERIAL%20DE%20ESTUDOS/informatica/",
+        category: "Tecnologia"
+      }
+    ];
+
+    function createCard(subject) {
+      return `
+        <div class="card-container">
+          <div class="holo-card" onclick="window.open('${subject.url}', '_self')" role="button" tabindex="0" aria-label="Abrir ${subject.name}">
+            <div class="holo-card__inner">
+              <!-- Camadas 3D -->
+              <div class="holo-card__layer holo-card__layer--back"></div>
+              <div class="holo-card__layer holo-card__layer--mid"></div>
+              <div class="holo-card__layer holo-card__layer--front"></div>
+
+              <!-- Cantos -->
+              <div class="holo-card__corner holo-corner-tl"></div>
+              <div class="holo-card__corner holo-corner-tr"></div>
+              <div class="holo-card__corner holo-corner-bl"></div>
+              <div class="holo-card__corner holo-corner-br"></div>
+
+              <!-- Conteúdo -->
+              <div class="holo-card__content">
+                <div class="holo-card__icon">${subject.icon}</div>
+                <div class="holo-card__title">${subject.name}</div>
+                <div class="holo-card__meta">
+                  <div class="holo-card__stat">
+                    <span>Área</span>
+                    <span>${subject.category}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    const grid = document.getElementById('cardsGrid');
+    grid.innerHTML = subjects.map(subject => createCard(subject)).join('');
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    document.querySelectorAll('.holo-card').forEach(card => {
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+  </script>
+</body>
+</html>

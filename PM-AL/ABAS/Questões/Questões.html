@@ -1,0 +1,394 @@
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/PM-AL/QUEST%C3%95ES.css" />
+    <title>PM-AL 2026 - Seleção de Questões</title>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <div class="header-icon">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <path d="M9 12l2 2 4-4" />
+                </svg>
+            </div>
+            <h1>Polícia Militar de Alagoas</h1>
+            <p class="subtitle">
+                <span>📚 Material de Estudo</span>
+                <span class="badge">Concurso 2026</span>
+            </p>
+        </header>
+
+        <div class="cards-grid" id="cardsGrid"></div>
+
+        <p class="footer">
+            Clique em um card para acessar o conteúdo da <span>matéria</span>.
+        </p>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose" title="Fechar">✕</button>
+            <h2 id="modalTitle"></h2>
+            <p class="modal-subtitle" id="modalSubtitle"></p>
+            <ul class="topic-list" id="modalTopics"></ul>
+            <div class="info-bar" id="modalInfo"></div>
+        </div>
+    </div>
+
+    <script>
+        // ============================================================
+        // Dados atualizados para o concurso da PM-AL 2026 - Soldado
+        // ============================================================
+        const materias = [{
+            id: 1,
+            nome: 'Língua\nPortuguesa',
+            nomeLinha: 'Língua Portuguesa',
+            tipo: 'Módulo 01',
+            subtitulo: 'Compreensão e Gramática',
+            topicos: [
+                { nome: 'Compreensão e interpretação de textos', link: './ABAS/Questões/Material/Português/Interpretação e compreensão de textos.html' },
+                { nome: 'Tipologia textual e gêneros discursivos', link: './ABAS/Questões/Material/Português/Tipologia textual e gêneros discursivos.html' },
+                { nome: 'Ortografia oficial e acentuação gráfica', link: './ABAS/Questões/Material/Português/Ortografia oficial e acentuação gráfica.html' },
+                { nome: 'Classes de palavras e análise morfológica', link: './ABAS/Questões/Material/Português/Classes de palavras e análise morfológica.html' },
+                { nome: 'Sintaxe do período simples e composto', link: './ABAS/Questões/Material/Português/Sintaxe do período simples e composto.html' },
+                { nome: 'Regência verbal e nominal', link: './ABAS/Questões/Material/Português/Regência verbal e nominal.html' },
+                { nome: 'Crase, pontuação e concordância', link: './ABAS/Questões/Material/Português/Crase, pontuação e concordância.html' },
+                { nome: 'Semântica: sinonímia, antonímia, polissemia', link: './ABAS/Questões/Material/Português/Semântica: sinonímia, antonímia, polissemia.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~15 questões',
+        }, {
+            id: 2,
+            nome: 'Matemática',
+            nomeLinha: 'Matemática',
+            tipo: 'Módulo 02',
+            subtitulo: 'Raciocínio Quantitativo',
+            topicos: [
+                { nome: 'Conjuntos numéricos (naturais, inteiros, racionais, reais)', link: './ABAS/Questões/Material/Matemática/Conjuntos numéricos (naturais, inteiros, racionais, reais).html' },
+                { nome: 'Razões, proporções e regra de três', link: './ABAS/Questões/Material/Matemática/Razões, proporções e regra de três.html' },
+                { nome: 'Porcentagem e juros simples', link: './ABAS/Questões/Material/Matemática/Porcentagem e juros simples.html' },
+                { nome: 'Equações e sistemas do 1º e 2º grau', link: './ABAS/Questões/Material/Matemática/Equações e sistemas do 1º e 2º grau.html' },
+                { nome: 'Geometria plana (áreas, perímetros, Pitágoras)', link: './ABAS/Questões/Material/Matemática/Geometria plana (áreas, perímetros, Pitágoras).html' },
+                { nome: 'Noções de estatística (média, mediana, moda)', link: './ABAS/Questões/Material/Matemática/Noções de estatística (média, mediana, moda).html' },
+                { nome: 'Análise combinatória e probabilidade básica', link: './ABAS/Questões/Material/Matemática/Análise combinatória e probabilidade básica.html' },
+                { nome: 'Sequências numéricas e padrões', link: './ABAS/Questões/Material/Matemática/Sequências numéricas e padrões.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 3,
+            nome: 'Noções de\nInformática',
+            nomeLinha: 'Noções de Informática',
+            tipo: 'Módulo 03',
+            subtitulo: 'Tecnologia e Segurança',
+            topicos: [
+                { nome: 'Sistemas operacionais (Windows e Linux)', link: './ABAS/Questões/Material/Informática/Sistemas operacionais (Windows e Linux).html' },
+                { nome: 'Pacote Microsoft Office e LibreOffice', link: './ABAS/Questões/Material/Informática/Pacote Microsoft Office e LibreOffice.html' },
+                { nome: 'Internet, navegadores e correio eletrônico', link: './ABAS/Questões/Material/Informática/Internet, navegadores e correio eletrônico.html' },
+                { nome: 'Redes de computadores e conceitos básicos', link: './ABAS/Questões/Material/Informática/Redes de computadores e conceitos básicos.html' },
+                { nome: 'Segurança da informação (malware, firewalls, criptografia)', link: './ABAS/Questões/Material/Informática/Segurança da informação (malware, firewalls, criptografia).html' },
+                { nome: 'Computação em nuvem e armazenamento', link: './ABAS/Questões/Material/Informática/Computação em nuvem e armazenamento.html' },
+                { nome: 'Hardware: componentes e periféricos', link: './ABAS/Questões/Material/Informática/Hardware: componentes e periféricos.html' },
+                { nome: 'Noções de banco de dados e big data', link: './ABAS/Questões/Material/Informática/Noções de banco de dados e big data.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 4,
+            nome: 'Atualidades',
+            nomeLinha: 'Atualidades',
+            tipo: 'Módulo 04',
+            subtitulo: 'Cenário Nacional e Mundial',
+            topicos: [
+                { nome: 'Política nacional e internacional (2024-2026)', link: './ABAS/Questões/Material/Atualidades/Política nacional e internacional (2024-2026).html' },
+                { nome: 'Economia brasileira e indicadores sociais', link: './ABAS/Questões/Material/Atualidades/Economia brasileira e indicadores sociais.html' },
+                { nome: 'Meio ambiente e sustentabilidade', link: './ABAS/Questões/Material/Atualidades/Meio ambiente e sustentabilidade.html' },
+                { nome: 'Tecnologia, inovação e inteligência artificial', link: './ABAS/Questões/Material/Atualidades/Tecnologia, inovação e inteligência artificial.html' },
+                { nome: 'Direitos humanos e cidadania', link: './ABAS/Questões/Material/Atualidades/Direitos humanos e cidadania.html' },
+                { nome: 'Segurança pública e violência urbana no Brasil', link: './ABAS/Questões/Material/Atualidades/Segurança pública e violência urbana no Brasil.html' },
+                { nome: 'Cultura, educação e saúde', link: './ABAS/Questões/Material/Atualidades/Cultura, educação e saúde.html' },
+                { nome: 'Acontecimentos recentes em Alagoas', link: './ABAS/Questões/Material/Atualidades/Acontecimentos recentes em Alagoas.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~8 questões',
+        }, {
+            id: 5,
+            nome: 'Conhecimentos do\nEstado de Alagoas',
+            nomeLinha: 'Conhecimentos do Estado de Alagoas',
+            tipo: 'Módulo 05',
+            subtitulo: 'História, Geografia e Cultura',
+            topicos: [
+                { nome: 'História política e administrativa de Alagoas', link: './ABAS/Questões/Material/Conhecimentos do Estado de Alagoas/História política e administrativa de Alagoas.html' },
+                { nome: 'Geografia física e econômica do estado', link: './ABAS/Questões/Material/Conhecimentos do Estado de Alagoas/Geografia física e econômica do estado.html' },
+                { nome: 'Cultura, folclore e tradições alagoanas', link: './ABAS/Questões/Material/Conhecimentos do Estado de Alagoas/Cultura, folclore e tradições alagoanas.html' },
+                { nome: 'Economia e principais atividades produtivas', link: './ABAS/Questões/Material/Conhecimentos do Estado de Alagoas/Economia e principais atividades produtivas.html' },
+                { nome: 'Aspectos sociais e demográficos', link: './ABAS/Questões/Material/Conhecimentos do Estado de Alagoas/Aspectos sociais e demográficos.html' },
+                { nome: 'Meio ambiente e recursos naturais de Alagoas', link: './ABAS/Questões/Material/Conhecimentos do Estado de Alagoas/Meio ambiente e recursos naturais de Alagoas.html' },
+                { nome: 'Símbolos e personalidades históricas', link: './ABAS/Questões/Material/Conhecimentos do Estado de Alagoas/Símbolos e personalidades históricas.html' },
+                { nome: 'Estrutura administrativa do estado', link: './ABAS/Questões/Material/Conhecimentos do Estado de Alagoas/Estrutura administrativa do estado.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~5 questões',
+        }, {
+            id: 6,
+            nome: 'Noções de Direito\nConstitucional',
+            nomeLinha: 'Noções de Direito Constitucional',
+            tipo: 'Módulo 06',
+            subtitulo: 'Constituição Federal',
+            topicos: [
+                { nome: 'Princípios fundamentais da CF/88', link: './ABAS/Questões/Material/Noções de Direito Constitucional/Princípios fundamentais da CF/88.html' },
+                { nome: 'Direitos e garantias fundamentais', link: './ABAS/Questões/Material/Noções de Direito Constitucional/Direitos e garantias fundamentais.html' },
+                { nome: 'Organização do Estado brasileiro', link: './ABAS/Questões/Material/Noções de Direito Constitucional/Organização do Estado brasileiro.html' },
+                { nome: 'Poder Legislativo, Executivo e Judiciário', link: './ABAS/Questões/Material/Noções de Direito Constitucional/Poder Legislativo, Executivo e Judiciário.html' },
+                { nome: 'Defesa do Estado e instituições democráticas', link: './ABAS/Questões/Material/Noções de Direito Constitucional/Defesa do Estado e instituições democráticas.html' },
+                { nome: 'Segurança pública na Constituição (art. 144)', link: './ABAS/Questões/Material/Noções de Direito Constitucional/Segurança pública na Constituição (art. 144).html' },
+                { nome: 'Controle de constitucionalidade', link: './ABAS/Questões/Material/Noções de Direito Constitucional/Controle de constitucionalidade.html' },
+                { nome: 'Forças Armadas e Polícias Militares', link: './ABAS/Questões/Material/Noções de Direito Constitucional/Forças Armadas e Polícias Militares.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 7,
+            nome: 'Noções de Direito\nAdministrativo',
+            nomeLinha: 'Noções de Direito Administrativo',
+            tipo: 'Módulo 07',
+            subtitulo: 'Administração Pública',
+            topicos: [
+                { nome: 'Princípios da Administração Pública', link: './ABAS/Questões/Material/Noções de Direito Administrativo/Princípios da Administração Pública.html' },
+                { nome: 'Atos administrativos (classificação, atributos)', link: './ABAS/Questões/Material/Noções de Direito Administrativo/Atos administrativos (classificação, atributos).html' },
+                { nome: 'Poderes administrativos', link: './ABAS/Questões/Material/Noções de Direito Administrativo/Poderes administrativos.html' },
+                { nome: 'Servidores públicos (regime jurídico)', link: './ABAS/Questões/Material/Noções de Direito Administrativo/Servidores públicos (regime jurídico).html' },
+                { nome: 'Responsabilidade civil do Estado', link: './ABAS/Questões/Material/Noções de Direito Administrativo/Responsabilidade civil do Estado.html' },
+                { nome: 'Licitações e contratos (Lei 14.133/2021)', link: './ABAS/Questões/Material/Noções de Direito Administrativo/Licitações e contratos (Lei 14.133/2021).html' },
+                { nome: 'Improbidade administrativa', link: './ABAS/Questões/Material/Noções de Direito Administrativo/Improbidade administrativa.html' },
+                { nome: 'Processo administrativo disciplinar', link: './ABAS/Questões/Material/Noções de Direito Administrativo/Processo administrativo disciplinar.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 8,
+            nome: 'Legislação Pertinente\nao Policial Militar',
+            nomeLinha: 'Legislação Pertinente ao Policial Militar de Alagoas',
+            tipo: 'Módulo 08',
+            subtitulo: 'Leis e Estatutos Específicos',
+            topicos: [
+                { nome: 'Constituição do Estado de Alagoas (partes sobre Segurança Pública)', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Constituição do Estado de Alagoas (partes sobre Segurança Pública).html' },
+                { nome: 'Lei de Organização Básica da PMAL', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Lei de Organização Básica da PMAL.html' },
+                { nome: 'Estatuto dos Policiais Militares de Alagoas (direitos, deveres, proibições)', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Estatuto dos Policiais Militares de Alagoas (direitos, deveres, proibições).html' },
+                { nome: 'Regulamento Disciplinar da PMAL', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Regulamento Disciplinar da PMAL.html' },
+                { nome: 'Código de Ética da PMAL', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Código de Ética da PMAL.html' },
+                { nome: 'Lei de Promoções e Progressão na Carreira', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Lei de Promoções e Progressão na Carreira.html' },
+                { nome: 'Lei de Inatividade e Pensões Militares', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Lei de Inatividade e Pensões Militares.html' },
+                { nome: 'Normas internas e ordens de serviço da PMAL', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Normas internas e ordens de serviço da PMAL.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~15 questões',
+        }, {
+            id: 9,
+            nome: 'Noções de Direito\nProcessual Penal',
+            nomeLinha: 'Noções de Direito Processual Penal',
+            tipo: 'Módulo 09',
+            subtitulo: 'Processo e Procedimentos',
+            topicos: [
+                { nome: 'Inquérito policial e investigação criminal', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Inquérito policial e investigação criminal.html' },
+                { nome: 'Ação penal (pública e privada)', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Ação penal (pública e privada).html' },
+                { nome: 'Jurisdição e competência', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Jurisdição e competência.html' },
+                { nome: 'Provas no processo penal', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Provas no processo penal.html' },
+                { nome: 'Prisão em flagrante e preventiva', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Prisão em flagrante e preventiva.html' },
+                { nome: 'Medidas cautelares diversas da prisão', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Medidas cautelares diversas da prisão.html' },
+                { nome: 'Procedimentos especiais (Tribunal do Júri, etc.)', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Procedimentos especiais (Tribunal do Júri, etc.).html' },
+                { nome: 'Recursos no processo penal', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Recursos no processo penal.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~8 questões',
+        }, {
+            id: 10,
+            nome: 'Noções de Direito\nPenal Militar',
+            nomeLinha: 'Noções de Direito Penal Militar',
+            tipo: 'Módulo 10',
+            subtitulo: 'Crimes e Penas Militares',
+            topicos: [
+                { nome: 'Aplicação da lei penal militar no tempo e espaço', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Aplicação da lei penal militar no tempo e espaço.html' },
+                { nome: 'Crime militar (conceito, classificação, sujeitos)', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Crime militar (conceito, classificação, sujeitos).html' },
+                { nome: 'Penas principais e acessórias', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Penas principais e acessórias.html' },
+                { nome: 'Crimes contra a autoridade ou disciplina militar', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Crimes contra a autoridade ou disciplina militar.html' },
+                { nome: 'Crimes contra o serviço militar e o dever militar', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Crimes contra o serviço militar e o dever militar.html' },
+                { nome: 'Excludentes de ilicitude e culpabilidade', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Excludentes de ilicitude e culpabilidade.html' },
+                { nome: 'Prescrição e extinção da punibilidade', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Prescrição e extinção da punibilidade.html' },
+                { nome: 'Lei de Abuso de Autoridade (aplicação militar)', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Lei de Abuso de Autoridade (aplicação militar).html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 11,
+            nome: 'Noções de Direito\nProcessual Penal Militar',
+            nomeLinha: 'Noções de Direito Processual Penal Militar',
+            tipo: 'Módulo 11',
+            subtitulo: 'Processo Penal Militar',
+            topicos: [
+                { nome: 'Inquérito policial militar e sindicância', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Inquérito policial militar e sindicância.html' },
+                { nome: 'Ação penal militar', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Ação penal militar.html' },
+                { nome: 'Competência da Justiça Militar estadual', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Competência da Justiça Militar estadual.html' },
+                { nome: 'Provas no processo penal militar', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Provas no processo penal militar.html' },
+                { nome: 'Prisões e medidas cautelares na esfera militar', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Prisões e medidas cautelares na esfera militar.html' },
+                { nome: 'Procedimentos processuais penais militares', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Procedimentos processuais penais militares.html' },
+                { nome: 'Recursos no processo penal militar', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Recursos no processo penal militar.html' },
+                { nome: 'Execução penal militar', link: './ABAS/Questões/Material/Legislação Pertinente ao Policial Militar/Execução penal militar.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~8 questões',
+        }, {
+            id: 12,
+            nome: 'Noções de\nDireitos Humanos',
+            nomeLinha: 'Noções de Direitos Humanos',
+            tipo: 'Módulo 12',
+            subtitulo: 'Cidadania e Garantias',
+            topicos: [
+                { nome: 'Declaração Universal dos Direitos Humanos', link: './ABAS/Questões/Material/Legislação Pertinente aos Direitos Humanos/Declaração Universal dos Direitos Humanos.html' },
+                { nome: 'Direitos humanos e sua aplicação na atividade policial', link: './ABAS/Questões/Material/Legislação Pertinente aos Direitos Humanos/Direitos humanos e sua aplicação na atividade policial.html' },
+                { nome: 'Tratados e convenções internacionais sobre direitos humanos', link: './ABAS/Questões/Material/Legislação Pertinente aos Direitos Humanos/Tratados e convenções internacionais sobre direitos humanos.html' },
+                { nome: 'Sistema Interamericano de Direitos Humanos', link: './ABAS/Questões/Material/Legislação Pertinente aos Direitos Humanos/Sistema Interamericano de Direitos Humanos.html' },
+                { nome: 'Direitos humanos e segurança pública', link: './ABAS/Questões/Material/Legislação Pertinente aos Direitos Humanos/Direitos humanos e segurança pública.html' },
+                { nome: 'Controle social e cidadania', link: './ABAS/Questões/Material/Legislação Pertinente aos Direitos Humanos/Controle social e cidadania.html' },
+                { nome: 'Mecanismos de proteção e defesa dos direitos humanos', link: './ABAS/Questões/Material/Legislação Pertinente aos Direitos Humanos/Mecanismos de proteção e defesa dos direitos humanos.html' },
+                { nome: 'Educação em direitos humanos para policiais', link: './ABAS/Questões/Material/Legislação Pertinente aos Direitos Humanos/Educação em direitos humanos para policiais.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~5 questões',
+        }];
+
+        // ------------------------------------------------------------
+        // Geração dos cards (ingressos)
+        // ------------------------------------------------------------
+        const cardsGrid = document.getElementById('cardsGrid');
+
+        materias.forEach((materia) => {
+            const ticketHTML = `
+                <div class="ticket-canvas" data-id="${materia.id}">
+                    <div class="ticket-wrapper" onclick="abrirMateria(${materia.id})" title="Clique para acessar ${materia.nomeLinha}">
+                        <div class="ticket">
+                            <div class="t-main">
+                                <div class="t-content">
+                                    <div class="t-header">
+                                        <div class="t-logo">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke-linecap="round"/>
+                                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke-linecap="round"/>
+                                            </svg>
+                                            PM-AL
+                                        </div>
+                                        <div class="t-type">${materia.tipo}</div>
+                                    </div>
+                                    <div class="t-title">${materia.nome.replace('\n', '<br>')}</div>
+                                    <div class="t-subtitle">${materia.subtitulo}</div>
+                                    <div class="t-details">
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Concurso</span>
+                                            <span class="t-value">PM-AL 2026</span>
+                                        </div>
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Data</span>
+                                            <span class="t-value">${materia.data}</span>
+                                        </div>
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Estado</span>
+                                            <span class="t-value">Alagoas</span>
+                                        </div>
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Banca</span>
+                                            <span class="t-value">IDECAN</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="t-perforation">
+                                    <div class="t-perf-line"></div>
+                                </div>
+                            </div>
+                            <div class="t-stub">
+                                <div class="t-barcode-container">
+                                    <div class="t-barcode"></div>
+                                    <div class="t-barcode-id">PMAL-2026-MOD-${String(materia.id).padStart(2, '0')}</div>
+                                </div>
+                                <div class="t-admit">
+                                    <div class="t-admit-text">Módulo</div>
+                                    <div class="t-admit-num">${String(materia.id).padStart(2, '0')}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            cardsGrid.insertAdjacentHTML('beforeend', ticketHTML);
+        });
+
+        // ------------------------------------------------------------
+        // Funções do Modal
+        // ------------------------------------------------------------
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const modalTopics = document.getElementById('modalTopics');
+        const modalInfo = document.getElementById('modalInfo');
+        const modalClose = document.getElementById('modalClose');
+
+        function abrirMateria(id) {
+            const materia = materias.find(m => m.id === id);
+            if (!materia) return;
+
+            modalTitle.textContent = materia.nomeLinha;
+            modalSubtitle.textContent = `${materia.subtitulo} — Polícia Militar de Alagoas 2026`;
+
+            modalTopics.innerHTML = materia.topicos.map(t => `
+                <li>
+                    <button>
+                        <a href="${t.link}">${t.nome}</a>
+                    </button>
+                </li>
+            `).join('');
+
+            modalInfo.innerHTML = `
+                <span class="info-pill">📋 ${materia.questoes}</span>
+                <span class="info-pill">🏛️ ${materia.banca}</span>
+                <span class="info-pill">📅 ${materia.data}</span>
+                <span class="info-pill">📍 Alagoas</span>
+            `;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', fecharModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) fecharModal();
+        });
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                fecharModal();
+            }
+        });
+    </script>
+</body>
+</html>
