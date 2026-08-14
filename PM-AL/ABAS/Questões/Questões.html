@@ -53,7 +53,7 @@
             tipo: 'Módulo 01',
             subtitulo: 'Compreensão e Gramática',
             topicos: [
-                { nome: 'Compreensão e interpretação de textos', link: 'https://88mvcodeup9.github.io/CONCURSO/PM-AL/ABAS/Questões/Material/Português/Interpretação%20e%20compreensão%20de%20textos.html' },
+                { nome: 'Compreensão e interpretação de textos', link: './ABAS/Questões/Material/Português/Interpretação e compreensão de textos.html' },
                 { nome: 'Tipologia textual e gêneros discursivos', link: './ABAS/Questões/Material/Português/Tipologia textual e gêneros discursivos.html' },
                 { nome: 'Ortografia oficial e acentuação gráfica', link: './ABAS/Questões/Material/Português/Ortografia oficial e acentuação gráfica.html' },
                 { nome: 'Classes de palavras e análise morfológica', link: './ABAS/Questões/Material/Português/Classes de palavras e análise morfológica.html' },
@@ -65,26 +65,19 @@
             data: 'Prova 2026',
             banca: 'IDECAN',
             questoes: '~15 questões',
-        }, {
+        }, 
+        {
             id: 2,
             nome: 'Matemática',
             nomeLinha: 'Matemática',
             tipo: 'Módulo 02',
             subtitulo: 'Raciocínio Quantitativo',
-            topicos: [
-                { nome: 'Conjuntos numéricos (naturais, inteiros, racionais, reais)', link: './ABAS/Questões/Material/Matemática/Conjuntos numéricos (naturais, inteiros, racionais, reais).html' },
-                { nome: 'Razões, proporções e regra de três', link: './ABAS/Questões/Material/Matemática/Razões, proporções e regra de três.html' },
-                { nome: 'Porcentagem e juros simples', link: './ABAS/Questões/Material/Matemática/Porcentagem e juros simples.html' },
-                { nome: 'Equações e sistemas do 1º e 2º grau', link: './ABAS/Questões/Material/Matemática/Equações e sistemas do 1º e 2º grau.html' },
-                { nome: 'Geometria plana (áreas, perímetros, Pitágoras)', link: './ABAS/Questões/Material/Matemática/Geometria plana (áreas, perímetros, Pitágoras).html' },
-                { nome: 'Noções de estatística (média, mediana, moda)', link: './ABAS/Questões/Material/Matemática/Noções de estatística (média, mediana, moda).html' },
-                { nome: 'Análise combinatória e probabilidade básica', link: './ABAS/Questões/Material/Matemática/Análise combinatória e probabilidade básica.html' },
-                { nome: 'Sequências numéricas e padrões', link: './ABAS/Questões/Material/Matemática/Sequências numéricas e padrões.html' },
-            ],
+            link: 'https://88mvcode9.github.io/ARQUIVOS/MATERIAL%20DE%20ESTUDOS/matematica/shared/QUEST%C3%95ES.html',
             data: 'Prova 2026',
             banca: 'IDECAN',
             questoes: '~10 questões',
-        }, {
+        },
+        {
             id: 3,
             nome: 'Noções de\nInformática',
             nomeLinha: 'Noções de Informática',
@@ -354,6 +347,13 @@
             const materia = materias.find(m => m.id === id);
             if (!materia) return;
 
+            // Se a matéria tiver um link direto (caso da Matemática), redireciona
+            if (materia.link) {
+                window.location.href = materia.link;
+                return;
+            }
+
+            // Caso contrário, abre o modal normalmente
             modalTitle.textContent = materia.nomeLinha;
             modalSubtitle.textContent = `${materia.subtitulo} — Polícia Militar de Alagoas 2026`;
 
