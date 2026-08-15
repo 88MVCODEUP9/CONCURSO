@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Operadores Sequenciais – Questões de Concursos</title>
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/PM-AL/SIMULADOS.css">
+    <style>
+        /* Estilo para os comentários no gabarito */
+        .comentario-gabarito {
+            font-size: 0.85rem;
+            color: #2d2d2d;
+            background: #f8f9fa;
+            padding: 8px 12px;
+            border-radius: 6px;
+            margin-top: 4px;
+            border-left: 3px solid #2d9d5e;
+            line-height: 1.5;
+        }
+        .comentario-gabarito strong {
+            color: #1a7a3a;
+        }
+        .gabarito-tabela td {
+            vertical-align: top;
+            padding: 8px 6px;
+        }
+        .gabarito-tabela .resp {
+            font-weight: 700;
+            color: #2d9d5e;
+            white-space: nowrap;
+        }
+        .gabarito-tabela .questao-col {
+            font-weight: 600;
+            text-align: center;
+        }
+        /* para questões do tipo Certo/Errado */
+        .alternativas label {
+            display: block;
+            margin: 4px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY MOBILE -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-pencil-alt"></i> Português
+        </div>
+        <button class="menu-item active" data-page="questoes" id="menuQuestoes">
+            <i class="fas fa-list-ul"></i> Questões
+        </button>
+        <button class="menu-item" data-page="gabarito" id="menuGabarito">
+            <i class="fas fa-check-circle"></i> Gabarito
+        </button>
+        <div class="menu-bottom">
+            <div style="color:#484F58; font-size:0.75rem; padding:0.5rem 0;">
+                <i class="fas fa-graduation-cap"></i> 26 questões • IDECAN + outras
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <h1>
+                <i class="fas fa-book-open" style="color:#2d9d5e;"></i>
+                Operadores Sequenciais
+                <small>26 questões</small>
+            </h1>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- PÁGINA QUESTÕES -->
+        <div class="page active" id="pageQuestoes">
+            <div id="questoesContainer"></div>
+        </div>
+
+        <!-- PÁGINA GABARITO -->
+        <div class="page" id="pageGabarito">
+            <h2 style="margin-bottom:1.5rem; font-weight:600; display:flex; align-items:center; gap:10px;">
+                <i class="fas fa-check-double" style="color:#2d9d5e;"></i> Gabarito com Comentários
+            </h2>
+            <div id="gabaritoContainer"></div>
+        </div>
+    </main>
+
+    <script>
+        // ================================================================
+        // 26 QUESTÕES – OPERADORES SEQUENCIAIS (CONECTIVOS)
+        // Prioridade: IDECAN (1 a 15) + outras bancas (16 a 26)
+        // Cada questão possui um campo "comentario" para o gabarito.
+        // ================================================================
+        const questoes = [
+            // ---------- IDECAN (1 a 15) ----------
+            {
+                id: 1,
+                texto: '(IDECAN - PM-MS / Soldado) "As queimadas e os incêndios florestais causam sérios danos ao ecossistema e à saúde humana. Todavia, as ações de prevenção ainda enfrentam resistência na implementação prática em diversas regiões."',
+                pergunta: 'A palavra "Todavia", utilizada para ligar os dois períodos, possui valor semântico:',
+                alternativas: [
+                    'Explicativo.',
+                    'Adversativo.',
+                    'Comparativo.',
+                    'Consecutivo.',
+                    'Aditivo.'
+                ],
+                gabarito: 1, // B
+                comentario: '"Todavia" é uma conjunção coordenativa adversativa, indicando oposição/contraste entre os dois períodos (danos causados x resistência à prevenção).'
+            },
+            {
+                id: 2,
+                texto: '(IDECAN - IF-AM / Adaptada) "A taxa de desmatamento registrou variação no último período. Mas é uma queda relevante."',
+                pergunta: 'No período acima, a conjunção "mas" NÃO pode ser substituída, sob pena de alteração do valor semântico original e da classificação da relação lógica, por:',
+                alternativas: [
+                    'Conquanto.',
+                    'Porém.',
+                    'No entanto.',
+                    'Contudo.',
+                    'Todavia.'
+                ],
+                gabarito: 0, // A
+                comentario: '"Conquanto" é conjunção concessiva (equivale a embora), exigindo verbo no subjuntivo. As demais (porém, no entanto, contudo, todavia) são todas adversativas sinônimas de "mas".'
+            },
+            {
+                id: 3,
+                texto: '(IDECAN - Prefeitura de Feira de Santana - BA) "A BNCC estabelece diretrizes para a Educação Básica em todo o país. Além disso, orienta a formulação dos currículos estaduais e municipais."',
+                pergunta: 'A expressão "Além disso" estabelece a coesão sequencial no texto e poderia ser substituída, sem alteração do sentido original, por:',
+                alternativas: [
+                    'Ademais.',
+                    'Entretanto.',
+                    'Porquanto.',
+                    'Contudo.',
+                    'Por conseguinte.'
+                ],
+                gabarito: 0, // A
+                comentario: '"Além disso" é operador aditivo. "Ademais" tem o mesmo valor de soma de argumentos. Entretanto/Contudo são adversativos; Porquanto é causal/explicativo; Por conseguinte é conclusivo.'
+            },
+            {
+                id: 4,
+                texto: '(IDECAN - CAERN / Adaptada) "De tanto contrariar a primavera, adoeceu, pois, o jardineiro."',
+                pergunta: 'O conectivo destacado ("pois") possui o mesmo valor semântico do conectivo em destaque na seguinte alternativa:',
+                alternativas: [
+                    'O jardineiro adoeceu, entretanto chegou a primavera.',
+                    'O jardineiro adoeceu, todavia chegou a primavera.',
+                    'O jardineiro adoeceu, portanto necessita de cuidados médicos.',
+                    'O jardineiro adoeceu porque trabalhou sob chuva forte.',
+                    'O jardineiro adoeceu embora estivesse muito bem agasalhado.'
+                ],
+                gabarito: 2, // C
+                comentario: 'O "pois" posposto ao verbo e entre vírgulas tem valor conclusivo (equivale a portanto/por conseguinte). A alternativa C traz "portanto" com o mesmo valor. As demais: entretanto/todavia (adversativos), porque (causal), embora (concessivo).'
+            },
+            {
+                id: 5,
+                texto: '(IDECAN - IF Sudeste MG) "A leitura crítica exige tempo e atenção, pois o leitor precisa relacionar o texto aos seus conhecimentos prévios, embora muitas práticas contemporâneas favoreçam o consumo rápido de informações."',
+                pergunta: 'Com base nos mecanismos de articulação sintática e sequencial do fragmento, os operadores "pois" e "embora" introduzem, respectivamente, relações de:',
+                alternativas: [
+                    'Explicação (ou causa) e concessão.',
+                    'Causa e condição.',
+                    'Conclusão e oposição adversativa.',
+                    'Comparação e finalidade.',
+                    'Consequência e proporção.'
+                ],
+                gabarito: 0, // A
+                comentario: '"pois" (antes do verbo) introduz explicação/causa. "embora" introduz concessão (contraste que não impede a principal). Portanto, a alternativa A está correta.'
+            },
+            {
+                id: 6,
+                texto: '(IDECAN - Prefeitura de Mossoró - RN / Adaptada) "Contanto que haja empenho de toda a equipe, os prazos serão cumpridos, mas precisamos manter o foco."',
+                pergunta: 'Os termos destacados ("Contanto que" e "mas") estabelecem, respectivamente, relações de:',
+                alternativas: [
+                    'Condição e oposição.',
+                    'Causa e consequência.',
+                    'Concessão e explicação.',
+                    'Tempo e adição.',
+                    'Dúvida e condição.'
+                ],
+                gabarito: 0, // A
+                comentario: '"Contanto que" é locução conjuntiva condicional (indica condição/requisito). "mas" é conjunção coordenativa adversativa (oposição). Portanto, condição e oposição.'
+            },
+            {
+                id: 7,
+                texto: '(IDECAN - Prefeitura de Mossoró - RN) As conjunções são unidades que têm por objetivo reunir orações em um mesmo enunciado. Diante disso, assinale a alternativa cujo termo em destaque está classificado CORRETAMENTE quanto ao seu valor semântico:',
+                pergunta: '',
+                alternativas: [
+                    '“Ele treinou tanto durante os anos que conquistou o campeonato de natação” — conjunção alternativa.',
+                    '“O velho teme o futuro e se abriga no passado” — conjunção explicativa.',
+                    '“Quando a cólera ou o amor nos visita, a razão se despede” — conjunção aditiva.',
+                    '“Acabou-se o tempo das ressurreições, mas continua o das insurreições” — conjunção adversativa.',
+                    '“Não foram ao mesmo cinema e, portanto, não se poderiam encontrar” — conjunção concessiva.'
+                ],
+                gabarito: 3, // D
+                comentario: '"mas" opõe o fim das ressurreições à continuidade das insurreições → adversativa. Erros: A) "tanto...que" é consecutivo; B) "e" é aditivo; C) "Quando" é temporal; E) "portanto" é conclusivo.'
+            },
+            {
+                id: 8,
+                texto: '(IDECAN - Adaptada / Conceitual Coesão) "A coesão textual, a partir da progressão temática proporcionada pela conjunção demarcada a seguir, é do tipo: \'Logo, como que por encanto, a face do sortudo muda de expressão [...]\'"',
+                pergunta: 'Assinale a alternativa que indica a correta classificação do recurso coesivo empregado pelo conectivo "Logo":',
+                alternativas: [
+                    'Referencial por forma lexical.',
+                    'Referencial elíptica.',
+                    'Sequencial frástica / interfrástica.',
+                    'Referencial pronominal.',
+                    'Sequencial parafrástica.'
+                ],
+                gabarito: 2, // C
+                comentario: '"Logo" é um operador sequencial (conclusivo) que liga orações/parágrafos, promovendo a coesão sequencial frástica/interfrástica. Coesão referencial (A, B, D) trata de retomada de termos por pronomes, sinônimos ou elipse.'
+            },
+            {
+                id: 9,
+                texto: '(IDECAN - PROCON-RJ) "A conjunção \'segundo\', por ser um elemento coesivo de valor conformativo, orienta a posição do enunciador e organiza o texto com intenção argumentativa progressiva..."',
+                pergunta: 'Considerando o valor semântico do operador "segundo", assinale a opção que apresenta um conectivo de idêntica função sintático-semântica:',
+                alternativas: [
+                    'Consoante.',
+                    'Porquanto.',
+                    'Conquanto.',
+                    'Todavia.',
+                    'Posto que.'
+                ],
+                gabarito: 0, // A
+                comentario: '"Segundo" indica conformidade (de acordo com). "Consoante" é seu sinônimo exato. Porquanto (causal), Conquanto/Posto que (concessivos), Todavia (adversativo).'
+            },
+            {
+                id: 10,
+                texto: '(IDECAN - UNILAB) "A utilização desenfreada dos recursos naturais gera impactos irreversíveis ao meio ambiente; portanto, o desenvolvimento sustentável não é uma escolha, mas uma urgência."',
+                pergunta: 'Qual é o valor semântico-argumentativo do operador "portanto" no encadeamento do parágrafo?',
+                alternativas: [
+                    'Conclusão.',
+                    'Oposição.',
+                    'Adição.',
+                    'Causa.',
+                    'Exemplificação.'
+                ],
+                gabarito: 0, // A
+                comentario: '"Portanto" é o protótipo do operador conclusivo, fechando um raciocínio dedutivo e apresentando a consequência lógica do que foi exposto.'
+            },
+            {
+                id: 11,
+                texto: '(IDECAN - SME João Pessoa - PB) "Os investimentos na infraestrutura escolar foram ampliados; por conseguinte, os índices de rendimento dos alunos apresentaram melhoria significativa."',
+                pergunta: 'O operador argumentativo "por conseguinte" atua na coesão sequencial e pode ser substituído, mantendo o sentido original, por:',
+                alternativas: [
+                    'Destarte (ou logo).',
+                    'Contudo.',
+                    'Porquanto.',
+                    'Ainda que.',
+                    'Conquanto.'
+                ],
+                gabarito: 0, // A
+                comentario: '"Por conseguinte" é conclusivo. "Destarte" e "logo" têm o mesmo valor. Contudo (adversativo), Porquanto (causal), Ainda que/Conquanto (concessivos).'
+            },
+            {
+                id: 12,
+                texto: '(IDECAN - IF Sudeste MG) "O gestor convocou uma reunião extraordinária para que todos os setores alinhassem as metas do semestre."',
+                pergunta: 'A locução conjuntiva "para que" exerce papel de operador sequencial com sentido de:',
+                alternativas: [
+                    'Causa.',
+                    'Finalidade.',
+                    'Proporção.',
+                    'Consequência.',
+                    'Condição.'
+                ],
+                gabarito: 1, // B
+                comentario: '"para que" (assim como "a fim de que") indica finalidade/objetivo da ação principal. É uma conjunção subordinativa final.'
+            },
+            {
+                id: 13,
+                texto: '(IDECAN - Polícia Civil SC) "À medida que a urbanização cresce, aumentam as demandas por serviços públicos essenciais."',
+                pergunta: 'O operador sequencial "À medida que" estabelece entre as orações uma relação de:',
+                alternativas: [
+                    'Proporcionalidade.',
+                    'Causalidade.',
+                    'Concessão.',
+                    'Temporalidade pontual.',
+                    'Condicionalidade.'
+                ],
+                gabarito: 0, // A
+                comentario: '"À medida que" indica variação simultânea e proporcional entre dois fatos (quanto mais urbanização, mais demandas). É um operador proporcional.'
+            },
+            {
+                id: 14,
+                texto: '(IDECAN - AGU / Inédita no Estilo da Banca) "A empresa obteve lucros recordes no ano vigente; não apenas expandiu suas filiais pelo país, como também investiu na capacitação de seus colaboradores."',
+                pergunta: 'A estrutura correlativa "não apenas... como também" funciona como operador argumentativo responsável por:',
+                alternativas: [
+                    'opor dois argumentos de pesos diferentes.',
+                    'somar argumentos em favor de uma mesma conclusão.',
+                    'apresentar uma alternativa de escolha para o leitor.',
+                    'introduzir uma hipótese incerta.',
+                    'justificar uma causa anterior.'
+                ],
+                gabarito: 1, // B
+                comentario: 'A estrutura "não apenas... como também" (ou "não só... mas também") tem valor aditivo enfático, somando argumentos que convergem para a mesma conclusão.'
+            },
+            {
+                id: 15,
+                texto: '(IDECAN - UNILAB) "A aprovação do projeto era dada como certa; entretanto, divergências de última hora travaram a votação em plenário."',
+                pergunta: 'O operador sequencial "entretanto" pertence à mesma classe semântica do conectivo destacado em:',
+                alternativas: [
+                    'Estudou muito, portanto passou.',
+                    'Não foi à aula, porque estava doente.',
+                    'Trabalhou o dia todo, no entanto não sentiu cansaço.',
+                    'Caso chova, não haverá jogo.',
+                    'Conforme combinado, enviamos o relatório.'
+                ],
+                gabarito: 2, // C
+                comentario: '"Entretanto" é adversativo. A única alternativa com conectivo adversativo é "no entanto". Portanto (conclusivo), porque (causal), caso (condicional), conforme (conformativo).'
+            },
+
+            // ---------- OUTRAS BANCAS (16 a 26) ----------
+            {
+                id: 16,
+                texto: '(FGV - PGM RJ) As frases a seguir foram redigidas sem um elemento de ligação explícito entre elas. Assinale a opção em que a proposta de conectivo entre colchetes é adequada para restaurar a coesão temporal e lógica do período:',
+                pergunta: '',
+                alternativas: [
+                    'Passou meia hora sem poder entrar em casa; [só então] João pôde abrir a porta.',
+                    'O goleiro estava bem colocado; [enquanto] a bola fez uma volta estranha e entrou no ângulo esquerdo.',
+                    'Era um lugar esplêndido para pernoitar; [mas] havia telefone.',
+                    'A empregada, ao limpar o escritório, remexeu nos meus papéis; [conquanto] não pude encontrar mais nada.',
+                    'Aplique a injeção; [logo] você já é médico.'
+                ],
+                gabarito: 0, // A
+                comentario: '"só então" marca adequadamente a sequência temporal (espera de meia hora → finalmente abrir a porta). As demais geram incoerência: "enquanto" não combina com o resultado, "mas" não se opõe, "conquanto" exige subjuntivo, "logo" não faz sentido nesse contexto.'
+            },
+            {
+                id: 17,
+                texto: '(FGV - Prefeitura de Paulínia - SP / Professor) "A fantasia é um vidro de cor, um óculo brilhante, porém altera a realidade..."',
+                pergunta: 'O conectivo sublinhado ("porém") tem seu valor semântico alterado caso seja substituído por:',
+                alternativas: [
+                    'Contudo.',
+                    'No entanto.',
+                    'Todavia.',
+                    'Entretanto.',
+                    'Porquanto.'
+                ],
+                gabarito: 4, // E
+                comentario: '"Porém" é adversativo. Contudo, no entanto, todavia e entretanto são todos sinônimos adversativos. "Porquanto" é causal/explicativo, alterando completamente o sentido.'
+            },
+            {
+                id: 18,
+                texto: '(CEBRASPE / CESPE - Prefeitura de Porto Velho - RO) "Dadas as relações de sentido que se estabelecem no texto, a coerência e a correção gramatical seriam mantidas caso fosse inserido o conectivo \'Entretanto\', seguido de vírgula, para iniciar uma oração que contrapõe uma ideia anteriormente exposta."',
+                pergunta: 'Essa afirmação é:',
+                alternativas: [
+                    'Certo',
+                    'Errado'
+                ],
+                gabarito: 0, // A (Certo)
+                comentario: '"Entretanto" é um operador adversativo legítimo para introduzir contraponto. Se o texto comporta oposição, o uso é correto, mantendo coerência e gramática.'
+            },
+            {
+                id: 19,
+                texto: '(CEBRASPE / CESPE - Secont-ES) "No trecho: \'A transparência pública reforça o controle social, enquanto o sigilo injustificado fomenta a desconfiança\', o vocábulo \'enquanto\' atua como operador sequencial que estabelece uma relação de simultaneidade com valor de contraste entre duas realidades."',
+                pergunta: 'Essa afirmação é:',
+                alternativas: [
+                    'Certo',
+                    'Errado'
+                ],
+                gabarito: 0, // A (Certo)
+                comentario: '"Enquanto" pode estabelecer simultaneidade (temporal) e, nesse contexto, também assume valor contrastivo, contrapondo "transparência" e "sigilo" como realidades concomitantes.'
+            },
+            {
+                id: 20,
+                texto: '(FCC - TRT 18ª Região) "Conquanto a ciência avance a passos largos no mapeamento genético, a origem exata de certas patologias permanece um enigma."',
+                pergunta: 'O elemento coesivo "Conquanto" pode ser substituído, sem alteração dos sentidos originais e sem prejuízo para a correção gramatical do texto, por:',
+                alternativas: [
+                    'Posto que.',
+                    'Visto que.',
+                    'Porquanto.',
+                    'Uma vez que.',
+                    'À medida que.'
+                ],
+                gabarito: 0, // A
+                comentario: '"Conquanto" é conjunção concessiva. "Posto que" também tem valor concessivo (embora). Visto que, porquanto e uma vez que são causais; "à medida que" é proporcional.'
+            },
+            {
+                id: 21,
+                texto: '(FCC - ARTESP) "O projeto de infraestrutura foi aprovado pela comissão, já que atendia rigorosamente aos critérios ambientais exigidos pela legislação."',
+                pergunta: 'A expressão "já que" atua como operador sequencial de valor:',
+                alternativas: [
+                    'Causal.',
+                    'Consecutivo.',
+                    'Concessivo.',
+                    'Condicional.',
+                    'Final.'
+                ],
+                gabarito: 0, // A
+                comentario: '"já que" (assim como "visto que", "como", "porque") introduz a causa que justifica a aprovação do projeto. É um operador causal.'
+            },
+            {
+                id: 22,
+                texto: '(VUNESP - TJM-SP) "A fiscalização nos aeroportos foi intensificada; de modo que os atrasos nos embarques tornaram-se inevitáveis durante o feriado."',
+                pergunta: 'A locução "de modo que" estabelece no trecho uma relação de coesão sequencial indicativa de:',
+                alternativas: [
+                    'Consequência.',
+                    'Causa.',
+                    'Concessão.',
+                    'Conformidade.',
+                    'Condição.'
+                ],
+                gabarito: 0, // A
+                comentario: '"de modo que" (assim como "de forma que", "de sorte que") indica consequência/resultado direto da causa mencionada anteriormente.'
+            },
+            {
+                id: 23,
+                texto: '(VUNESP - PC-SP) "Como não apresentava a documentação necessária, o requerimento do impetrante foi indeferido."',
+                pergunta: 'O termo "Como", empregado na posição inicial da frase, possui valor semântico equivalente ao da expressão destacada em:',
+                alternativas: [
+                    'Visto que não apresentava a documentação...',
+                    'Conforme exigia a legislação vigente...',
+                    'Agiu como um verdadeiro líder...',
+                    'Assim como os demais candidatos, ele aguardou...',
+                    'Não sabia como resolver o problema...'
+                ],
+                gabarito: 0, // A
+                comentario: '"Como" no início do período tem valor causal (equivale a "visto que", "já que"). As demais opções trazem "como" com valor de conformidade (B), comparação (C, D) ou modo (E).'
+            },
+            {
+                id: 24,
+                texto: '(IBFC - MGS) "Caso haja alteração no cronograma das provas, a comissão publicará um novo edital no portal oficial."',
+                pergunta: 'O operador sequencial "Caso" introduz uma oração subordinada adverbial com sentido de:',
+                alternativas: [
+                    'Condição.',
+                    'Causa.',
+                    'Concessão.',
+                    'Tempo.',
+                    'Proporção.'
+                ],
+                gabarito: 0, // A
+                comentario: '"Caso" (assim como "se", "contanto que") introduz uma oração condicional, indicando uma hipótese/requisito para a realização da principal.'
+            },
+            {
+                id: 25,
+                texto: '(IBFC - EBSERH) "Sem embargo das dificuldades orçamentárias enfrentadas pelo hospital, os atendimentos de emergência não foram suspensos."',
+                pergunta: 'A locução "Sem embargo de" atua como operador sequencial equivalendo semanticamente a:',
+                alternativas: [
+                    'Apesar de.',
+                    'Por causa de.',
+                    'A fim de.',
+                    'Por consequência de.',
+                    'De acordo com.'
+                ],
+                gabarito: 0, // A
+                comentario: '"Sem embargo de" significa "apesar de" / "não obstante", possuindo valor concessivo (indica que algo acontece mesmo diante de um obstáculo).'
+            },
+            {
+                id: 26,
+                texto: '(IDECAN / Inédita - Perfil Concursos Superior) "O relatório técnico apontou falhas graves na estrutura do prédio; outrossim, recomendou a interdição imediata do local."',
+                pergunta: 'O operador argumentativo "outrossim" atua na progressão textual estabelecendo uma relação lógico-semântica de:',
+                alternativas: [
+                    'Adição.',
+                    'Oposição.',
+                    'Conclusão.',
+                    'Causa.',
+                    'Alternância.'
+                ],
+                gabarito: 0, // A
+                comentario: '"Outrossim" significa "além disso", "igualmente" – é um operador aditivo, somando argumentos (apontou falhas E recomendou interdição).'
+            }
+        ];
+
+        // ================================================================
+        // RENDERIZAÇÃO DAS QUESTÕES
+        // ================================================================
+        const letras = ['A', 'B', 'C', 'D', 'E'];
+
+        function renderQuestoes() {
+            const container = document.getElementById('questoesContainer');
+            container.innerHTML = '';
+            questoes.forEach((q, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'questao-wrapper';
+                wrapper.dataset.index = idx;
+
+                // Header
+                const header = document.createElement('div');
+                header.className = 'questao-header';
+                let banca = 'IDECAN';
+                if (q.texto && q.texto.startsWith('(')) {
+                    const end = q.texto.indexOf(')');
+                    if (end > 0) banca = q.texto.substring(1, end);
+                }
+                header.innerHTML = `
+                    <span class="numero">Q${q.id}</span>
+                    <span class="badge">${banca}</span>
+                `;
+                wrapper.appendChild(header);
+
+                // Texto (enunciado)
+                if (q.texto) {
+                    const textoDiv = document.createElement('div');
+                    textoDiv.className = 'questao-texto';
+                    textoDiv.textContent = q.texto;
+                    wrapper.appendChild(textoDiv);
+                }
+
+                // Pergunta (se houver)
+                if (q.pergunta) {
+                    const pergunta = document.createElement('div');
+                    pergunta.className = 'questao-pergunta';
+                    pergunta.textContent = q.pergunta;
+                    wrapper.appendChild(pergunta);
+                }
+
+                // Alternativas
+                const altDiv = document.createElement('div');
+                altDiv.className = 'alternativas';
+                q.alternativas.forEach((alt, i) => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `q${idx}`;
+                    radio.value = i;
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(`${letras[i]}) ${alt}`));
+                    altDiv.appendChild(label);
+                });
+                wrapper.appendChild(altDiv);
+
+                // Actions
+                const actions = document.createElement('div');
+                actions.className = 'questao-actions';
+
+                const btn = document.createElement('button');
+                btn.className = 'btn-verificar';
+                btn.innerHTML = '<i class="fas fa-check"></i> Verificar';
+                btn.addEventListener('click', () => verificarQuestao(idx));
+
+                const feedback = document.createElement('span');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${idx}`;
+
+                const gabDiv = document.createElement('span');
+                gabDiv.className = 'gabarito-revelado';
+                gabDiv.id = `gabarito-revelado-${idx}`;
+
+                actions.appendChild(btn);
+                actions.appendChild(feedback);
+                actions.appendChild(gabDiv);
+                wrapper.appendChild(actions);
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        function verificarQuestao(idx) {
+            const q = questoes[idx];
+            const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+            let selecionado = null;
+            radios.forEach(r => { if (r.checked) selecionado = parseInt(r.value); });
+
+            const feedback = document.getElementById(`feedback-${idx}`);
+            const gabDiv = document.getElementById(`gabarito-revelado-${idx}`);
+
+            if (selecionado === null) {
+                feedback.textContent = '⚠️ Selecione uma alternativa.';
+                feedback.className = 'feedback';
+                feedback.style.color = '#f0a030';
+                gabDiv.textContent = '';
+                return;
+            }
+
+            const correta = q.gabarito;
+            if (selecionado === correta) {
+                feedback.textContent = '✅ Correta!';
+                feedback.className = 'feedback correto';
+                gabDiv.textContent = '';
+            } else {
+                feedback.textContent = '❌ Incorreta.';
+                feedback.className = 'feedback incorreto';
+                gabDiv.textContent = `Resposta correta: ${letras[correta]}`;
+            }
+        }
+
+        // ================================================================
+        // RENDERIZAÇÃO DO GABARITO COM COMENTÁRIOS
+        // ================================================================
+        function renderGabarito() {
+            const container = document.getElementById('gabaritoContainer');
+            let html = `
+                <table class="gabarito-tabela">
+                    <thead><tr><th style="width:50px;">Q</th><th style="width:70px;">Resp.</th><th>Comentário</th></tr></thead>
+                    <tbody>
+            `;
+            questoes.forEach(q => {
+                let resposta = letras[q.gabarito];
+                // Para questões com apenas 2 alternativas (Certo/Errado), usamos A/B
+                if (q.alternativas.length === 2) {
+                    resposta = q.gabarito === 0 ? 'Certo' : 'Errado';
+                }
+                html += `
+                    <tr>
+                        <td class="questao-col">${q.id}</td>
+                        <td class="resp">${resposta}</td>
+                        <td>
+                            <div class="comentario-gabarito">
+                                <strong>Explicação:</strong> ${q.comentario}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        // ================================================================
+        // NAVEGAÇÃO ENTRE ABAS
+        // ================================================================
+        function navegarPara(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page${page.charAt(0).toUpperCase() + page.slice(1)}`).classList.add('active');
+
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            if (page === 'questoes') {
+                document.getElementById('menuQuestoes').classList.add('active');
+            } else {
+                document.getElementById('menuGabarito').classList.add('active');
+            }
+
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('menuQuestoes').addEventListener('click', () => navegarPara('questoes'));
+        document.getElementById('menuGabarito').addEventListener('click', () => navegarPara('gabarito'));
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // ================================================================
+        // INICIALIZAÇÃO
+        // ================================================================
+        renderQuestoes();
+        renderGabarito();
+    </script>
+
+</body>
+</html>
