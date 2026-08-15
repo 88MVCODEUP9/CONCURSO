@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pronomes e Colocação Pronominal – Questões de Concursos</title>
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/GMA/SIMULADOS.css">
+</head>
+<body>
+
+    <!-- OVERLAY MOBILE -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-pencil-alt"></i> Português
+        </div>
+        <button class="menu-item active" data-page="questoes" id="menuQuestoes">
+            <i class="fas fa-list-ul"></i> Questões
+        </button>
+        <button class="menu-item" data-page="gabarito" id="menuGabarito">
+            <i class="fas fa-check-circle"></i> Gabarito
+        </button>
+        <div class="menu-bottom">
+            <div style="color:#484F58; font-size:0.75rem; padding:0.5rem 0;">
+                <i class="fas fa-graduation-cap"></i> 30 questões • IDECAN + outras
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <h1>
+                <i class="fas fa-book-open" style="color:#2d9d5e;"></i>
+                Pronomes e Colocação Pronominal
+                <small>30 questões</small>
+            </h1>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- PÁGINA QUESTÕES -->
+        <div class="page active" id="pageQuestoes">
+            <div id="questoesContainer"></div>
+        </div>
+
+        <!-- PÁGINA GABARITO -->
+        <div class="page" id="pageGabarito">
+            <h2 style="margin-bottom:1.5rem; font-weight:600; display:flex; align-items:center; gap:10px;">
+                <i class="fas fa-check-double" style="color:#2d9d5e;"></i> Gabarito Oficial
+            </h2>
+            <div id="gabaritoContainer"></div>
+        </div>
+    </main>
+
+    <script>
+        // ================================================================
+        // 30 QUESTÕES SOBRE PRONOMES E COLOCAÇÃO PRONOMINAL
+        // Prioridade: IDECAN (questões 1 a 15)
+        // Complemento: FGV, FCC, VUNESP, CEBRASPE, IBFC (questões 16 a 30)
+        // ================================================================
+        const questoes = [
+            // ---------- IDECAN (1 a 15) ----------
+            {
+                id: 1,
+                texto: '(IDECAN - PM-MS) *(Texto adaptado)* "Muitos cidadãos ignoram os seus próprios direitos, o que **os** torna vulneráveis a abusos de autoridade."',
+                pergunta: 'O pronome destacado no trecho desempenha papel de coesão referencial. Sintaticamente e semanticamente, ele retoma o termo:',
+                alternativas: [
+                    'direitos.',
+                    'abusos.',
+                    'Muitos cidadãos.',
+                    'autoridade.',
+                    'vulneráveis.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 2,
+                texto: '(IDECAN - AGU)',
+                pergunta: 'Quanto à colocação pronominal, assinale a alternativa em que a próclise é OBRIGATÓRIA segundo a norma-padrão da língua portuguesa:',
+                alternativas: [
+                    'Ele apresentou-se ao delegado logo cedo.',
+                    'Jamais se viram tantas irregularidades em um só contrato.',
+                    'Os diretores reuniram-se para discutir as metas.',
+                    'Entregar-lhe-ei os documentos amanhã.',
+                    'Trata-se de uma questão de extrema importância.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 3,
+                texto: '(IDECAN - IF-AM) Analise o uso do pronome relativo no período a seguir: "A cidade **onde** nasci passou por grandes transformações urbanas nas últimas décadas."',
+                pergunta: 'Assinale a alternativa em que o pronome relativo "onde" foi empregado de acordo com a norma-padrão:',
+                alternativas: [
+                    'Esta é a reunião onde discutiremos o orçamento.',
+                    'Vivemos uma época onde as redes sociais dominam as relações.',
+                    'O livro onde li essa informação está esgotado nas livrarias.',
+                    'O bairro onde moram meus pais é muito tranquilo.',
+                    'A tese onde o autor defende essa ideia foi premiada.'
+                ],
+                gabarito: 3 // D
+            },
+            {
+                id: 4,
+                texto: '(IDECAN - Prefeitura de Feira de Santana - BA) Considere os pronomes demonstrativos **este**, **esse** e **aquele** no contexto de coesão textual (anáfora e catáfora).',
+                pergunta: 'Assinale a opção CORRETA:',
+                alternativas: [
+                    '"Este" retoma um termo já citado distante no texto; "aquele" retoma o termo citado imediatamente antes.',
+                    '"Esse" é utilizado exclusivamente para anunciar uma informação que ainda será apresentada no texto (valor catafórico).',
+                    '"Este" pode ser usado com valor catafórico para introduzir uma ideia que será explicada a seguir.',
+                    '"Aquele" refere-se sempre ao tempo presente do falante.',
+                    '"Esse" e "este" são intercambiáveis em qualquer contexto sintático sem alteração de sentido ou norma.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 5,
+                texto: '(IDECAN - CAERN)',
+                pergunta: 'Assinale a alternativa em que o pronome oblíquo destacado exerce a função sintática de objeto indireto:',
+                alternativas: [
+                    'O fiscal convocou-o para prestar depoimento.',
+                    'As testemunhas viram-na no local do incidente.',
+                    'O advogado enviou-lhe as cópias do processo.',
+                    'O chefe acompanhou-os até a saída do prédio.',
+                    'A equipe recebeu-as com muito entusiasmo.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 6,
+                texto: '(IDECAN - IF Sudeste MG) No trecho: "Os peritos analisaram os documentos e encaminharam-os ao juiz da causa", o pronome "os" substitui o termo "os documentos".',
+                pergunta: 'Caso o verbo "encaminhar" estivesse no futuro do presente do indicativo na norma culta sem sujeito explícito no início, a forma correta seria:',
+                alternativas: [
+                    'Encaminharão-los ao juiz.',
+                    'Encaminhar-lhe-ão ao juiz.',
+                    'Encaminhá-los-ão ao juiz.',
+                    'Encaminharão-nos ao juiz.',
+                    'Encaminhar-os-ão ao juiz.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 7,
+                texto: '(IDECAN - Prefeitura de Mossoró - RN)',
+                pergunta: 'Em relação ao emprego do pronome relativo "cujo" e suas flexões, assinale a alternativa que atende plenamente à norma-padrão:',
+                alternativas: [
+                    'O cientista cujo o artigo foi publicado recebeu o prêmio.',
+                    'A empresa cujos diretores foram investigados prestou esclarecimentos.',
+                    'O aluno cujo qual trabalho foi aprovado comemorou.',
+                    'A casa cujo a estrutura desabou era antiga.',
+                    'O projeto cujo de seu autor ninguém lembrava foi cancelado.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 8,
+                texto: '(IDECAN - PROCON-RJ)',
+                pergunta: 'Assinale a alternativa em que a colocação pronominal apresenta um DESVIO em relação às regras da norma culta:',
+                alternativas: [
+                    'Não me disseram a verdade sobre o ocorrido.',
+                    'Quem te informou sobre a alteração do cronograma?',
+                    'Me empresta o relatório para que eu possa analisar?',
+                    'Quando se trata de direitos do consumidor, a lei é clara.',
+                    'Espero que nos enviem os comprovantes ainda hoje.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 9,
+                texto: '(IDECAN - UNILAB) *(Texto adaptado)* "A professora dirigiu-se aos alunos e disse: \'Tragam os trabalhos para mim corrigir\'."',
+                pergunta: 'O trecho entre aspas apresenta um erro quanto ao emprego do pronome pessoal. Assinale a opção que corrige o desvio segundo a norma gramatical:',
+                alternativas: [
+                    '...tragam os trabalhos para eu corrigir.',
+                    '...tragam os trabalhos para mim corrigi-los.',
+                    '...tragam os trabalhos para si corrigir.',
+                    '...tragam os trabalhos para ti corrigir.',
+                    '...tragam os trabalhos para comigo corrigir.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 10,
+                texto: '(IDECAN - SME João Pessoa - PB)',
+                pergunta: 'Assinale a alternativa em que a regência do verbo exigiu corretamente a preposição antes do pronome relativo:',
+                alternativas: [
+                    'O filme que assistimos ganhou vários prêmios.',
+                    'O cargo a que ele aspira exige dedicação exclusiva.',
+                    'A lei que ele se referiu foi revogada.',
+                    'O amigo que eu mais confio viajou para o exterior.',
+                    'O tema de que nós gostamos de debater é complexo.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 11,
+                texto: '(IDECAN - Polícia Civil SC)',
+                pergunta: 'Assinale a alternativa que traz a classificação CORRETA do pronome destacado na frase: "Cada servidor deve responsabilizar-se pelo uso de seu crachá."',
+                alternativas: [
+                    'Pronome demonstrativo.',
+                    'Pronome relativo.',
+                    'Pronome indefinido.',
+                    'Pronome pessoal reto.',
+                    'Pronome possessivo.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 12,
+                texto: '(IDECAN - IF-AM) Na frase: "O gestor e o técnico apresentaram propostas; este sugeriu mudanças operacionais, aquele defendeu reajustes orçamentários."',
+                pergunta: 'Os pronomes demonstrativos "este" e "aquele" retomam, respectivamente:',
+                alternativas: [
+                    'o técnico e o gestor.',
+                    'o gestor e o técnico.',
+                    'o gestor e as propostas.',
+                    'o técnico e as propostas.',
+                    'as mudanças operacionais e os reajustes.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 13,
+                texto: '(IDECAN - Prefeitura de Feira de Santana - BA) Considere a frase: "Se me permitirem, apresentarei os dados do relatório."',
+                pergunta: 'A colocação do pronome "me" em relação ao verbo "permitirem" justifica-se por:',
+                alternativas: [
+                    'presença do pronome reto subentendido.',
+                    'presença da conjunção subordinativa "se", que atrai o pronome (próclise).',
+                    'exigência do verbo no futuro do subjuntivo para usar mesóclise.',
+                    'preferência estilística facultativa após vírgula.',
+                    'pontuação que obriga o uso da ênclise.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 14,
+                texto: '(IDECAN - CAERN) Substituindo-se os termos sublinhados pelo pronome oblíquo correspondente, assinale a opção com a redação CORRETA: "O auditor entregou o relatório aos diretores."',
+                pergunta: '',
+                alternativas: [
+                    'O auditor entregou-os a eles.',
+                    'O auditor entregou-lhes o relatório.',
+                    'O auditor entregou-nos o relatório.',
+                    'O auditor entregou-os lhes.',
+                    'O auditor entregou-lhe o relatório.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 15,
+                texto: '(IDECAN - UNILAB)',
+                pergunta: 'Assinale a alternativa em que o pronome "se" atua como partícula apassivadora:',
+                alternativas: [
+                    'Vive-se bem no interior do estado.',
+                    'Vendem-se apartamentos no centro da cidade.',
+                    'O jovem arrependeu-se da decisão tomada.',
+                    'Não se sabe se haverá expediente amanhã.',
+                    'Precisa-se de profissionais qualificados.'
+                ],
+                gabarito: 1 // B
+            },
+
+            // ---------- OUTRAS BANCAS (16 a 30) ----------
+            {
+                id: 16,
+                texto: '(FGV - PGM RJ)',
+                pergunta: 'Assinale a opção em que o pronome relativo em destaque foi empregado em DESACORDO com as exigências de regência da norma-padrão:',
+                alternativas: [
+                    'Os problemas sobre os quais conversamos foram solucionados.',
+                    'O ideal por que lutamos continua vivo em nossas ações.',
+                    'A médica de cuja competência ninguém duvida foi promovida.',
+                    'A cidade que fomos no ano passado passou por reformas.',
+                    'O projeto a que nos dedicamos obteve financiamento.'
+                ],
+                gabarito: 3 // D
+            },
+            {
+                id: 17,
+                texto: '(FGV - MPT) Considere a frase: "O advogado colheu os depoimentos e enviou-os ao juiz."',
+                pergunta: 'Se o verbo "enviar" estivesse no pretérito imperfeito do subjuntivo precedido da conjunção "se", a forma adequada seria:',
+                alternativas: [
+                    'se enviaria-os.',
+                    'se enviasse-os.',
+                    'se os enviasse.',
+                    'se enviar-lhes-ia.',
+                    'se os enviaria.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 18,
+                texto: '(CEBRASPE / CESPE - Secont-ES) *(Julgue o item a seguir em Certo ou Errado)* No trecho: "A transparência pública é um princípio constitucional; ela garante o controle social das ações do Estado", o pronome "ela" exerce função de coesão anafórica ao retomar o núcleo do sujeito "A transparência pública".',
+                pergunta: '',
+                alternativas: [
+                    'CERTO',
+                    'ERRADO'
+                ],
+                gabarito: 0 // CERTO
+            },
+            {
+                id: 19,
+                texto: '(CEBRASPE / CESPE - TRT 8ª Região) *(Julgue o item a seguir em Certo ou Errado)* A frase "Me parece que as diretrizes foram estabelecidas com clareza" atende rigorosamente às prescrições da norma-padrão da língua escrita no que tange à colocação pronominal.',
+                pergunta: '',
+                alternativas: [
+                    'CERTO',
+                    'ERRADO'
+                ],
+                gabarito: 1 // ERRADO
+            },
+            {
+                id: 20,
+                texto: '(FCC - TRT 18ª Região) Substituindo-se as expressões sublinhadas na frase "O juiz concedeu a liminar ao impetrante" pelos pronomes correspondentes, obtém-se corretamente:',
+                pergunta: '',
+                alternativas: [
+                    'O juiz concedeu-a a ele.',
+                    'O juiz concedeu-lhe a liminar.',
+                    'O juiz concedeu-a lhe.',
+                    'O juiz concedeu-a ao mesmo.',
+                    'O juiz concedeu-lhe ela.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 21,
+                texto: '(FCC - ARTESP)',
+                pergunta: 'A frase em que a colocação do pronome oblíquo átono está em DESACORDO com a norma culta é:',
+                alternativas: [
+                    'Embora se tenham feito esforços, o prazo expirou.',
+                    'Dir-se-ia que as negociações avançaram rapidamente.',
+                    'Não informaram-nos sobre o cancelamento do voo.',
+                    'Haviam-nos alertado sobre os riscos da operação.',
+                    'Quem me garantirá que os termos serão cumpridos?'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 22,
+                texto: '(VUNESP - TJM-SP)',
+                pergunta: 'Assinale a alternativa em que a substituição do termo destacado pelo pronome oblíquo correspondente foi feita CORRETAMENTE:',
+                alternativas: [
+                    'O prefeito assinou o decreto. / O prefeito assinou-lhe.',
+                    'A equipe cumpriu as metas. / A equipe cumpriu-as.',
+                    'O conselho notificou os conselheiros. / O conselho notificou-lhes.',
+                    'Ele entregou as chaves ao porteiro. / Ele entregou-as ao porteiro → Ele entregou-nas ao porteiro.',
+                    'O diretor chamou as secretárias. / O diretor chamou-lhes.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 23,
+                texto: '(VUNESP - PC-SP)',
+                pergunta: 'Assinale a frase em que o pronome demonstrativo está empregado de acordo com a norma culta em relação ao tempo/espaço:',
+                alternativas: [
+                    'Este ano em que estamos vivendo tem sido desafiador.',
+                    'Esse ano de 1900 foi marcante para a história do Brasil.',
+                    'O que você tem aí nesta mão, João?',
+                    'Aquele momento presente exige nossa total atenção.',
+                    'Esta semana que passou foi extremamente exaustiva.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 24,
+                texto: '(IBFC - EBSERH) Na oração: "Ninguém respondeu aos questionamentos dos pacientes", o termo em destaque classifica-se gramaticalmente como:',
+                pergunta: '',
+                alternativas: [
+                    'pronome relativo.',
+                    'pronome indefinido.',
+                    'pronome demonstrativo.',
+                    'pronome pessoal oblíquo.',
+                    'pronome de tratamento.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 25,
+                texto: '(IBFC - MGS)',
+                pergunta: 'A palavra que exerce atração sobre o pronome oblíquo, tornando a próclise obrigatória, está destacada na alternativa:',
+                alternativas: [
+                    'Ele não me disse a verdade.',
+                    'O relator se levantou rápido.',
+                    'Os alunos reuniram-se no pátio.',
+                    'Entregar-te-ei o documento amanhã.',
+                    'Fazer-me-ás um favor?'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 26,
+                texto: '(IDECAN - Perfil Concursos Superior)',
+                pergunta: 'Assinale a alternativa em que a palavra "mesmo" atua como pronome demonstrativo reforçador de identidade e varia em gênero e número:',
+                alternativas: [
+                    'Ela mesma assinou os termos do contrato.',
+                    'Elas agiram mesmo com boa intenção.',
+                    'Os diretores disseram que viriam mesmo.',
+                    'A situação permanece mesmo complicada.',
+                    'Eles disseram que mesmo chovendo iriam ao evento.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 27,
+                texto: '(IDECAN - IF Sudeste MG) Em "Qual das propostas atende melhor ao interesse público?", a palavra destacada é classificada como:',
+                pergunta: '',
+                alternativas: [
+                    'Pronome relativo.',
+                    'Pronome interrogativo.',
+                    'Pronome indefinido.',
+                    'Pronome demonstrativo.',
+                    'Adjetivo explicativo.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 28,
+                texto: '(IDECAN - AGU)',
+                pergunta: 'Em caso de locuções verbais compostas por auxiliar + infinitivo, acompanhadas de palavra atrativa (ex.: negação), assinale a construção CORRETA:',
+                alternativas: [
+                    'Não posso ajudar-te. / Não te posso ajudar. (Ambas aceitas pela norma culta).',
+                    'Não posso-te ajudar. (Única aceita).',
+                    'Não posso ajudar-te-ia.',
+                    'Não te ajudar posso.',
+                    'Apenas a próclise ao verbo auxiliar é admitida.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 29,
+                texto: '(IDECAN - UNILAB)',
+                pergunta: 'Assinale a alternativa em que o pronome pessoal oblíquo tónico vem regido INCORRETAMENTE pela preposição segundo a norma culta:',
+                alternativas: [
+                    'Ele guardou o segredo entre mim e ti.',
+                    'Não vá sem mim ao evento.',
+                    'Para mim, o caso está encerrado.',
+                    'Entre eu e você não há pendências.',
+                    'Ele trouxe os documentos até mim.'
+                ],
+                gabarito: 3 // D
+            },
+            {
+                id: 30,
+                texto: '(IDECAN - PM-MS) No período: "A reunião foi cancelada; isso gerou insatisfação entre os servidores", o pronome "isso" desempenha papel de coesão:',
+                pergunta: '',
+                alternativas: [
+                    'anafórica, resumindo o fato anterior integralmente.',
+                    'catafórica, antecipando uma explicação posterior.',
+                    'deíctica espacial, apontando para o interlocutor.',
+                    'comparativa, estabelecendo igualdade.',
+                    'exofórica, referindo-se a um elemento fora do texto.'
+                ],
+                gabarito: 0 // A
+            }
+        ];
+
+        // ================================================================
+        // RENDERIZAÇÃO
+        // ================================================================
+        const letras = ['A', 'B', 'C', 'D', 'E'];
+
+        function renderQuestoes() {
+            const container = document.getElementById('questoesContainer');
+            container.innerHTML = '';
+            questoes.forEach((q, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'questao-wrapper';
+                wrapper.dataset.index = idx;
+
+                // Header
+                const header = document.createElement('div');
+                header.className = 'questao-header';
+                let banca = 'IDECAN';
+                if (q.texto && q.texto.startsWith('(')) {
+                    const end = q.texto.indexOf(')');
+                    if (end > 0) banca = q.texto.substring(1, end);
+                }
+                header.innerHTML = `
+                    <span class="numero">Q${q.id}</span>
+                    <span class="badge">${banca}</span>
+                `;
+                wrapper.appendChild(header);
+
+                // Texto (enunciado)
+                if (q.texto) {
+                    const textoDiv = document.createElement('div');
+                    textoDiv.className = 'questao-texto';
+                    textoDiv.textContent = q.texto;
+                    wrapper.appendChild(textoDiv);
+                }
+
+                // Pergunta (se houver)
+                if (q.pergunta) {
+                    const pergunta = document.createElement('div');
+                    pergunta.className = 'questao-pergunta';
+                    pergunta.textContent = q.pergunta;
+                    wrapper.appendChild(pergunta);
+                }
+
+                // Alternativas
+                const altDiv = document.createElement('div');
+                altDiv.className = 'alternativas';
+                q.alternativas.forEach((alt, i) => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `q${idx}`;
+                    radio.value = i;
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(`${letras[i]}) ${alt}`));
+                    altDiv.appendChild(label);
+                });
+                wrapper.appendChild(altDiv);
+
+                // Actions
+                const actions = document.createElement('div');
+                actions.className = 'questao-actions';
+
+                const btn = document.createElement('button');
+                btn.className = 'btn-verificar';
+                btn.innerHTML = '<i class="fas fa-check"></i> Verificar';
+                btn.addEventListener('click', () => verificarQuestao(idx));
+
+                const feedback = document.createElement('span');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${idx}`;
+
+                const gabDiv = document.createElement('span');
+                gabDiv.className = 'gabarito-revelado';
+                gabDiv.id = `gabarito-revelado-${idx}`;
+
+                actions.appendChild(btn);
+                actions.appendChild(feedback);
+                actions.appendChild(gabDiv);
+                wrapper.appendChild(actions);
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        function verificarQuestao(idx) {
+            const q = questoes[idx];
+            const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+            let selecionado = null;
+            radios.forEach(r => { if (r.checked) selecionado = parseInt(r.value); });
+
+            const feedback = document.getElementById(`feedback-${idx}`);
+            const gabDiv = document.getElementById(`gabarito-revelado-${idx}`);
+
+            if (selecionado === null) {
+                feedback.textContent = '⚠️ Selecione uma alternativa.';
+                feedback.className = 'feedback';
+                feedback.style.color = '#f0a030';
+                gabDiv.textContent = '';
+                return;
+            }
+
+            const correta = q.gabarito;
+            if (selecionado === correta) {
+                feedback.textContent = '✅ Correta!';
+                feedback.className = 'feedback correto';
+                gabDiv.textContent = '';
+            } else {
+                feedback.textContent = '❌ Incorreta.';
+                feedback.className = 'feedback incorreto';
+                gabDiv.textContent = `Resposta correta: ${letras[correta]}`;
+            }
+        }
+
+        function renderGabarito() {
+            const container = document.getElementById('gabaritoContainer');
+            let html = `
+                <table class="gabarito-tabela">
+                    <thead><tr><th>Questão</th><th>Resposta</th></tr></thead>
+                    <tbody>
+            `;
+            questoes.forEach(q => {
+                html += `<tr><td>Q${q.id}</td><td class="resp">${letras[q.gabarito]}</td></tr>`;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        // ================================================================
+        // NAVEGAÇÃO ENTRE ABAS
+        // ================================================================
+        function navegarPara(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page${page.charAt(0).toUpperCase() + page.slice(1)}`).classList.add('active');
+
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            if (page === 'questoes') {
+                document.getElementById('menuQuestoes').classList.add('active');
+            } else {
+                document.getElementById('menuGabarito').classList.add('active');
+            }
+
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('menuQuestoes').addEventListener('click', () => navegarPara('questoes'));
+        document.getElementById('menuGabarito').addEventListener('click', () => navegarPara('gabarito'));
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // ================================================================
+        // INICIALIZAÇÃO
+        // ================================================================
+        renderQuestoes();
+        renderGabarito();
+    </script>
+
+</body>
+</html>
