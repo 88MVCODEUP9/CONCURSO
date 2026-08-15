@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Coesão e Coerência Textual – Questões de Concursos</title>
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/GMA/SIMULADOS.css">
+</head>
+<body>
+
+    <!-- OVERLAY MOBILE -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-pencil-alt"></i> Português
+        </div>
+        <button class="menu-item active" data-page="questoes" id="menuQuestoes">
+            <i class="fas fa-list-ul"></i> Questões
+        </button>
+        <button class="menu-item" data-page="gabarito" id="menuGabarito">
+            <i class="fas fa-check-circle"></i> Gabarito
+        </button>
+        <div class="menu-bottom">
+            <div style="color:#484F58; font-size:0.75rem; padding:0.5rem 0;">
+                <i class="fas fa-graduation-cap"></i> 22 questões • IDECAN + outras
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <h1>
+                <i class="fas fa-book-open" style="color:#2d9d5e;"></i>
+                Coesão e Coerência Textual
+                <small>22 questões</small>
+            </h1>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- PÁGINA QUESTÕES -->
+        <div class="page active" id="pageQuestoes">
+            <div id="questoesContainer"></div>
+        </div>
+
+        <!-- PÁGINA GABARITO -->
+        <div class="page" id="pageGabarito">
+            <h2 style="margin-bottom:1.5rem; font-weight:600; display:flex; align-items:center; gap:10px;">
+                <i class="fas fa-check-double" style="color:#2d9d5e;"></i> Gabarito Oficial
+            </h2>
+            <div id="gabaritoContainer"></div>
+        </div>
+    </main>
+
+    <script>
+        // ================================================================
+        // 22 QUESTÕES SOBRE COESÃO E COERÊNCIA TEXTUAL
+        // Prioridade: IDECAN (questões 1 a 16)
+        // Complemento: FGV, FCC, VUNESP, CEBRASPE, IBFC (questões 17 a 22)
+        // ================================================================
+        const questoes = [
+            // ---------- IDECAN (1 a 16) ----------
+            {
+                id: 1,
+                texto: '(IDECAN - CNEN - Engenheiro Civil - 2014) “A coesão é a manifestação linguística da coerência; advém da maneira como os conceitos e relações subjacentes são expressos na superfície textual. Responsável pela unidade formal do texto, constrói-se através de mecanismos gramaticais e lexicais.”',
+                pergunta: 'Considerando esse aspecto, assinale a alternativa em que o termo destacado atua como elemento de coesão textual indicando a referência a um termo anterior.',
+                alternativas: [
+                    '“... expressos na superfície textual.”',
+                    '“Responsável pela unidade formal do texto...”',
+                    '“... constrói-se através de mecanismos...”',
+                    '“... e relações subjacentes são expressos...”'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 2,
+                texto: '(IDECAN - Prefeitura de Teresina - Assistente Social - 2024) Leia o trecho a seguir: “O progresso tecnológico trouxe inúmeros benefícios para a humanidade. Contudo, seus efeitos colaterais têm gerado preocupações ambientais.”',
+                pergunta: 'O termo “Contudo” estabelece, entre as orações, uma relação de:',
+                alternativas: [
+                    'Adição.',
+                    'Explicação.',
+                    'Concessão/oposição.',
+                    'Conclusão.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 3,
+                texto: '(IDECAN - IF-PB - Assistente em Administração - 2019) Com base nas relações de coesão textual, pode-se afirmar que, no trecho a seguir, o termo destacado exerce função anafórica. “O menino segurou no meu braço, falou qualquer coisa que não entendi. Fui logo dizendo que não tinha. Certa de que ele estava pedindo dinheiro.”',
+                pergunta: 'O termo “ele” refere-se a:',
+                alternativas: [
+                    '“meu braço”.',
+                    '“qualquer coisa”.',
+                    '“O menino”.',
+                    '“dinheiro”.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 4,
+                texto: '(IDECAN - PC-SC - Escrivão de Polícia Civil - 2026) “A coesão textual, a partir da progressão temática proporcionada pela conjunção demarcada, garante a fluidez da leitura.”',
+                pergunta: 'Assinale a alternativa em que a conjunção destacada NÃO estabelece a relação indicada entre parênteses.',
+                alternativas: [
+                    '"Quanto mais idade temos, mais cresce o desejo de recolhimento..." (Temporalidade)',
+                    '"Como os homens falam e agem, falar e agir estão sempre associados..." (Conformidade)',
+                    '"Heidegger dizia que construímos não só nossa humanidade, mas também nossa singularidade..." (Adição)',
+                    '"... se palavras e atos estiverem divorciados, as palavras tornam-se vazias..." (Concessão)'
+                ],
+                gabarito: 3 // D
+            },
+            {
+                id: 5,
+                texto: '(IDECAN - UNIVASF - 2024) Leia o trecho: “A pesquisa científica é fundamental para o avanço da sociedade. Ela permite a descoberta de novos conhecimentos e a solução de problemas complexos.”',
+                pergunta: 'O pronome “Ela” foi utilizado para garantir a coesão textual por meio de:',
+                alternativas: [
+                    'Catáfora.',
+                    'Anáfora.',
+                    'Elipse.',
+                    'Dêixis.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 6,
+                texto: '(IDECAN - IF-RR - Professor - 2024) No trecho “A gosma escorria pelas paredes, e o cheiro era insuportável”, a expressão “a gosma” é retomada por qual mecanismo de coesão?',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Coesão por elipse.',
+                    'Anáfora pronominal.',
+                    'Anáfora encapsuladora.',
+                    'Coesão lexical por repetição.'
+                ],
+                gabarito: 2 // C
+            },
+            {
+                id: 7,
+                texto: '(IDECAN - UERN - Psicólogo - 2016) “Para que as ideias se articulem em um todo significativo, é necessário que a coesão textual se faça presente por meio de alguns recursos.”',
+                pergunta: 'Acerca dos conectivos que funcionam como elos coesivos, assinale o trecho em que, diferentemente dos demais, NÃO há ocorrência da estratégia de coesão referencial.',
+                alternativas: [
+                    '"O livro que li era muito interessante."',
+                    '"Maria chegou atrasada. Ela perdeu o ônibus."',
+                    '"Comprei flores e as entreguei para minha mãe."',
+                    '"Estudou muito; portanto, passou no concurso."'
+                ],
+                gabarito: 3 // D
+            },
+            {
+                id: 8,
+                texto: '(IDECAN - Prefeitura de Duque de Caxias - Enfermeiro - 2014) “Para estabelecer a coesão textual adequada utiliza-se, muitas vezes, pronomes relativos que retomam elementos referidos anteriormente.”',
+                pergunta: 'Em: “A esperança são os ‘antibióticos virais’, que já estão em testes – e são feitos de vírus que matam bactérias.”, o termo destacado “que” tem como referente:',
+                alternativas: [
+                    '“A esperança”.',
+                    '“antibióticos virais”.',
+                    '“testes”.',
+                    '“bactérias”.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 9,
+                texto: '(IDECAN - Ministério da Saúde - Administrador - 2017) “( ) A substituição do pronome, elemento de coesão textual, “o” por “lhe” em “[...] o esquema a tempo de interrompê-lo.” (5º§) não é facultativa considerando-se a manutenção da correção gramatical decorrente da mesma.”',
+                pergunta: 'A afirmação entre parênteses é:',
+                alternativas: [
+                    'Verdadeira, pois a troca de “o” por “lhe” mantém a correção gramatical.',
+                    'Falsa, pois a troca de “o” por “lhe” altera o sentido do texto.',
+                    'Verdadeira, pois “o” e “lhe” são pronomes intercambiáveis.',
+                    'Falsa, pois a troca de “o” por “lhe” prejudica a coesão referencial.'
+                ],
+                gabarito: 3 // D
+            },
+            {
+                id: 10,
+                texto: '(IDECAN - Prefeitura de Camboriú - 2026) “O conectivo promove uma coesão que organiza as ideias do texto, garantindo a progressão temática.”',
+                pergunta: 'Assinale a alternativa em que o conectivo destacado estabelece uma relação de causa:',
+                alternativas: [
+                    '"Ele estudou muito, portanto foi aprovado."',
+                    '"Ele foi aprovado porque estudou muito."',
+                    '"Ele estudou muito, mas não foi aprovado."',
+                    '"Ele estudou muito, ou seja, dedicou-se bastante."'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 11,
+                texto: '(IDECAN - AGU - Técnico em Comunicação Social) “Um pai deu a seu filho mais velho 1/5 das balinhas que possuía e chupou 3. Ao filho mais novo deu 1/3 das balinhas que restaram.”',
+                pergunta: 'No trecho, a coesão sequencial é garantida principalmente pelo uso de:',
+                alternativas: [
+                    'Pronomes relativos.',
+                    'Conjunções adversativas.',
+                    'Advérbios de tempo.',
+                    'Conectores de sequência lógica.'
+                ],
+                gabarito: 3 // D
+            },
+            {
+                id: 12,
+                texto: '(IDECAN - PM-CE - Soldado) “Verifica-se a elipse de um substantivo (ou seja, a supressão de um substantivo que pode ser facilmente subentendido pelo contexto linguístico) no seguinte trecho:”',
+                pergunta: 'Em qual das alternativas há ocorrência de elipse?',
+                alternativas: [
+                    '"Maria comprou flores e as entregou para João."',
+                    '"Pedro estudou bastante; João, nem tanto."',
+                    '"O carro que eu comprei é muito rápido."',
+                    '"Ele saiu e não voltou mais."'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 13,
+                texto: '(IDECAN - IF-RR - Assistente Administrativo - 2020) “A elipse é um recurso coesivo que omite um termo facilmente recuperável pelo contexto.”',
+                pergunta: 'Assinale a alternativa em que a omissão do termo NÃO caracteriza elipse:',
+                alternativas: [
+                    '"João foi ao mercado e Maria, à padaria."',
+                    '"Ele comprou o presente e o entregou."',
+                    '"Gosto de música clássica; ela, de rock."',
+                    '"O cachorro latiu; o gato, miou."'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 14,
+                texto: '(IDECAN - ALEPI - Analista Legislativo - 2024) “No trecho ‘O jovem que me atendeu foi muito cortês’, o pronome relativo ‘que’ exerce função coesiva ao:”',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Retomar “jovem” e introduzir uma oração subordinada.',
+                    'Substituir o termo “atendeu” por uma conjunção.',
+                    'Indicar uma relação de posse.',
+                    'Estabelecer uma comparação implícita.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 15,
+                texto: '(IDECAN - Prefeitura de Araguaína - Guarda Municipal) “Leia o trecho: ‘A tecnologia avançou rapidamente. Ela transformou a forma como nos comunicamos.’”',
+                pergunta: 'O termo “Ela” é um elemento de coesão referencial do tipo:',
+                alternativas: [
+                    'Anafórico.',
+                    'Catafórico.',
+                    'Dêitico.',
+                    'Elíptico.'
+                ],
+                gabarito: 0 // A
+            },
+            {
+                id: 16,
+                texto: '(IDECAN - PC-CE - Inspetor) “A coesão textual é garantida por diversos mecanismos, como a substituição lexical, a elipse e o uso de conectores.”',
+                pergunta: 'Assinale a alternativa em que o elemento coesivo NÃO está corretamente classificado:',
+                alternativas: [
+                    '"Ele chegou tarde; por isso, perdeu o início do filme." (Conclusão)',
+                    '"Estudou muito, embora estivesse cansado." (Concessão)',
+                    '"Não só estudou, mas também trabalhou." (Adição)',
+                    '"Saiu cedo, logo não encontrou ninguém." (Explicação)'
+                ],
+                gabarito: 3 // D
+            },
+
+            // ---------- OUTRAS BANCAS (17 a 22) ----------
+            {
+                id: 17,
+                texto: '(FGV - IBGE - Agente de Pesquisas) “O texto apresenta uma progressão temática coerente, garantida pelo uso adequado de conectores.”',
+                pergunta: 'Assinale a alternativa em que o conector estabelece uma relação de oposição:',
+                alternativas: [
+                    '"Ele foi ao mercado, pois precisava de alimentos."',
+                    '"Ele foi ao mercado, mas não encontrou o que procurava."',
+                    '"Ele foi ao mercado, portanto comprou frutas."',
+                    '"Ele foi ao mercado, logo voltou rapidamente."'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 18,
+                texto: '(FCC - TJ-SP - Escrevente Técnico Judiciário) “A coerência textual é a propriedade que garante que o texto faça sentido para o leitor.”',
+                pergunta: 'Assinale a alternativa que apresenta um problema de coerência textual:',
+                alternativas: [
+                    '"O sol nasce todas as manhãs."',
+                    '"O dia amanheceu chuvoso, mas fui à praia."',
+                    '"O cachorro latiu e o gato miou."',
+                    '"O Brasil é um país tropical; portanto, faz frio no inverno."'
+                ],
+                gabarito: 3 // D
+            },
+            {
+                id: 19,
+                texto: '(VUNESP - TJ-SP - Escrevente Técnico Judiciário) “A coesão referencial ocorre quando um termo remete a outro no texto.”',
+                pergunta: 'No trecho “O livro é interessante. Ele foi escrito por um autor famoso.”, o pronome “Ele” exerce função:',
+                alternativas: [
+                    'Catafórica.',
+                    'Anafórica.',
+                    'Dêitica.',
+                    'Elíptica.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 20,
+                texto: '(CEBRASPE - Polícia Federal - Agente) “A coesão textual é responsável pela conexão entre as partes do texto.”',
+                pergunta: 'Em “O aluno estudou bastante, mas não foi aprovado”, a conjunção “mas” estabelece uma relação de:',
+                alternativas: [
+                    'Adição.',
+                    'Oposição.',
+                    'Conclusão.',
+                    'Explicação.'
+                ],
+                gabarito: 1 // B
+            },
+            {
+                id: 21,
+                texto: '(IBFC - MGS - Agente de Campo) “A coerência textual está relacionada à lógica interna do texto.”',
+                pergunta: 'Assinale a alternativa em que há incoerência textual:',
+                alternativas: [
+                    '"Ele acordou cedo e foi trabalhar."',
+                    '"Ele acordou cedo, mas estava chovendo."',
+                    '"Ele acordou cedo, porém foi trabalhar."',
+                    '"Ele acordou cedo, portanto foi trabalhar de madrugada."'
+                ],
+                gabarito: 3 // D
+            },
+            {
+                id: 22,
+                texto: '(FGV - MPE-RJ - Técnico do Ministério Público) “A coesão textual pode ser estabelecida por meio de diferentes recursos.”',
+                pergunta: 'No trecho “Comprei um carro novo. Ele é muito econômico.”, o pronome “Ele” é um exemplo de:',
+                alternativas: [
+                    'Coesão sequencial.',
+                    'Coesão referencial anafórica.',
+                    'Coesão referencial catafórica.',
+                    'Coesão por elipse.'
+                ],
+                gabarito: 1 // B
+            }
+        ];
+
+        // ================================================================
+        // RENDERIZAÇÃO
+        // ================================================================
+        const letras = ['A', 'B', 'C', 'D', 'E'];
+
+        function renderQuestoes() {
+            const container = document.getElementById('questoesContainer');
+            container.innerHTML = '';
+            questoes.forEach((q, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'questao-wrapper';
+                wrapper.dataset.index = idx;
+
+                // Header
+                const header = document.createElement('div');
+                header.className = 'questao-header';
+                let banca = 'IDECAN';
+                if (q.texto && q.texto.startsWith('(')) {
+                    const end = q.texto.indexOf(')');
+                    if (end > 0) banca = q.texto.substring(1, end);
+                }
+                header.innerHTML = `
+                    <span class="numero">Q${q.id}</span>
+                    <span class="badge">${banca}</span>
+                `;
+                wrapper.appendChild(header);
+
+                // Texto (enunciado)
+                if (q.texto) {
+                    const textoDiv = document.createElement('div');
+                    textoDiv.className = 'questao-texto';
+                    textoDiv.textContent = q.texto;
+                    wrapper.appendChild(textoDiv);
+                }
+
+                // Pergunta (se houver)
+                if (q.pergunta) {
+                    const pergunta = document.createElement('div');
+                    pergunta.className = 'questao-pergunta';
+                    pergunta.textContent = q.pergunta;
+                    wrapper.appendChild(pergunta);
+                }
+
+                // Alternativas
+                const altDiv = document.createElement('div');
+                altDiv.className = 'alternativas';
+                q.alternativas.forEach((alt, i) => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `q${idx}`;
+                    radio.value = i;
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(`${letras[i]}) ${alt}`));
+                    altDiv.appendChild(label);
+                });
+                wrapper.appendChild(altDiv);
+
+                // Actions
+                const actions = document.createElement('div');
+                actions.className = 'questao-actions';
+
+                const btn = document.createElement('button');
+                btn.className = 'btn-verificar';
+                btn.innerHTML = '<i class="fas fa-check"></i> Verificar';
+                btn.addEventListener('click', () => verificarQuestao(idx));
+
+                const feedback = document.createElement('span');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${idx}`;
+
+                const gabDiv = document.createElement('span');
+                gabDiv.className = 'gabarito-revelado';
+                gabDiv.id = `gabarito-revelado-${idx}`;
+
+                actions.appendChild(btn);
+                actions.appendChild(feedback);
+                actions.appendChild(gabDiv);
+                wrapper.appendChild(actions);
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        function verificarQuestao(idx) {
+            const q = questoes[idx];
+            const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+            let selecionado = null;
+            radios.forEach(r => { if (r.checked) selecionado = parseInt(r.value); });
+
+            const feedback = document.getElementById(`feedback-${idx}`);
+            const gabDiv = document.getElementById(`gabarito-revelado-${idx}`);
+
+            if (selecionado === null) {
+                feedback.textContent = '⚠️ Selecione uma alternativa.';
+                feedback.className = 'feedback';
+                feedback.style.color = '#f0a030';
+                gabDiv.textContent = '';
+                return;
+            }
+
+            const correta = q.gabarito;
+            if (selecionado === correta) {
+                feedback.textContent = '✅ Correta!';
+                feedback.className = 'feedback correto';
+                gabDiv.textContent = '';
+            } else {
+                feedback.textContent = '❌ Incorreta.';
+                feedback.className = 'feedback incorreto';
+                gabDiv.textContent = `Resposta correta: ${letras[correta]}`;
+            }
+        }
+
+        function renderGabarito() {
+            const container = document.getElementById('gabaritoContainer');
+            let html = `
+                <table class="gabarito-tabela">
+                    <thead><tr><th>Questão</th><th>Resposta</th></tr></thead>
+                    <tbody>
+            `;
+            questoes.forEach(q => {
+                html += `<tr><td>Q${q.id}</td><td class="resp">${letras[q.gabarito]}</td></tr>`;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        // ================================================================
+        // NAVEGAÇÃO ENTRE ABAS
+        // ================================================================
+        function navegarPara(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page${page.charAt(0).toUpperCase() + page.slice(1)}`).classList.add('active');
+
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            if (page === 'questoes') {
+                document.getElementById('menuQuestoes').classList.add('active');
+            } else {
+                document.getElementById('menuGabarito').classList.add('active');
+            }
+
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('menuQuestoes').addEventListener('click', () => navegarPara('questoes'));
+        document.getElementById('menuGabarito').addEventListener('click', () => navegarPara('gabarito'));
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // ================================================================
+        // INICIALIZAÇÃO
+        // ================================================================
+        renderQuestoes();
+        renderGabarito();
+    </script>
+
+</body>
+</html>
