@@ -7,6 +7,87 @@
     <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
     <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/GMA/SIMULADOS.css">
+    <style>
+        /* Estilos para comentários */
+        .comentario {
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: #2a2a2b;
+            border-left: 4px solid #0400ff;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #1e2a3a;
+            display: none;
+        }
+        .comentario.visivel {
+            display: block;
+        }
+        .comentario strong {
+            color: #0400ff;
+        }
+        .questao-actions {
+            flex-wrap: wrap;
+            gap: 6px 12px;
+        }
+        .gabarito-revelado {
+            font-weight: 500;
+            color: #c0392b;
+        }
+        .feedback.correto {
+            color: #0400ff;
+        }
+        .feedback.incorreto {
+            color: #c0392b;
+        }
+        /* Estilos para a tabela de gabarito com comentários */
+        .gabarito-tabela {
+            width: 100%;
+            border-collapse: collapse;
+            background: rgb(31, 31, 31);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+        .gabarito-tabela th {
+            background: #f0f4f9;
+            color: #1e2a3a;
+            font-weight: 600;
+            padding: 12px 16px;
+            text-align: left;
+        }
+        .gabarito-tabela td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #e9edf2;
+            vertical-align: top;
+        }
+        .gabarito-tabela tr:last-child td {
+            border-bottom: none;
+        }
+        .gabarito-tabela .resp {
+            font-weight: 600;
+            color: #1a7a3a;
+            text-align: center;
+        }
+        .gabarito-tabela .comentario-gabarito {
+            font-size: 0.85rem;
+            color: #eaeaea;
+            background: #03005a;
+            padding: 8px 12px;
+            border-radius: 6px;
+            border-left: 3px solid #2d9d5e;
+            margin-top: 4px;
+        }
+        .gabarito-tabela .comentario-gabarito strong {
+            color: #0b5e3a;
+        }
+        @media (max-width: 768px) {
+            .gabarito-tabela td, .gabarito-tabela th {
+                padding: 8px 10px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body>
 
@@ -53,7 +134,7 @@
         <!-- PÁGINA GABARITO -->
         <div class="page" id="pageGabarito">
             <h2 style="margin-bottom:1.5rem; font-weight:600; display:flex; align-items:center; gap:10px;">
-                <i class="fas fa-check-double" style="color:#2d9d5e;"></i> Gabarito Oficial
+                <i class="fas fa-check-double" style="color:#2d9d5e;"></i> Gabarito Oficial com Comentários
             </h2>
             <div id="gabaritoContainer"></div>
         </div>
@@ -62,8 +143,6 @@
     <script>
         // ================================================================
         // 30 QUESTÕES – ARTICULAÇÃO DO TEXTO
-        // PRONOMES, EXPRESSÕES REFERENCIAIS, NEXOS E OPERADORES SEQUENCIAIS
-        // Prioridade: IDECAN (17 questões) + outras bancas (13 questões)
         // ================================================================
         const questoes = [
             // ---------- IDECAN (1 a 17) ----------
@@ -77,7 +156,8 @@
                     '“Comprei flores e as entreguei para minha mãe.”',
                     '“Estudou muito; portanto, passou no concurso.”'
                 ],
-                gabarito: 3 // D
+                gabarito: 3,
+                comentario: 'As alternativas A, B e C apresentam coesão referencial (pronomes/substantivos retomando elementos anteriores). Já a alternativa D usa o conectivo "portanto" (conjunção conclusiva), que estabelece coesão sequencial, não referencial. Portanto, é a única que foge à estratégia de coesão referencial.'
             },
             {
                 id: 2,
@@ -89,7 +169,8 @@
                     'Concessão/oposição.',
                     'Conclusão.'
                 ],
-                gabarito: 2 // C
+                gabarito: 2,
+                comentario: '"Contudo" é uma conjunção adversativa, indicando oposição ou concessão. No trecho, contrapõe os benefícios do progresso tecnológico aos seus efeitos colaterais. Portanto, relação de concessão/oposição.'
             },
             {
                 id: 3,
@@ -101,7 +182,8 @@
                     '“O menino”.',
                     '“dinheiro”.'
                 ],
-                gabarito: 2 // C
+                gabarito: 2,
+                comentario: 'O pronome "ele" é anafórico e retoma o termo anterior "O menino" (sujeito da primeira oração). As demais opções são referentes incorretos.'
             },
             {
                 id: 4,
@@ -113,7 +195,8 @@
                     '“Heidegger dizia que construímos não só nossa humanidade, mas também nossa singularidade...” (Adição)',
                     '“... se palavras e atos estiverem divorciados, as palavras tornam-se vazias...” (Concessão)'
                 ],
-                gabarito: 3 // D
+                gabarito: 3,
+                comentario: 'A alternativa D apresenta "se" com valor condicional (“se palavras e atos estiverem divorciados…”), mas a relação indicada entre parênteses é "Concessão". Logo, não estabelece a relação indicada. As demais opções trazem a relação correta: temporalidade, conformidade e adição.'
             },
             {
                 id: 5,
@@ -125,7 +208,8 @@
                     'Elipse.',
                     'Dêixis.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: 'O pronome "Ela" retoma "A pesquisa científica" (termo anterior), caracterizando uma anáfora (coesão referencial anafórica).'
             },
             {
                 id: 6,
@@ -137,7 +221,8 @@
                     'Anáfora encapsuladora.',
                     'Coesão lexical por repetição.'
                 ],
-                gabarito: 2 // C
+                gabarito: 2,
+                comentario: 'A expressão "a gosma" é retomada no segundo período por "o cheiro", que encapsula a ideia anterior (a gosma tinha cheiro). Trata-se de uma anáfora encapsuladora (ou resumitiva), pois um termo novo resume todo o conteúdo anterior.'
             },
             {
                 id: 7,
@@ -149,7 +234,8 @@
                     '“testes”.',
                     '“bactérias”.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: 'O pronome relativo "que" (primeiro) retoma "antibióticos virais". O segundo "que" retoma "vírus", mas a pergunta refere-se ao primeiro "que" – portanto, referente é "antibióticos virais".'
             },
             {
                 id: 8,
@@ -161,7 +247,8 @@
                     'Verdadeira, pois “o” e “lhe” são pronomes intercambiáveis.',
                     'Falsa, pois a troca de “o” por “lhe” prejudica a coesão referencial.'
                 ],
-                gabarito: 3 // D
+                gabarito: 3,
+                comentario: 'A afirmação é falsa, pois a troca de "o" (objeto direto) por "lhe" (objeto indireto) altera a regência e prejudica a coesão referencial, além de tornar a frase gramaticalmente incorreta. Portanto, a substituição não mantém a correção.'
             },
             {
                 id: 9,
@@ -173,7 +260,8 @@
                     '“Ele estudou muito, mas não foi aprovado.”',
                     '“Ele estudou muito, ou seja, dedicou-se bastante.”'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: '"Porque" é uma conjunção causal. A alternativa B explicita a causa da aprovação: estudou muito. As demais expressam conclusão ("portanto"), oposição ("mas") ou explicação/retificação ("ou seja").'
             },
             {
                 id: 10,
@@ -185,7 +273,8 @@
                     'Advérbios de tempo.',
                     'Conectores de sequência lógica.'
                 ],
-                gabarito: 3 // D
+                gabarito: 3,
+                comentario: 'O texto descreve uma sequência de ações (dar ao filho mais velho, chupar 3, dar ao mais novo). A coesão se dá por conectores de sequência lógica (implícitos), como a ordem cronológica dos fatos.'
             },
             {
                 id: 11,
@@ -197,7 +286,8 @@
                     '“O carro que eu comprei é muito rápido.”',
                     '“Ele saiu e não voltou mais.”'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: 'Na frase "Pedro estudou bastante; João, nem tanto.", ocorre elipse do verbo "estudou" (subentendido). As demais opções não apresentam omissão de termo recuperável pelo contexto.'
             },
             {
                 id: 12,
@@ -209,7 +299,8 @@
                     '“Gosto de música clássica; ela, de rock.”',
                     '“O cachorro latiu; o gato, miou.”'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: 'Em "Ele comprou o presente e o entregou", o pronome "o" retoma "presente" – não há elipse. As demais opções apresentam elipse do verbo (em A, C e D) – por exemplo, em A omite-se "foi" após "Maria".'
             },
             {
                 id: 13,
@@ -221,7 +312,8 @@
                     'Indicar uma relação de posse.',
                     'Estabelecer uma comparação implícita.'
                 ],
-                gabarito: 0 // A
+                gabarito: 0,
+                comentario: 'O pronome relativo "que" retoma "jovem" e introduz uma oração subordinada adjetiva restritiva. Exerce função coesiva ao conectar a oração ao antecedente.'
             },
             {
                 id: 14,
@@ -233,7 +325,8 @@
                     'Dêitico.',
                     'Elíptico.'
                 ],
-                gabarito: 0 // A
+                gabarito: 0,
+                comentario: '"Ela" retoma "A tecnologia" (termo anterior), sendo um elemento anafórico de coesão referencial.'
             },
             {
                 id: 15,
@@ -245,7 +338,8 @@
                     '“Não só estudou, mas também trabalhou.” (Adição)',
                     '“Saiu cedo, logo não encontrou ninguém.” (Explicação)'
                 ],
-                gabarito: 3 // D
+                gabarito: 3,
+                comentario: 'Na alternativa D, "logo" indica conclusão, não explicação. Portanto, a classificação está incorreta. As demais opções trazem classificações corretas: conclusão, concessão e adição.'
             },
             {
                 id: 16,
@@ -257,7 +351,8 @@
                     'Conclusão.',
                     'Condição.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: '"No entanto" é conjunção adversativa, que expressa oposição (contrapõe a dificuldade da prova ao bom desempenho dos candidatos).'
             },
             {
                 id: 17,
@@ -269,7 +364,8 @@
                     'Concessão.',
                     'Finalidade.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: '"Caso" introduz uma oração condicional (equivale a "se"). Portanto, relação de condição.'
             },
 
             // ---------- OUTRAS BANCAS (18 a 30) ----------
@@ -283,7 +379,8 @@
                     '“Ele foi ao mercado, portanto comprou frutas.”',
                     '“Ele foi ao mercado, logo voltou rapidamente.”'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: '"Mas" é conjunção adversativa, indicando oposição entre ir ao mercado e não encontrar o que procurava.'
             },
             {
                 id: 19,
@@ -295,7 +392,8 @@
                     '“O cachorro latiu e o gato miou.”',
                     '“O Brasil é um país tropical; portanto, faz frio no inverno.”'
                 ],
-                gabarito: 3 // D
+                gabarito: 3,
+                comentario: 'A alternativa D apresenta incoerência lógica: ser tropical não implica fazer frio no inverno (embora em algumas regiões faça, a relação causal não é adequada). As demais são coerentes.'
             },
             {
                 id: 20,
@@ -307,7 +405,8 @@
                     'Dêitica.',
                     'Elíptica.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: '"Ele" retoma "O livro" (termo anterior), sendo um pronome anafórico.'
             },
             {
                 id: 21,
@@ -319,7 +418,8 @@
                     'Conclusão.',
                     'Explicação.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: '"Mas" é conjunção adversativa, indicando oposição entre estudar bastante e não ser aprovado.'
             },
             {
                 id: 22,
@@ -331,7 +431,8 @@
                     '“Ele acordou cedo, porém foi trabalhar.”',
                     '“Ele acordou cedo, portanto foi trabalhar de madrugada.”'
                 ],
-                gabarito: 3 // D
+                gabarito: 3,
+                comentario: 'A alternativa D é incoerente: acordar cedo (de manhã) e ir trabalhar de madrugada (antes do amanhecer) não se coadunam temporalmente. As demais são coerentes.'
             },
             {
                 id: 23,
@@ -343,7 +444,8 @@
                     'Coesão referencial catafórica.',
                     'Coesão por elipse.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: '"Ele" retoma "carro novo" (termo anterior), caracterizando coesão referencial anafórica.'
             },
             {
                 id: 24,
@@ -355,7 +457,8 @@
                     'Sinônimo.',
                     'Antônimo.'
                 ],
-                gabarito: 2 // C
+                gabarito: 2,
+                comentario: '"Chefe do Executivo" é um sinônimo de "governante" (ambos se referem à mesma pessoa). Portanto, trata-se de coesão lexical por sinonímia.'
             },
             {
                 id: 25,
@@ -367,7 +470,8 @@
                     '“nossa maior preocupação”.',
                     '“base”.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: 'O pronome demonstrativo "Essa" retoma "A educação" (ideia anterior), funcionando como anáfora.'
             },
             {
                 id: 26,
@@ -379,7 +483,8 @@
                     'Condição.',
                     'Finalidade.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: '"Embora" é conjunção concessiva, indicando concessão (uma adversidade que não impede a ação principal).'
             },
             {
                 id: 27,
@@ -391,7 +496,8 @@
                     'Da preposição “de”.',
                     'Do sujeito “João”.'
                 ],
-                gabarito: 0 // A
+                gabarito: 0,
+                comentario: 'Em "Maria gosta de café; João, de chá.", ocorre elipse do verbo "gosta" na segunda oração (subentende-se "João gosta de chá"). Portanto, omissão do verbo.'
             },
             {
                 id: 28,
@@ -403,7 +509,8 @@
                     'Adição.',
                     'Oposição.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: '"Logo" é um operador argumentativo que indica conclusão (estudar muito leva à aprovação).'
             },
             {
                 id: 29,
@@ -415,7 +522,8 @@
                     '“antiga”.',
                     '“é”.'
                 ],
-                gabarito: 0 // A
+                gabarito: 0,
+                comentario: 'O pronome relativo "onde" retoma o antecedente "casa" (lugar). Portanto, referente é "casa".'
             },
             {
                 id: 30,
@@ -427,12 +535,13 @@
                     'Adição.',
                     'Oposição.'
                 ],
-                gabarito: 1 // B
+                gabarito: 1,
+                comentario: '"Primeiro", "depois" e "finalmente" são operadores que indicam temporalidade/sequência (ordem cronológica dos acontecimentos).'
             }
         ];
 
         // ================================================================
-        // RENDERIZAÇÃO (mesmo padrão dos exemplos anteriores)
+        // RENDERIZAÇÃO DAS QUESTÕES (com comentário ao verificar)
         // ================================================================
         const letras = ['A', 'B', 'C', 'D', 'E'];
 
@@ -458,7 +567,7 @@
                 `;
                 wrapper.appendChild(header);
 
-                // Texto (enunciado)
+                // Texto
                 if (q.texto) {
                     const textoDiv = document.createElement('div');
                     textoDiv.className = 'questao-texto';
@@ -466,7 +575,7 @@
                     wrapper.appendChild(textoDiv);
                 }
 
-                // Pergunta (se houver)
+                // Pergunta
                 if (q.pergunta) {
                     const pergunta = document.createElement('div');
                     pergunta.className = 'questao-pergunta';
@@ -511,6 +620,13 @@
                 actions.appendChild(gabDiv);
                 wrapper.appendChild(actions);
 
+                // Comentário (inicialmente oculto)
+                const comentDiv = document.createElement('div');
+                comentDiv.className = 'comentario';
+                comentDiv.id = `comentario-${idx}`;
+                comentDiv.innerHTML = `<strong>📘 Comentário:</strong> ${q.comentario}`;
+                wrapper.appendChild(comentDiv);
+
                 container.appendChild(wrapper);
             });
         }
@@ -523,12 +639,14 @@
 
             const feedback = document.getElementById(`feedback-${idx}`);
             const gabDiv = document.getElementById(`gabarito-revelado-${idx}`);
+            const comentDiv = document.getElementById(`comentario-${idx}`);
 
             if (selecionado === null) {
                 feedback.textContent = '⚠️ Selecione uma alternativa.';
                 feedback.className = 'feedback';
                 feedback.style.color = '#f0a030';
                 gabDiv.textContent = '';
+                comentDiv.classList.remove('visivel');
                 return;
             }
 
@@ -542,17 +660,38 @@
                 feedback.className = 'feedback incorreto';
                 gabDiv.textContent = `Resposta correta: ${letras[correta]}`;
             }
+
+            comentDiv.classList.add('visivel');
         }
 
+        // ================================================================
+        // RENDERIZAÇÃO DO GABARITO COM COMENTÁRIOS
+        // ================================================================
         function renderGabarito() {
             const container = document.getElementById('gabaritoContainer');
             let html = `
                 <table class="gabarito-tabela">
-                    <thead><tr><th>Questão</th><th>Resposta</th></tr></thead>
+                    <thead>
+                        <tr>
+                            <th style="width:10%;">Questão</th>
+                            <th style="width:10%;">Resposta</th>
+                            <th>Comentário</th>
+                        </tr>
+                    </thead>
                     <tbody>
             `;
             questoes.forEach(q => {
-                html += `<tr><td>Q${q.id}</td><td class="resp">${letras[q.gabarito]}</td></tr>`;
+                html += `
+                    <tr>
+                        <td><strong>Q${q.id}</strong></td>
+                        <td class="resp">${letras[q.gabarito]}</td>
+                        <td>
+                            <div class="comentario-gabarito">
+                                <strong>📘</strong> ${q.comentario}
+                            </div>
+                        </td>
+                    </tr>
+                `;
             });
             html += `</tbody></table>`;
             container.innerHTML = html;
