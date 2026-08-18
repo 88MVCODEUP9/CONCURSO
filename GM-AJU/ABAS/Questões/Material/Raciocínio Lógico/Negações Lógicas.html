@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Negação Lógica – 20 questões (com comentários)</title>
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/GMA/QUESTÕES.css?v=3">
+    <style>
+        /* Estilo extra para o comentário */
+        .comentario {
+            margin-top: 12px;
+            padding: 14px 16px;
+            background: #f0f4f8;
+            border-left: 4px solid #2d9d5e;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #1e2a3a;
+            display: none;
+        }
+        .comentario.visivel {
+            display: block;
+        }
+        .comentario strong {
+            color: #1a5a3a;
+        }
+        .comentario .macete {
+            background: #e6f0fa;
+            padding: 6px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 6px 0;
+            font-weight: 600;
+            color: #0056a7;
+        }
+        .comentario .erro-alternativa {
+            color: #b33;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY MOBILE -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-robot"></i> NEGAÇÃO
+        </div>
+        <button class="menu-item active" data-page="questoes" id="menuQuestoes">
+            <i class="fas fa-list-ul"></i> Questões
+        </button>
+        <button class="menu-item" data-page="gabarito" id="menuGabarito">
+            <i class="fas fa-check-circle"></i> Gabarito
+        </button>
+        <div class="menu-bottom">
+            <div style="color:#484F58; font-size:0.75rem; padding:0.5rem 0;">
+                <i class="fas fa-graduation-cap"></i> 20 questões • Negação Lógica
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <h1>
+                <i class="fas fa-puzzle-piece" style="color:#2d9d5e;"></i>
+                Negação Lógica
+                <small>20 questões – com gabarito comentado</small>
+            </h1>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- PÁGINA QUESTÕES -->
+        <div class="page active" id="pageQuestoes">
+            <div id="questoesContainer"></div>
+        </div>
+
+        <!-- PÁGINA GABARITO -->
+        <div class="page" id="pageGabarito">
+            <h2 style="margin-bottom:1.5rem; font-weight:600; display:flex; align-items:center; gap:10px;">
+                <i class="fas fa-check-double" style="color:#2d9d5e;"></i> Gabarito Oficial
+            </h2>
+            <div id="gabaritoContainer"></div>
+        </div>
+    </main>
+
+    <script>
+        // ================================================================
+        // 20 QUESTÕES DE NEGAÇÃO LÓGICA – com comentários do arquivo
+        // ================================================================
+        const questoes = [
+            {
+                id: 1,
+                texto: 'Assinale a alternativa que apresenta a negação lógica da proposição composta: "Se o candidato estuda com dedicação, então ele é aprovado no concurso."',
+                pergunta: 'Qual é a negação correta?',
+                alternativas: [
+                    'Se o candidato não estuda com dedicação, então ele não é aprovado no concurso.',
+                    'O candidato estuda com dedicação e ele não é aprovado no concurso.',
+                    'O candidato não estuda com dedicação ou ele é aprovado no concurso.',
+                    'Se o candidato é aprovado no concurso, então ele estuda com dedicação.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A negação da condicional P → Q obedece à regra P ∧ ¬Q (Mantém a 1ª e Nega a 2ª).<br>
+                    Logo: <strong>"O candidato estuda com dedicação e ele não é aprovado no concurso."</strong><br><br>
+                    <span class="macete">🧠 Macete: negação da condicional = mantém a primeira E nega a segunda.</span>
+                `
+            },
+            {
+                id: 2,
+                texto: 'Qual é a negação lógica da proposição: "Carlos é perito criminal e Bruno é escrivão"?',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Carlos não é perito criminal e Bruno não é escrivão.',
+                    'Se Carlos não é perito criminal, então Bruno não é escrivão.',
+                    'Carlos não é perito criminal ou Bruno não é escrivão.',
+                    'Carlos é perito criminal ou Bruno não é escrivão.'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Pela 1ª Lei de De Morgan, a negação de P ∧ Q é ¬P ∨ ¬Q. Negam-se ambas e troca-se "E" por "OU".<br>
+                    Logo: <strong>"Carlos não é perito criminal ou Bruno não é escrivão."</strong><br><br>
+                    <span class="macete">🧠 Lei de De Morgan: ¬(P ∧ Q) = ¬P ∨ ¬Q.</span>
+                `
+            },
+            {
+                id: 3,
+                texto: 'Considere a afirmação: "Todo fiscal de trânsito é habilitado." A negação lógica dessa afirmação é:',
+                pergunta: 'Qual alternativa expressa corretamente a negação?',
+                alternativas: [
+                    'Nenhum fiscal de trânsito é habilitado.',
+                    'Todo fiscal de trânsito não é habilitado.',
+                    'Algum fiscal de trânsito não é habilitado.',
+                    'Pelo menos um fiscal de trânsito é habilitado.'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A negação do quantificador universal "Todo A é B" é a constatação de ao menos um contraexemplo: "Algum A não é B" / "Existe pelo menos um A que não é B".<br>
+                    Logo: <strong>"Algum fiscal de trânsito não é habilitado."</strong><br><br>
+                    <span class="macete">🧠 Negação de "Todo A é B" = "Algum A não é B".</span>
+                `
+            },
+            {
+                id: 4,
+                texto: 'A negação da proposição disjuntiva "O réu é culpado ou o testemunho é verdadeiro" corresponde a:',
+                pergunta: 'Qual é a negação correta?',
+                alternativas: [
+                    'O réu não é culpado e o testemunho não é verdadeiro.',
+                    'O réu não é culpado ou o testemunho não é verdadeiro.',
+                    'Se o réu não é culpado, então o testemunho não é verdadeiro.',
+                    'O réu é culpado e o testemunho não é verdadeiro.'
+                ],
+                gabarito: 0,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Pela 2ª Lei de De Morgan, a negação de P ∨ Q é ¬P ∧ ¬Q. Negam-se as proposições e troca-se "OU" por "E".<br>
+                    Logo: <strong>"O réu não é culpado e o testemunho não é verdadeiro."</strong><br><br>
+                    <span class="macete">🧠 Lei de De Morgan: ¬(P ∨ Q) = ¬P ∧ ¬Q.</span>
+                `
+            },
+            {
+                id: 5,
+                texto: 'Dada a proposição categórica "Nenhum auditor é corrupto", assinale a alternativa que expressa a sua negação lógica:',
+                pergunta: 'Qual é a negação correta?',
+                alternativas: [
+                    'Todos os auditores são corruptos.',
+                    'Algum auditor é corrupto.',
+                    'Nenhum auditor deixa de ser corrupto.',
+                    'Pelo menos um auditor não é corrupto.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A negação de "Nenhum A é B" é obtida provando a existência de pelo menos um elemento que satisfaz a condição: "Algum A é B" / "Existe pelo menos um A que é B".<br>
+                    Logo: <strong>"Algum auditor é corrupto."</strong><br><br>
+                    <span class="macete">🧠 Negação de "Nenhum A é B" = "Algum A é B".</span>
+                `
+            },
+            {
+                id: 6,
+                texto: 'Determine a negação lógica da sentença: "Se faz sol no fim de semana, então Maria vai à praia."',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Se não faz sol no fim de semana, então Maria não vai à praia.',
+                    'Faz sol no fim de semana e Maria não vai à praia.',
+                    'Não faz sol no fim de semana ou Maria vai à praia.',
+                    'Faz sol no fim de semana ou Maria não vai à praia.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Aplica-se a regra de negação do condicional P → Q ⇒ P ∧ ¬Q: mantém "Faz sol no fim de semana" e nega "Maria vai à praia".<br>
+                    Resultado: <strong>"Faz sol no fim de semana e Maria não vai à praia."</strong><br><br>
+                    <span class="macete">🧠 Negação da condicional: mantém a 1ª, nega a 2ª.</span>
+                `
+            },
+            {
+                id: 7,
+                texto: 'Qual é a negação da proposição "Algum funcionário público recebe salário mínimo"?',
+                pergunta: 'Qual alternativa está correta?',
+                alternativas: [
+                    'Nenhum funcionário público recebe salário mínimo.',
+                    'Algum funcionário público não recebe salário mínimo.',
+                    'Todos os funcionários públicos recebem salário mínimo.',
+                    'Pelo menos um funcionário público recebe salário mínimo.'
+                ],
+                gabarito: 0,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Para negar a declaração existencial "Algum A é B", deve-se negar para todos os elementos com a proposição universal negativa "Nenhum A é B".<br>
+                    Resultado: <strong>"Nenhum funcionário público recebe salário mínimo."</strong><br><br>
+                    <span class="macete">🧠 Negação de "Algum A é B" = "Nenhum A é B".</span>
+                `
+            },
+            {
+                id: 8,
+                texto: 'A negação da proposição "O relatório foi entregue no prazo e o projeto foi aprovado" é:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'O relatório não foi entregue no prazo e o projeto não foi aprovado.',
+                    'O relatório não foi entregue no prazo ou o projeto não foi aprovado.',
+                    'Se o relatório foi entregue no prazo, então o projeto foi aprovado.',
+                    'O relatório foi entregue no prazo ou o projeto não foi aprovado.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Lei de De Morgan para conjunções ¬(P ∧ Q) ≡ ¬P ∨ ¬Q.<br>
+                    Resultado: <strong>"O relatório não foi entregue no prazo ou o projeto não foi aprovado."</strong><br><br>
+                    <span class="macete">🧠 ¬(P ∧ Q) = ¬P ∨ ¬Q.</span>
+                `
+            },
+            {
+                id: 9,
+                texto: 'Assinale a alternativa que contém a negação da proposição bicondicional: "O policial foi promovido se e somente se fez o curso de capacitação."',
+                pergunta: 'Qual é a negação correta da bicondicional?',
+                alternativas: [
+                    'O policial não foi promovido se e somente se não fez o curso de capacitação.',
+                    'Ou o policial foi promovido ou fez o curso de capacitação.',
+                    'Se o policial foi promovido, então não fez o curso de capacitação.',
+                    'O policial foi promovido e fez o curso de capacitação.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A negação da bicondicional ¬(P ↔ Q) equivale formalmente a uma disjunção exclusiva P ⊻ Q ("Ou P, ou Q").<br>
+                    Resultado: <strong>"Ou o policial foi promovido ou fez o curso de capacitação."</strong><br><br>
+                    <span class="macete">🧠 ¬(P ↔ Q) = P ⊻ Q (ou exclusivo).</span>
+                `
+            },
+            {
+                id: 10,
+                texto: 'Qual a negação da sentença "Se o servidor cumpre as metas, então ganha o bônus"?',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'O servidor cumpre as metas e não ganha o bônus.',
+                    'Se o servidor não cumpre as metas, então não ganha o bônus.',
+                    'O servidor não cumpre as metas ou ganha o bônus.',
+                    'O servidor não cumpre as metas e ganha o bônus.'
+                ],
+                gabarito: 0,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Negação da condicional P → Q ⇒ P ∧ ¬Q: mantém a primeira ("O servidor cumpre as metas") e nega a segunda ("não ganha o bônus").<br>
+                    Resultado: <strong>"O servidor cumpre as metas e não ganha o bônus."</strong><br><br>
+                    <span class="macete">🧠 Mantém a 1ª, nega a 2ª.</span>
+                `
+            },
+            {
+                id: 11,
+                texto: 'A negação da disjunção exclusiva "Ou o alarme soa ou as portas se trancam" é dada por:',
+                pergunta: 'Qual alternativa corresponde à negação da disjunção exclusiva?',
+                alternativas: [
+                    'O alarme soa e as portas não se trancam.',
+                    'O alarme não soa ou as portas não se trancam.',
+                    'O alarme soa se e somente se as portas se trancam.',
+                    'Nem o alarme soa nem as portas se trancam.'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A negação da disjunção exclusiva ¬(P ⊻ Q) é a equivalência bicondicional P ↔ Q.<br>
+                    Resultado: <strong>"O alarme soa se e somente se as portas se trancam."</strong><br><br>
+                    <span class="macete">🧠 ¬(P ⊻ Q) = P ↔ Q.</span>
+                `
+            },
+            {
+                id: 12,
+                texto: 'Considere a proposição: "Algum aluno da turma não foi aprovado no exame." A negação dessa proposição é:',
+                pergunta: 'Qual é a negação correta?',
+                alternativas: [
+                    'Nenhum aluno da turma foi aprovado no exame.',
+                    'Algum aluno da turma foi aprovado no exame.',
+                    'Todo aluno da turma foi aprovado no exame.',
+                    'Pelo menos um aluno da turma não foi aprovado no exame.'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A negação de "Algum A não é B" (existencial negativo) é "Todo A é B" (universal afirmativo).<br>
+                    Resultado: <strong>"Todo aluno da turma foi aprovado no exame."</strong><br><br>
+                    <span class="macete">🧠 Negação de "Algum A não é B" = "Todo A é B".</span>
+                `
+            },
+            {
+                id: 13,
+                texto: 'A negação lógica da proposição "Se a testemunha mentir, então o juiz aplicará a multa" é:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'A testemunha não mente ou o juiz aplica a multa.',
+                    'A testemunha mente e o juiz não aplica a multa.',
+                    'Se a testemunha não mentir, o juiz não aplicará a multa.',
+                    'A testemunha não mente e o juiz aplica a multa.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Regra da condicional: P ∧ ¬Q. Mantém "A testemunha mentir" e nega "o juiz aplicará a multa".<br>
+                    Resultado: <strong>"A testemunha mente e o juiz não aplica a multa."</strong><br><br>
+                    <span class="macete">🧠 ¬(P → Q) = P ∧ ¬Q.</span>
+                `
+            },
+            {
+                id: 14,
+                texto: 'Qual é a negação lógica de "A porta está aberta ou a janela está fechada"?',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'A porta não está aberta ou a janela não está fechada.',
+                    'A porta não está aberta e a janela não está fechada.',
+                    'Se a porta está aberta, a janela não está fechada.',
+                    'A porta está aberta e a janela não está fechada.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Aplicação da Lei de De Morgan ¬(P ∨ Q) ≡ ¬P ∧ ¬Q.<br>
+                    Resultado: <strong>"A porta não está aberta e a janela não está fechada."</strong><br><br>
+                    <span class="macete">🧠 ¬(P ∨ Q) = ¬P ∧ ¬Q.</span>
+                `
+            },
+            {
+                id: 15,
+                texto: 'A negação da afirmação "Todos os advogados da firma possuem pós-graduação" é:',
+                pergunta: 'Qual alternativa está correta?',
+                alternativas: [
+                    'Nenhum advogado da firma possui pós-graduação.',
+                    'Todos os advogados da firma não possuem pós-graduação.',
+                    'Existe pelo menos um advogado da firma que não possui pós-graduação.',
+                    'Algum advogado da firma possui pós-graduação.'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A negação de "Todos os A são B" exige um contraexemplo: "Existe pelo menos um A que não é B".<br>
+                    Resultado: <strong>"Existe pelo menos um advogado da firma que não possui pós-graduação."</strong><br><br>
+                    <span class="macete">🧠 Negação de "Todo A é B" = "Algum A não é B".</span>
+                `
+            },
+            {
+                id: 16,
+                texto: 'A negação lógica de "Marcos é médico ou não é professor" é:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Marcos não é médico ou é professor.',
+                    'Marcos não é médico e é professor.',
+                    'Se Marcos é médico, então é professor.',
+                    'Marcos é médico e não é professor.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A negação de P ∨ ¬Q por De Morgan é ¬P ∧ ¬(¬Q) ≡ ¬P ∧ Q.<br>
+                    Resultado: <strong>"Marcos não é médico e é professor."</strong><br><br>
+                    <span class="macete">🧠 ¬(P ∨ ¬Q) = ¬P ∧ Q.</span>
+                `
+            },
+            {
+                id: 17,
+                texto: 'Considere a condicional: "Se João não estudou, então ele não passou na prova." A negação dessa proposição é:',
+                pergunta: 'Qual é a negação correta?',
+                alternativas: [
+                    'João estudou ou não passou na prova.',
+                    'Se João estudou, então passou na prova.',
+                    'João não estudou e passou na prova.',
+                    'João estudou e não passou na prova.'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A proposição é ¬P → ¬Q. Sua negação é ¬P ∧ Q (mantém a primeira e nega a segunda). A negação de "não passou" é "passou".<br>
+                    Resultado: <strong>"João não estudou e passou na prova."</strong><br><br>
+                    <span class="macete">🧠 ¬(¬P → ¬Q) = ¬P ∧ Q.</span>
+                `
+            },
+            {
+                id: 18,
+                texto: 'Qual é a negação lógica da proposição "A empresa teve lucro e não pagou dividendos"?',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'A empresa não teve lucro e pagou dividendos.',
+                    'A empresa não teve lucro ou pagou dividendos.',
+                    'Se a empresa teve lucro, então não pagou dividendos.',
+                    'A empresa teve lucro ou pagou dividendos.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A proposição é P ∧ ¬Q. Sua negação por De Morgan é ¬P ∨ Q.<br>
+                    Resultado: <strong>"A empresa não teve lucro ou pagou dividendos."</strong><br><br>
+                    <span class="macete">🧠 ¬(P ∧ ¬Q) = ¬P ∨ Q.</span>
+                `
+            },
+            {
+                id: 19,
+                texto: 'Assinale a alternativa que representa a negação da proposição "Se o contrato é válido, então o pagamento é efetuado."',
+                pergunta: 'Qual é a negação correta?',
+                alternativas: [
+                    'O contrato não é válido ou o pagamento é efetuado.',
+                    'O contrato é válido e o pagamento não é efetuado.',
+                    'Se o pagamento não é efetuado, então o contrato não é válido.',
+                    'O contrato não é válido e o pagamento é efetuado.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Negação do condicional: P ∧ ¬Q.<br>
+                    Resultado: <strong>"O contrato é válido e o pagamento não é efetuado."</strong><br><br>
+                    <span class="macete">🧠 ¬(P → Q) = P ∧ ¬Q.</span>
+                `
+            },
+            {
+                id: 20,
+                texto: 'A negação da proposição categórica "Nenhum documento foi arquivado fora do prazo" é expressa por:',
+                pergunta: 'Qual alternativa está correta?',
+                alternativas: [
+                    'Todos os documentos foram arquivados fora do prazo.',
+                    'Pelo menos um documento foi arquivado fora do prazo.',
+                    'Nenhum documento deixa de ser arquivado no prazo.',
+                    'Todos os documentos não foram arquivados fora do prazo.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A negação de "Nenhum A é B" é "Pelo menos um A é B" / "Algum A é B".<br>
+                    Resultado: <strong>"Pelo menos um documento foi arquivado fora do prazo."</strong><br><br>
+                    <span class="macete">🧠 Negação de "Nenhum A é B" = "Algum A é B".</span>
+                `
+            }
+        ];
+
+        // ================================================================
+        // RENDERIZAÇÃO (mesmo padrão do site original, com comentário extra)
+        // ================================================================
+        const letras = ['A', 'B', 'C', 'D'];
+
+        function renderQuestoes() {
+            const container = document.getElementById('questoesContainer');
+            container.innerHTML = '';
+            questoes.forEach((q, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'questao-wrapper';
+                wrapper.dataset.index = idx;
+
+                const header = document.createElement('div');
+                header.className = 'questao-header';
+                header.innerHTML = `
+                    <span class="numero">Q${q.id}</span>
+                    <span class="badge">Negação</span>
+                `;
+                wrapper.appendChild(header);
+
+                if (q.texto) {
+                    const textoDiv = document.createElement('div');
+                    textoDiv.className = 'questao-texto';
+                    textoDiv.textContent = q.texto;
+                    wrapper.appendChild(textoDiv);
+                }
+
+                const pergunta = document.createElement('div');
+                pergunta.className = 'questao-pergunta';
+                pergunta.textContent = q.pergunta;
+                wrapper.appendChild(pergunta);
+
+                const altDiv = document.createElement('div');
+                altDiv.className = 'alternativas';
+                q.alternativas.forEach((alt, i) => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `q${idx}`;
+                    radio.value = i;
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(`${letras[i]}) ${alt}`));
+                    altDiv.appendChild(label);
+                });
+                wrapper.appendChild(altDiv);
+
+                const actions = document.createElement('div');
+                actions.className = 'questao-actions';
+
+                const btn = document.createElement('button');
+                btn.className = 'btn-verificar';
+                btn.innerHTML = '<i class="fas fa-check"></i> Verificar';
+                btn.addEventListener('click', () => verificarQuestao(idx));
+
+                const feedback = document.createElement('span');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${idx}`;
+
+                const gabDiv = document.createElement('span');
+                gabDiv.className = 'gabarito-revelado';
+                gabDiv.id = `gabarito-revelado-${idx}`;
+
+                // Div para o comentário
+                const comentDiv = document.createElement('div');
+                comentDiv.className = 'comentario';
+                comentDiv.id = `comentario-${idx}`;
+                comentDiv.innerHTML = q.comentario;
+
+                actions.appendChild(btn);
+                actions.appendChild(feedback);
+                actions.appendChild(gabDiv);
+                wrapper.appendChild(actions);
+                wrapper.appendChild(comentDiv);
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        function verificarQuestao(idx) {
+            const q = questoes[idx];
+            const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+            let selecionado = null;
+            radios.forEach(r => { if (r.checked) selecionado = parseInt(r.value); });
+
+            const feedback = document.getElementById(`feedback-${idx}`);
+            const gabDiv = document.getElementById(`gabarito-revelado-${idx}`);
+            const comentDiv = document.getElementById(`comentario-${idx}`);
+
+            if (selecionado === null) {
+                feedback.textContent = '⚠️ Selecione uma alternativa.';
+                feedback.className = 'feedback';
+                feedback.style.color = '#f0a030';
+                gabDiv.textContent = '';
+                comentDiv.classList.remove('visivel');
+                return;
+            }
+
+            const correta = q.gabarito;
+            if (selecionado === correta) {
+                feedback.textContent = '✅ Correta!';
+                feedback.className = 'feedback correto';
+                gabDiv.textContent = '';
+            } else {
+                feedback.textContent = '❌ Incorreta.';
+                feedback.className = 'feedback incorreto';
+                gabDiv.textContent = `Resposta correta: ${letras[correta]}`;
+            }
+
+            // Exibe o comentário (sempre após verificar)
+            comentDiv.classList.add('visivel');
+        }
+
+        function renderGabarito() {
+            const container = document.getElementById('gabaritoContainer');
+            let html = `
+                <table class="gabarito-tabela">
+                    <thead><tr><th>Questão</th><th>Resposta</th></tr></thead>
+                    <tbody>
+            `;
+            questoes.forEach(q => {
+                html += `<tr><td>Q${q.id}</td><td class="resp">${letras[q.gabarito]}</td></tr>`;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        // ================================================================
+        // NAVEGAÇÃO ENTRE ABAS
+        // ================================================================
+        function navegarPara(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page${page.charAt(0).toUpperCase() + page.slice(1)}`).classList.add('active');
+
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            if (page === 'questoes') {
+                document.getElementById('menuQuestoes').classList.add('active');
+            } else {
+                document.getElementById('menuGabarito').classList.add('active');
+            }
+
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('menuQuestoes').addEventListener('click', () => navegarPara('questoes'));
+        document.getElementById('menuGabarito').addEventListener('click', () => navegarPara('gabarito'));
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // ================================================================
+        // INICIALIZAÇÃO
+        // ================================================================
+        renderQuestoes();
+        renderGabarito();
+    </script>
+
+</body>
+</html>
