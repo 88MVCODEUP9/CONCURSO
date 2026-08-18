@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- CSS com tema Dark + Azul (já atualizado) -->
+    <style>
+        :root {
+    --bg: #0D1117;
+    --bg-card: #161B22;
+    --blue: #2563eb;
+    --blue-glow: rgba(37, 99, 235, 0.5);
+    --blue-dark: #1a2a4a;
+    --text: #e6edf3;
+    --text-muted: #8b949e;
+    --border: rgba(37, 99, 235, 0.2);
+    --modal-bg: #161B22;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: var(--bg);
+    background-image:
+        radial-gradient(ellipse at 20% 20%, rgba(37, 99, 235, 0.06) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 80%, rgba(37, 99, 235, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(0, 0, 0, 0.9) 0%, #050a14 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1.5rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image:
+        linear-gradient(rgba(37, 99, 235, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.04) 1px, transparent 1px);
+    background-size: 3rem 3rem;
+    pointer-events: none;
+    z-index: 0;
+    animation: grid-drift 30s linear infinite;
+}
+
+@keyframes grid-drift {
+    0% {
+        background-position: 0 0, 0 0;
+    }
+    100% {
+        background-position: 3rem 3rem, -3rem 3rem;
+    }
+}
+
+.container {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 1400px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+}
+
+.header-icon {
+    display: inline-block;
+    margin-bottom: 0.8rem;
+    animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-12px);
+    }
+}
+
+.header h1 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #ffffff 0%, #93bbfc 40%, #2563eb 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    margin-bottom: 0.4rem;
+}
+
+.header .subtitle {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.header .subtitle span {
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.25);
+    padding: 0.35rem 1rem;
+    border-radius: 99rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+}
+
+.badge {
+    display: inline-block;
+    background: var(--blue-dark);
+    color: #93bbfc;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.3rem 0.9rem;
+    border-radius: 99rem;
+    letter-spacing: 0.06em;
+    border: 1px solid rgba(37, 99, 235, 0.4);
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+    padding: 0 0.5rem;
+}
+
+/* ========== TICKET STYLES ========== */
+.ticket-canvas {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.ticket-wrapper {
+    --t-bg: #161B22;
+    --t-bg-light: #1a2a4a;
+    --t-accent: #2563eb;
+    --t-accent-glow: rgba(37, 99, 235, 0.55);
+    --t-text-main: #f0f4ff;
+    --t-text-muted: #8b949e;
+    font-size: 10px;
+    perspective: 1000px;
+    display: inline-block;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    width: 100%;
+    max-width: 240px;
+}
+
+.ticket-wrapper:hover {
+    transform: translateY(-8px);
+}
+
+.ticket-wrapper:active {
+    transform: scale(0.96);
+}
+
+.ticket {
+    position: relative;
+    width: 100%;
+    color: var(--t-text-main);
+    font-family: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+    transform-style: preserve-3d;
+    transition:
+        transform 0.6s cubic-bezier(0.23, 1, 0.32, 1),
+        box-shadow 0.6s ease;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.8),
+        0 0 0 1px rgba(37, 99, 235, 0.15);
+    background: transparent;
+    filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.5));
+    border-radius: 1em;
+}
+
+.ticket-wrapper:hover .ticket {
+    transform: rotateX(5deg) rotateY(-10deg) scale(1.03);
+    box-shadow:
+        20px 20px 40px rgba(0, 0, 0, 0.7),
+        0 0 0 1px rgba(37, 99, 235, 0.35),
+        -5px -5px 25px var(--t-accent-glow);
+}
+
+.ticket::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 1em;
+    pointer-events: none;
+    background: linear-gradient(115deg,
+            transparent 0%,
+            transparent 40%,
+            rgba(255, 255, 255, 0.08) 45%,
+            rgba(255, 255, 255, 0.25) 50%,
+            rgba(255, 255, 255, 0.08) 55%,
+            transparent 60%,
+            transparent 100%);
+    z-index: 10;
+    background-size: 250% 250%;
+    background-position: 100% 100%;
+    transition: background-position 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    mix-blend-mode: overlay;
+}
+
+.ticket-wrapper:hover .ticket::after {
+    background-position: 0% 0%;
+}
+
+.t-main {
+    padding: 2em;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at bottom left, transparent 1em, var(--t-bg) 1.05em),
+        radial-gradient(circle at bottom right, transparent 1em, var(--t-bg) 1.05em);
+    background-size: 51% 100%;
+    background-position: bottom left, bottom right;
+    background-repeat: no-repeat;
+    border-top-left-radius: 1em;
+    border-top-right-radius: 1em;
+}
+
+.t-main::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: linear-gradient(rgba(37, 99, 235, 0.12) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(37, 99, 235, 0.12) 1px, transparent 1px);
+    background-size: 2em 2em;
+    opacity: 0.5;
+    z-index: 0;
+    pointer-events: none;
+    transform: perspective(500px) rotateX(20deg) scale(1.5);
+    animation: grid-scroll 20s linear infinite;
+}
+
+@keyframes grid-scroll {
+    0% {
+        background-position: 0 0;
+    }
+    100% {
+        background-position: 0 4em;
+    }
+}
+
+.t-content {
+    position: relative;
+    z-index: 1;
+}
+
+.t-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 2em;
+    gap: 0.5em;
+}
+
+.t-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
+    font-weight: 900;
+    font-size: 1.1em;
+    letter-spacing: -0.05em;
+    color: #fff;
+}
+
+.t-logo svg {
+    width: 1.5em;
+    height: 1.5em;
+    fill: var(--t-accent);
+    filter: drop-shadow(0 0 5px var(--t-accent));
+    animation: logo-pulse 3s ease-in-out infinite alternate;
+    flex-shrink: 0;
+}
+
+@keyframes logo-pulse {
+    0% {
+        filter: drop-shadow(0 0 2px var(--t-accent));
+    }
+    100% {
+        filter: drop-shadow(0 0 10px var(--t-accent)) brightness(1.3);
+    }
+}
+
+.t-type {
+    font-size: 0.6em;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    color: var(--t-accent);
+    border: 1px solid var(--t-accent);
+    padding: 0.4em 0.8em;
+    border-radius: 99em;
+    font-weight: 700;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.t-title {
+    font-size: 2.2em;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 0.2em;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #fff 0%, #93bbfc 70%, #2563eb 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    min-height: 2.5em;
+    display: flex;
+    align-items: center;
+}
+
+.t-subtitle {
+    color: var(--t-text-muted);
+    font-size: 0.85em;
+    margin-bottom: 2.2em;
+    font-weight: 500;
+}
+
+.t-details {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2em;
+    margin-bottom: 0.5em;
+}
+
+.t-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15em;
+}
+
+.t-label {
+    font-size: 0.6em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--t-text-muted);
+}
+
+.t-value {
+    font-size: 1em;
+    font-weight: 700;
+    color: var(--t-text-main);
+    word-break: break-word;
+}
+
+.t-perforation {
+    display: flex;
+    justify-content: space-between;
+    height: 1em;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    transform: translateY(50%);
+    z-index: 2;
+}
+
+.t-perf-line {
+    flex-grow: 1;
+    height: 0;
+    border-top: 2px dashed rgba(37, 99, 235, 0.3);
+    margin: 0 1.5em;
+}
+
+.t-stub {
+    padding: 2em;
+    background: radial-gradient(circle at top left, transparent 1em, var(--t-bg-light) 1.05em),
+        radial-gradient(circle at top right, transparent 1em, var(--t-bg-light) 1.05em);
+    background-size: 51% 100%;
+    background-position: top left, top right;
+    background-repeat: no-repeat;
+    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: 1em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.ticket-wrapper:active .t-stub {
+    transform: translateY(5px) rotateZ(2deg);
+    opacity: 0.8;
+}
+
+.t-barcode-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.t-barcode {
+    width: 8em;
+    height: 2.8em;
+    background: repeating-linear-gradient(90deg,
+            #93bbfc 0,
+            #93bbfc 2px,
+            transparent 2px,
+            transparent 4px,
+            #93bbfc 4px,
+            #93bbfc 5px,
+            transparent 5px,
+            transparent 8px,
+            #93bbfc 8px,
+            #93bbfc 12px,
+            transparent 12px,
+            transparent 15px,
+            #93bbfc 15px,
+            #93bbfc 16px,
+            transparent 16px,
+            transparent 18px);
+    opacity: 0.7;
+}
+
+.t-barcode-id {
+    font-family: 'Courier New', monospace;
+    font-size: 0.65em;
+    color: var(--t-text-muted);
+    letter-spacing: 0.15em;
+}
+
+.t-admit {
+    text-align: right;
+}
+
+.t-admit-text {
+    font-size: 0.65em;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--t-text-muted);
+}
+
+.t-admit-num {
+    font-size: 2.8em;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--t-accent);
+    text-shadow: 0 0 15px var(--t-accent-glow);
+}
+
+/* ========== MODAL ========== */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 1.5rem;
+}
+
+.modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal {
+    background: var(--modal-bg);
+    border: 1px solid rgba(37, 99, 235, 0.35);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    max-width: 700px;
+    width: 100%;
+    position: relative;
+    box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.9),
+        0 0 0 1px rgba(37, 99, 235, 0.2),
+        0 0 80px rgba(37, 99, 235, 0.15);
+    transform: translateY(30px) scale(0.95);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    max-height: 85vh;
+    overflow-y: auto;
+}
+
+.modal-overlay.active .modal {
+    transform: translateY(0) scale(1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: rgba(37, 99, 235, 0.1);
+    border: 1px solid rgba(37, 99, 235, 0.3);
+    color: #93bbfc;
+    font-size: 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+    z-index: 10;
+}
+
+.modal-close:hover {
+    background: rgba(37, 99, 235, 0.25);
+    border-color: #2563eb;
+    color: #fff;
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.4);
+}
+
+.modal h2 {
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff 0%, #93bbfc 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.02em;
+}
+
+.modal .modal-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 1.8rem;
+    letter-spacing: 0.05em;
+}
+
+/* ===== ESTILO DOS BOTÕES DA LISTA ===== */
+.topic-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-bottom: 1.5rem;
+}
+
+.topic-list li {
+    width: 100%;
+}
+
+.topic-list button {
+    width: 100%;
+    position: relative;
+    height: 3.5em;
+    border: 3px ridge #2563eb;
+    outline: none;
+    background-color: transparent;
+    color: white;
+    transition: 1s;
+    border-radius: 0.3em;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: left;
+    padding: 0 1.2rem;
+    font-family: inherit;
+}
+
+.topic-list button::after {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 3%;
+    width: 95%;
+    height: 40%;
+    background-color: #161B22;
+    transition: 0.5s;
+    transform-origin: center;
+}
+
+.topic-list button::before {
+    content: "";
+    transform-origin: center;
+    position: absolute;
+    top: 80%;
+    left: 3%;
+    width: 95%;
+    height: 40%;
+    background-color: #161B22;
+    transition: 0.5s;
+}
+
+.topic-list button:hover::before,
+.topic-list button:hover::after {
+    transform: scale(0);
+}
+
+.topic-list button:hover {
+    box-shadow: inset 0px 0px 25px #2563eb;
+    border-color: #3b82f6;
+}
+
+.topic-list button a {
+    color: inherit;
+    text-decoration: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 480px) {
+    .topic-list button {
+        font-size: 14px;
+        height: 3.2em;
+    }
+}
+
+.modal .info-bar {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-top: 1.8rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(37, 99, 235, 0.2);
+}
+
+.modal .info-pill {
+    background: rgba(37, 99, 235, 0.08);
+    border: 1px solid rgba(37, 99, 235, 0.25);
+    padding: 0.4rem 1rem;
+    border-radius: 99rem;
+    font-size: 0.8rem;
+    color: #93bbfc;
+    letter-spacing: 0.04em;
+}
+
+.footer {
+    margin-top: 4rem;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    z-index: 1;
+    position: relative;
+}
+
+.footer span {
+    color: #2563eb;
+}
+
+@media (max-width: 768px) {
+    .cards-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 1.5rem;
+    }
+    .ticket-wrapper {
+        font-size: 9px;
+        max-width: 210px;
+    }
+    .modal {
+        padding: 1.8rem;
+    }
+    .modal h2 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+        justify-items: center;
+    }
+    .ticket-wrapper {
+        font-size: 10px;
+        max-width: 260px;
+    }
+    .header h1 {
+        font-size: 1.5rem;
+    }
+}
+    </style>
+    <title>Seleção de Questões</title>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <div class="header-icon">
+                <!-- Ícone trocado para azul (#2563eb) -->
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#2563eb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    <path d="M9 12l2 2 4-4"></path>
+                </svg>
+            </div>
+            <h1>Guarda Municipal de Aracaju</h1>
+            <p class="subtitle">
+                <span>📚 Material de Estudo</span>
+                <span class="badge">Concurso 2026</span>
+            </p>
+        </header>
+
+        <!-- Cards gerados dinamicamente pelo JavaScript -->
+        <div class="cards-grid" id="cardsGrid"></div>
+
+        <p class="footer">
+            Clique em um card para acessar o conteúdo da <span>matéria</span>.
+        </p>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal" id="modal">
+            <button class="modal-close" id="modalClose" title="Fechar">✕</button>
+            <h2 id="modalTitle"></h2>
+            <p class="modal-subtitle" id="modalSubtitle"></p>
+            <ul class="topic-list" id="modalTopics"></ul>
+            <div class="info-bar" id="modalInfo"></div>
+        </div>
+    </div>
+
+    <script>
+        // Dados das matérias (10 módulos)
+        const materias = [{
+            id: 1,
+            nome: 'Língua\nPortuguesa',
+            nomeLinha: 'Língua Portuguesa',
+            tipo: 'Módulo 01',
+            subtitulo: 'Gramática e Interpretação',
+            topicos: [
+                { nome: 'Compreensão e interpretação de textos', link: 'https://88mvcodeup9.github.io/CONCURSO/GM-AJU/ABAS/Quest%C3%B5es/Material/Portugu%C3%AAs/Articula%C3%A7%C3%A3o%20do%20Texto.html' },
+                { nome: 'Articulação do Texto', link: 'https://88mvcodeup9.github.io/CONCURSO/GM-AJU/ABAS/Quest%C3%B5es/Material/Portugu%C3%AAs/Articula%C3%A7%C3%A3o%20do%20Texto.html' },
+                { nome: 'Coesão e Coerência Textual', link: 'https://88mvcodeup9.github.io/CONCURSO/GM-AJU/ABAS/Quest%C3%B5es/Material/Portugu%C3%AAs/Coesão%20e%20Coerência%20Textual.html' },
+                { nome: 'Pronomes', link: 'https://88mvcodeup9.github.io/CONCURSO/GM-AJU/ABAS/Quest%C3%B5es/Material/Portugu%C3%AAs/Pronomes.html' },
+                { nome: 'Sintaxe — Termos da Oração', link: 'https://88mvcodeup9.github.io/CONCURSO/GM-AJU/ABAS/Quest%C3%B5es/Material/Portugu%C3%AAs/Sintaxe%20—%20Termos%20da%20Oração.html' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~15 questões',
+        }, {
+            id: 2,
+            nome: 'Raciocínio\nLógico',
+            nomeLinha: 'Raciocínio Lógico',
+            tipo: 'Módulo 02',
+            subtitulo: 'Lógica e Matemática',
+            topicos: [
+                { nome: 'Proposições Compostas e Conectivos Lógicos', link: '/ABAS/Questões/Material/Raciocínio Lógico/Proposições Compostas e Conectivos Lógicos.html' },
+                { nome: 'Lógica de argumentação', link: '#' },
+                { nome: 'Raciocínio sequencial e analítico', link: '#' },
+                { nome: 'Problemas com matrizes e determinantes', link: '#' },
+                { nome: 'Análise combinatória e probabilidade', link: '#' },
+                { nome: 'Geometria básica e raciocínio espacial', link: '#' },
+                { nome: 'Problemas envolvendo conjuntos', link: '#' },
+                { nome: 'Sequências numéricas e padrões', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 3,
+            nome: 'Noções de\nInformática',
+            nomeLinha: 'Noções de Informática',
+            tipo: 'Módulo 03',
+            subtitulo: 'Tecnologia e Sistemas',
+            topicos: [
+                { nome: 'Software', link: 'https://88mvcodeup9.github.io/CONCURSO/GM-AJU/ABAS/Quest%C3%B5es/Material/Inform%C3%A1tica/Software.html' },
+                        ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 4,
+            nome: 'Direito\nConstitucional',
+            nomeLinha: 'Direito Constitucional',
+            tipo: 'Módulo 04',
+            subtitulo: 'Constituição Federal',
+            topicos: [
+                { nome: 'Princípios fundamentais da CF/88', link: '#' },
+                { nome: 'Direitos e garantias fundamentais', link: '#' },
+                { nome: 'Organização do Estado brasileiro', link: '#' },
+                { nome: 'Poder Legislativo, Executivo e Judiciário', link: '#' },
+                { nome: 'Defesa do Estado e instituições democráticas', link: '#' },
+                { nome: 'Segurança pública na Constituição (art. 144)', link: '#' },
+                { nome: 'Municípios na Constituição Federal', link: '#' },
+                { nome: 'Controle de constitucionalidade', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~12 questões',
+        }, {
+            id: 5,
+            nome: 'Direito\nAdministrativo',
+            nomeLinha: 'Direito Administrativo',
+            tipo: 'Módulo 05',
+            subtitulo: 'Administração Pública',
+            topicos: [
+                { nome: 'Princípios da Administração Pública', link: '#' },
+                { nome: 'Atos administrativos: classificação e atributos', link: '#' },
+                { nome: 'Poderes administrativos', link: '#' },
+                { nome: 'Servidores públicos: regime jurídico', link: '#' },
+                { nome: 'Responsabilidade civil do Estado', link: '#' },
+                { nome: 'Licitações e contratos (Lei 14.133/2021)', link: '#' },
+                { nome: 'Improbidade administrativa', link: '#' },
+                { nome: 'Processo administrativo disciplinar', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~12 questões',
+        }, {
+            id: 6,
+            nome: 'Direito\nPenal',
+            nomeLinha: 'Direito Penal',
+            tipo: 'Módulo 06',
+            subtitulo: 'Crimes e Penas',
+            topicos: [
+                { nome: 'Princípios do Direito Penal', link: '#' },
+                { nome: 'Aplicação da lei penal no tempo e espaço', link: '#' },
+                { nome: 'Teoria do crime: tipicidade, ilicitude, culpabilidade', link: '#' },
+                { nome: 'Crimes contra a pessoa', link: '#' },
+                { nome: 'Crimes contra o patrimônio', link: '#' },
+                { nome: 'Crimes contra a Administração Pública', link: '#' },
+                { nome: 'Lei de Drogas (Lei 11.343/2006)', link: '#' },
+                { nome: 'Estatuto do Desarmamento (Lei 10.826/2003)', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~10 questões',
+        }, {
+            id: 7,
+            nome: 'Direito\nProcessual Penal',
+            nomeLinha: 'Direito Processual Penal',
+            tipo: 'Módulo 07',
+            subtitulo: 'Processo e Investigação',
+            topicos: [
+                { nome: 'Inquérito policial e investigação criminal', link: '#' },
+                { nome: 'Ação penal: pública e privada', link: '#' },
+                { nome: 'Jurisdição e competência', link: '#' },
+                { nome: 'Provas no processo penal', link: '#' },
+                { nome: 'Prisão em flagrante e preventiva', link: '#' },
+                { nome: 'Medidas cautelares diversas da prisão', link: '#' },
+                { nome: 'Procedimentos processuais penais', link: '#' },
+                { nome: 'Recursos no processo penal', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~8 questões',
+        }, {
+            id: 8,
+            nome: 'Legislação\nEspecífica',
+            nomeLinha: 'Legislação Específica',
+            tipo: 'Módulo 08',
+            subtitulo: 'Leis Municipais e Estatuto',
+            topicos: [
+                { nome: 'Lei Orgânica do Município de Aracaju', link: '#' },
+                { nome: 'Estatuto dos Servidores Públicos de Aracaju', link: '#' },
+                { nome: 'Lei 13.022/2014 – Estatuto Geral das Guardas Municipais', link: '#' },
+                { nome: 'Plano de Cargos e Carreiras da GMA', link: '#' },
+                { nome: 'Código de Posturas do Município', link: '#' },
+                { nome: 'Legislação municipal de segurança urbana', link: '#' },
+                { nome: 'Poder de polícia administrativo municipal', link: '#' },
+                { nome: 'Regulamento interno da Guarda Municipal', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~15 questões',
+        }, {
+            id: 9,
+            nome: 'Atualidades',
+            nomeLinha: 'Atualidades',
+            tipo: 'Módulo 09',
+            subtitulo: 'Cenário Nacional e Mundial',
+            topicos: [
+                { nome: 'Política nacional e internacional', link: '#' },
+                { nome: 'Economia brasileira e indicadores sociais', link: '#' },
+                { nome: 'Meio ambiente e sustentabilidade', link: '#' },
+                { nome: 'Tecnologia, inovação e inteligência artificial', link: '#' },
+                { nome: 'Direitos humanos e cidadania', link: '#' },
+                { nome: 'Segurança pública e violência urbana', link: '#' },
+                { nome: 'Cultura, educação e saúde no Brasil', link: '#' },
+                { nome: 'Acontecimentos recentes em Sergipe e Aracaju', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~8 questões',
+        }, {
+            id: 10,
+            nome: 'Legislação Municipal',
+            nomeLinha: 'Legislação Municipal',
+            tipo: 'Módulo 10',
+            subtitulo: 'Conduta e Deontologia',
+            topicos: [
+                { nome: 'Código de Ética do Servidor Público', link: '#' },
+                { nome: 'Princípios constitucionais da Administração', link: '#' },
+                { nome: 'Moralidade, impessoalidade e eficiência', link: '#' },
+                { nome: 'Deveres e vedações do servidor público', link: '#' },
+                { nome: 'Ética profissional e relações interpessoais', link: '#' },
+                { nome: 'Assédio moral e sexual no serviço público', link: '#' },
+                { nome: 'Transparência e acesso à informação', link: '#' },
+                { nome: 'Responsabilidade funcional e social', link: '#' },
+            ],
+            data: 'Prova 2026',
+            banca: 'IDECAN',
+            questoes: '~5 questões',
+        }];
+
+        // Gerar os cards dinamicamente
+        const cardsGrid = document.getElementById('cardsGrid');
+        materias.forEach((materia) => {
+            const ticketHTML = `
+                <div class="ticket-canvas" data-id="${materia.id}">
+                    <div class="ticket-wrapper" onclick="abrirMateria(${materia.id})" title="Clique para acessar ${materia.nomeLinha}">
+                        <div class="ticket">
+                            <div class="t-main">
+                                <div class="t-content">
+                                    <div class="t-header">
+                                        <div class="t-logo">
+                                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M4 19.5A2.5 2.5 0 016.5 17H20" stroke-linecap="round"/>
+                                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z" stroke-linecap="round"/>
+                                            </svg>
+                                            GMA
+                                        </div>
+                                        <div class="t-type">${materia.tipo}</div>
+                                    </div>
+                                    <div class="t-title">${materia.nome.replace('\n', '<br>')}</div>
+                                    <div class="t-subtitle">${materia.subtitulo}</div>
+                                    <div class="t-details">
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Concurso</span>
+                                            <span class="t-value">GMA 2026</span>
+                                        </div>
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Data</span>
+                                            <span class="t-value">${materia.data}</span>
+                                        </div>
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Cidade</span>
+                                            <span class="t-value">Aracaju/SE</span>
+                                        </div>
+                                        <div class="t-detail-item">
+                                            <span class="t-label">Banca</span>
+                                            <span class="t-value">IDECAN</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="t-perforation">
+                                    <div class="t-perf-line"></div>
+                                </div>
+                            </div>
+                            <div class="t-stub">
+                                <div class="t-barcode-container">
+                                    <div class="t-barcode"></div>
+                                    <div class="t-barcode-id">GMA-2026-MOD-${String(materia.id).padStart(2, '0')}</div>
+                                </div>
+                                <div class="t-admit">
+                                    <div class="t-admit-text">Módulo</div>
+                                    <div class="t-admit-num">${String(materia.id).padStart(2, '0')}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            cardsGrid.insertAdjacentHTML('beforeend', ticketHTML);
+        });
+
+        // Modal
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalSubtitle = document.getElementById('modalSubtitle');
+        const modalTopics = document.getElementById('modalTopics');
+        const modalInfo = document.getElementById('modalInfo');
+        const modalClose = document.getElementById('modalClose');
+
+        function abrirMateria(id) {
+            const materia = materias.find(m => m.id === id);
+            if (!materia) return;
+
+            modalTitle.textContent = materia.nomeLinha;
+            modalSubtitle.textContent = `${materia.subtitulo} — Guarda Municipal de Aracaju 2026`;
+
+            modalTopics.innerHTML = materia.topicos.map(t => `
+                <li>
+                    <button>
+                        <a href="${t.link}">${t.nome}</a>
+                    </button>
+                </li>
+            `).join('');
+
+            modalInfo.innerHTML = `
+                <span class="info-pill">📋 ${materia.questoes}</span>
+                <span class="info-pill">🏛️ ${materia.banca}</span>
+                <span class="info-pill">📅 ${materia.data}</span>
+                <span class="info-pill">📍 Aracaju/SE</span>
+            `;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', fecharModal);
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) fecharModal();
+        });
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                fecharModal();
+            }
+        });
+    </script>
+</body>
+</html>
