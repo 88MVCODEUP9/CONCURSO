@@ -11,6 +11,157 @@
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+
+   <style>
+    /* =========================================================
+   EDITAL — RESPONSIVIDADE MOBILE E TABLET
+   ========================================================= */
+
+/* Área inferior do menu */
+.menu-bottom {
+    margin-top: auto;
+    padding: 12px 0 18px;
+    border-top: 1px solid var(--border);
+    flex-shrink: 0;
+}
+
+/* Botão Edital */
+.menu-bottom .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    min-height: 44px;
+    padding: 11px 20px;
+    color: var(--gold);
+    white-space: nowrap;
+    text-decoration: none;
+    box-sizing: border-box;
+}
+
+/* Ícone */
+.menu-bottom .menu-item i {
+    width: 18px;
+    min-width: 18px;
+    text-align: center;
+    font-size: 15px;
+}
+
+/* Hover */
+.menu-bottom .menu-item:hover {
+    color: var(--gold-light);
+    background: rgba(212,160,23,.08);
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+@media (max-width: 1024px) {
+
+    .sidebar {
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .menu-bottom {
+        position: sticky;
+        bottom: 0;
+        z-index: 5;
+        background: var(--bg);
+    }
+
+    .menu-bottom .menu-item {
+        min-height: 46px;
+        padding: 12px 20px;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media (max-width: 768px) {
+
+    .sidebar {
+        width: min(280px, 85vw);
+        height: 100dvh;
+        max-height: 100dvh;
+        overflow-y: auto;
+        overflow-x: hidden;
+
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Faz a navegação ocupar o espaço disponível */
+    .sidebar nav {
+        flex: 1 1 auto;
+        overflow-y: auto;
+        min-height: 0;
+    }
+
+    /* Mantém o Edital sempre no final do menu */
+    .menu-bottom {
+        flex-shrink: 0;
+        margin-top: auto;
+        padding: 10px 0 max(18px, env(safe-area-inset-bottom));
+        background: var(--bg);
+        border-top: 1px solid var(--border-strong);
+    }
+
+    .menu-bottom .menu-item {
+        min-height: 48px;
+        padding: 13px 20px;
+        font-size: 14px;
+    }
+
+    .menu-bottom .menu-item i {
+        font-size: 16px;
+    }
+}
+
+/* =========================================================
+   CELULARES PEQUENOS
+   ========================================================= */
+@media (max-width: 480px) {
+
+    .sidebar {
+        width: 85vw;
+        max-width: 280px;
+    }
+
+    .menu-bottom {
+        padding-bottom: max(16px, env(safe-area-inset-bottom));
+    }
+
+    .menu-bottom .menu-item {
+        min-height: 50px;
+        padding: 14px 18px;
+        font-size: 14px;
+    }
+
+    .menu-bottom .menu-item i {
+        width: 20px;
+        min-width: 20px;
+        font-size: 16px;
+    }
+}
+
+/* =========================================================
+   TELAS MUITO PEQUENAS
+   ========================================================= */
+@media (max-width: 360px) {
+
+    .sidebar {
+        width: 90vw;
+    }
+
+    .menu-bottom .menu-item {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+}
+   </style>
+
 </head>
 <body>
     <!-- Overlay -->
@@ -25,13 +176,24 @@
             <div class="menu-item active" data-page="dashboard"><i class="fas fa-home"></i> Dashboard</div>
             <div class="menu-item" data-page="cronograma"><i class="fas fa-calendar-alt"></i> Cronograma</div>
             <div class="menu-item" data-page="disciplinas"><i class="fas fa-book"></i> Disciplinas</div>
-            <a class="menu-item" href="/GM-AJU/ABAS/Minhas Revisões/Minhas Revisões.html"><i class="fas fa-star"></i> Minhas Revisões</a>
-            <div class="menu-item" data-page="progresso"><i class="fas fa-chart-line"></i> Meu Progresso</div>
-            <a class="menu-item" href="/GM-AJU/ABAS/Questões/Questões.html"><i class="fas fa-tasks"></i> Questões</a>
+<a class="menu-item" href="./ABAS/Minhas%20Revisões/Minhas%20Revisões.html">
+    <i class="fas fa-star"></i> Minhas Revisões
+</a>
+
+<div class="menu-item" data-page="progresso">
+    <i class="fas fa-chart-line"></i> Meu Progresso
+</div>
+
+<a class="menu-item" href="./ABAS/Questões/Questões.html">
+    <i class="fas fa-tasks"></i> Questões
+</a>
+
+
         </nav>
         <div class="menu-bottom">
-            <a class="menu-item" href="/GM-AJU/ABAS/Edital/edital-gma-2026.html" target="_blank"><i class="fas fa-file-alt"></i> Edital</a>
-        </div>
+<a class="menu-item" href="./ABAS/Edital/edital-gma-2026.html" target="_blank">
+    <i class="fas fa-file-alt"></i> Edital
+</a>        </div>
     </aside>
 
     <!-- Main -->
@@ -208,10 +370,10 @@
                     video('INTERPRETAÇÃO de TEXTOS para CONCURSO', 'Prof. Álvaro Ferreira', '22iA3PPjr7c'),
                    video('COMPREENSÃO E INTERPRETAÇÃO DE TEXTOS', 'Professora Lis', '45thlAoGOGU')
                 ]),
-materia('Raciocínio Lógico', 'Proposições e conectivos', [
-    video('Proposições Compostas e Conectivos Lógicos', 'Tiago Gomes', 'YDh-hrk2kyY'),
-    video('Proposições Lógicas Aula 2', 'Felippe Loureiro', 'xBlLfzrRbHo'),
-    video('LÓGICA: CONECTIVOS LÓGICOS', 'Equaciona Com Paulo Pereira', 'i8jbzEWEOYk')
+                materia('Raciocínio Lógico', 'Proposições e conectivos', [
+                video('Proposições Compostas e Conectivos Lógicos', 'Tiago Gomes', 'YDh-hrk2kyY'),
+                video('Proposições Lógicas Aula 2', 'Felippe Loureiro', 'xBlLfzrRbHo'),
+                video('LÓGICA: CONECTIVOS LÓGICOS', 'Equaciona Com Paulo Pereira', 'i8jbzEWEOYk')
 ])
             ]
         });
@@ -223,7 +385,7 @@ materia('Raciocínio Lógico', 'Proposições e conectivos', [
                 materia('Português', 'Coesão, pronomes e Articulação do Texto', [
                     video('PRONOMES', 'Prof. Álvaro Ferreira', '3fyN4DrdcOo'),
                     video('COESÃO e COERÊNCIA', 'Prof. Álvaro Ferreira', 'f1vCAm294i8'),
-                     video('ARTICULAÇÃO DO TEXTO', 'YouTube', 'UzX9i0MlZ30') 
+                    video('ARTICULAÇÃO DO TEXTO', 'YouTube', 'UzX9i0MlZ30') 
                              ]),
                 materia('Informática', 'Hardware, software, memória e periféricos', [
                     video('Hardware | Informática para Concursos 2026', 'Prof. Romilton Júnior', 'ZyEM9UgcPLM'),
@@ -241,8 +403,8 @@ materia('Raciocínio Lógico', 'Proposições e conectivos', [
                     video('TERMOS DA ORAÇÃO', 'Pablo Jamilk', 'eY51h52MMX8')
                 ]),
                 materia('Raciocínio Lógico', 'Equivalências e negações', [
-                    video('Tudo sobre Negação Lógica', 'Felippe Loureiro', 'BKwcdaCX-Qk'),
-                    video('Negação Lógica - Macete do MANÉ', 'Tiago Gomes', 'lAB93NZnwFI')
+                    video('Equivalências Lógicas', 'Felipe Loureiro', 'tyXSz-q9kGQ'),
+                    video('Negações Lógicas', 'Felipe Loureiro', 'https://www.youtube.com/playlist?list=PL4sBa83-9lauHZ7vS7TJUHrkO_uKNKFBD'),
                 ])
             ]
         });
@@ -1362,6 +1524,14 @@ materia('Raciocínio Lógico', 'Proposições e conectivos', [
         window.showPage = showPage;
         window.iniciarSimulado = iniciarSimulado;
         window.renderDashboard = renderDashboard;
+    
+        function video(titulo, canal, id, duracao = '') {
+    const url = id.startsWith('http')
+        ? id
+        : 'https://www.youtube.com/watch?v=' + id;
+
+    return { titulo, canal, url, duracao };
+}
     </script>
 </body>
 </html>
