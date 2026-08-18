@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Equivalências Lógicas – IDECAN (com comentários)</title>
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/GMA/QUESTÕES.css?v=3">
+    <style>
+        /* Estilo extra para o comentário */
+        .comentario {
+            margin-top: 12px;
+            padding: 14px 16px;
+            background: #f0f4f8;
+            border-left: 4px solid #2d9d5e;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #1e2a3a;
+            display: none;
+        }
+        .comentario.visivel {
+            display: block;
+        }
+        .comentario strong {
+            color: #1a5a3a;
+        }
+        .comentario .macete {
+            background: #e6f0fa;
+            padding: 6px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 6px 0;
+            font-weight: 600;
+            color: #0056a7;
+        }
+        .comentario .erro-alternativa {
+            color: #b33;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY MOBILE -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-robot"></i> Equivalências
+        </div>
+        <button class="menu-item active" data-page="questoes" id="menuQuestoes">
+            <i class="fas fa-list-ul"></i> Questões
+        </button>
+        <button class="menu-item" data-page="gabarito" id="menuGabarito">
+            <i class="fas fa-check-circle"></i> Gabarito
+        </button>
+        <div class="menu-bottom">
+            <div style="color:#484F58; font-size:0.75rem; padding:0.5rem 0;">
+                <i class="fas fa-graduation-cap"></i> 20 questões • IDECAN
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <h1>
+                <i class="fas fa-puzzle-piece" style="color:#2d9d5e;"></i>
+                Equivalências Lógicas
+                <small>20 questões (IDECAN) – com gabarito comentado</small>
+            </h1>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- PÁGINA QUESTÕES -->
+        <div class="page active" id="pageQuestoes">
+            <div id="questoesContainer"></div>
+        </div>
+
+        <!-- PÁGINA GABARITO -->
+        <div class="page" id="pageGabarito">
+            <h2 style="margin-bottom:1.5rem; font-weight:600; display:flex; align-items:center; gap:10px;">
+                <i class="fas fa-check-double" style="color:#2d9d5e;"></i> Gabarito Oficial
+            </h2>
+            <div id="gabaritoContainer"></div>
+        </div>
+    </main>
+
+    <script>
+        // ================================================================
+        // 20 QUESTÕES DE EQUIVALÊNCIAS LÓGICAS – BANCA IDECAN
+        // Cada questão agora possui um campo 'comentario' com a resolução completa.
+        // ================================================================
+        const questoes = [
+            {
+                id: 1,
+                texto: '(IDECAN – UNILAB – 2026 – Q4216430) Considere a afirmação: “É falso que, se os funcionários trabalham remotamente, então a produtividade aumenta”.',
+                pergunta: 'Qual expressão é equivalente?',
+                alternativas: [
+                    'Funcionários não trabalham remotamente ou a produtividade aumenta.',
+                    'Funcionários trabalham remotamente e a produtividade não aumenta.',
+                    'Funcionários não trabalham remotamente e a produtividade aumenta.',
+                    'Se a produtividade não aumenta, então os funcionários não trabalham remotamente.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Definimos P = funcionários trabalham remotamente, Q = produtividade aumenta.<br>
+                    A proposição original é P → Q, mas a questão diz que é <em>falso</em> que P → Q.<br>
+                    Logo, precisamos negar a condicional: ¬(P → Q) ≡ P ∧ ¬Q.<br>
+                    Portanto: <strong>funcionários trabalham remotamente E a produtividade não aumenta</strong>.<br><br>
+                    <span class="macete">🧠 Macete: Negação da condicional = mantém a primeira + nega a segunda.</span><br>
+                    <span class="erro-alternativa">Erro das outras:</span> A) é a própria equivalência de P→Q (¬P∨Q); C) negou as duas; D) é a contrapositiva (equivalente à original, não à negação).
+                `
+            },
+            {
+                id: 2,
+                texto: '(IDECAN – UNILAB – 2026 – Q4216428) A reunião ocorreu presencialmente ou por videoconferência.',
+                pergunta: 'Qual é a negação lógica?',
+                alternativas: [
+                    'Não ocorreu presencialmente e não ocorreu por videoconferência.',
+                    'Não ocorreu presencialmente ou não ocorreu por videoconferência.',
+                    'Se não ocorreu presencialmente, então não ocorreu por videoconferência.',
+                    'Se ocorreu presencialmente, então ocorreu por videoconferência.'
+                ],
+                gabarito: 0,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = reunião presencial, Q = videoconferência. Temos P ∨ Q.<br>
+                    Negação: ¬(P ∨ Q) ≡ ¬P ∧ ¬Q (Lei de De Morgan).<br>
+                    Portanto: <strong>não ocorreu presencialmente E não ocorreu por videoconferência</strong>.<br><br>
+                    <span class="macete">🧠 Decore: negou OU → vira E; negou E → vira OU.</span>
+                `
+            },
+            {
+                id: 3,
+                texto: '(IDECAN – UNILAB – 2026 – Q4216424) Considere: “Se a corrida não foi cancelada, então o motorista aceitou a corrida e o passageiro foi cobrado”.',
+                pergunta: 'Qual proposição é equivalente?',
+                alternativas: [
+                    'Se o motorista aceitou ou o passageiro foi cobrado, então a corrida foi cancelada.',
+                    'A corrida não foi cancelada e as outras duas condições ocorreram.',
+                    'A corrida foi cancelada ou o motorista aceitou a corrida e o passageiro foi cobrado.',
+                    'A corrida não foi cancelada ou as duas condições ocorreram.'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = corrida não cancelada, Q = motorista aceitou, R = passageiro cobrado.<br>
+                    Temos P → (Q ∧ R).<br>
+                    Usando a equivalência P → X ≡ ¬P ∨ X, temos:<br>
+                    ¬P ∨ (Q ∧ R) → <strong>corrida cancelada OU (motorista aceitou E passageiro cobrado)</strong>.<br><br>
+                    <span class="macete">🧠 Macete: Se P → Q, então ¬P ∨ Q.</span>
+                `
+            },
+            {
+                id: 4,
+                texto: '(IDECAN – UNILAB – 2026 – Q4216421) Camila fez o Pix e não confirmou o comprovante.',
+                pergunta: 'Qual é a negação?',
+                alternativas: [
+                    'Camila não fez Pix e confirmou o comprovante.',
+                    'Camila fez Pix ou confirmou o comprovante.',
+                    'Camila não fez Pix ou confirmou o comprovante.',
+                    'Camila não fez Pix e não confirmou o comprovante.'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = fez Pix, Q = confirmou comprovante. Temos P ∧ ¬Q.<br>
+                    Negação: ¬(P ∧ ¬Q) ≡ ¬P ∨ ¬(¬Q) ≡ ¬P ∨ Q.<br>
+                    Portanto: <strong>não fez Pix OU confirmou o comprovante</strong>.<br><br>
+                    <span class="macete">🧠 Cuidado: a negação de “fez Pix E não confirmou” não é “não fez Pix E confirmou” – o E vira OU.</span>
+                `
+            },
+            {
+                id: 5,
+                texto: '(IDECAN – UNILAB – 2026 – Q4215621) Considere: P = o usuário compartilha notícias falsas. Q = a plataforma bane o usuário.',
+                pergunta: 'A expressão “a plataforma bane o usuário se, e somente se, ele compartilha notícias falsas” corresponde a:',
+                alternativas: [
+                    'P → Q',
+                    'P ↔ Q',
+                    'Q → P',
+                    'P ∧ Q'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    “se, e somente se” é o conectivo bicondicional ↔.<br>
+                    A frase é Q ↔ P, que é o mesmo que P ↔ Q.<br><br>
+                    <span class="macete">🧠 Palavra-chave: “se, e somente se” → ↔.</span>
+                `
+            },
+            {
+                id: 6,
+                texto: '(IDECAN – PROCON-RJ – 2026 – Q4092480) Considere a negação de: “Uma nação investe em energias renováveis e sua pegada de carbono não diminui”.',
+                pergunta: 'Qual expressão equivalente?',
+                alternativas: [
+                    'Se investe em renováveis, então a pegada não diminui.',
+                    'Não investe em renováveis ou a pegada de carbono diminui.',
+                    'A pegada diminui e não investe em renováveis.',
+                    'Não é verdade que não investe e que a pegada não diminui.'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = investe em renováveis, Q = pegada não diminui. Temos P ∧ Q.<br>
+                    Negação: ¬(P ∧ Q) ≡ ¬P ∨ ¬Q.<br>
+                    ¬P = não investe; ¬Q = pegada diminui.<br>
+                    Logo: <strong>não investe em renováveis OU a pegada de carbono diminui</strong>.<br><br>
+                    <span class="macete">🧠 ¬(P ∧ Q) = ¬P ∨ ¬Q.</span>
+                `
+            },
+            {
+                id: 7,
+                texto: '(IDECAN – PROCON-RJ – 2026 – Q4030947) Considere: P = o sistema é atualizado. Q = os dados estão protegidos.',
+                pergunta: 'A proposição P → Q é equivalente a:',
+                alternativas: [
+                    'P ∧ ¬Q',
+                    '¬Q → ¬P',
+                    'Q → P',
+                    '¬P ∨ ¬Q'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A equivalência fundamental da condicional é a contrapositiva: P → Q ≡ ¬Q → ¬P.<br>
+                    As demais: Q → P é a recíproca (não equivalente), ¬P∨Q é equivalente (mas não está listada).<br>
+                    Logo, <strong>¬Q → ¬P</strong>.<br><br>
+                    <span class="macete">🧠 Decore: condicional → contrapositiva (inverte e nega os dois).</span>
+                `
+            },
+            {
+                id: 8,
+                texto: '(IDECAN – UNILAB – 2026 – Q4013447) “Todo estudante utiliza ferramenta de IA para estudar.”',
+                pergunta: 'Qual alternativa representa a negação?',
+                alternativas: [
+                    'Existe pelo menos um estudante que não utiliza ferramenta de IA para estudar.',
+                    'Nenhum estudante utiliza ferramenta de IA.',
+                    'Existe estudante que utiliza ferramenta de IA.',
+                    'Existe pessoa que utiliza IA, mas não é estudante.'
+                ],
+                gabarito: 0,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    Negação de “todo A é B” = “existe pelo menos um A que não é B”.<br>
+                    Portanto: <strong>existe pelo menos um estudante que não utiliza IA</strong>.<br><br>
+                    <span class="macete">🧠 TODO → existe pelo menos um que NÃO. (Não é “nenhum”!)</span>
+                `
+            },
+            {
+                id: 9,
+                texto: '(IDECAN – UNILAB – 2026 – Q4013445) Considere: “Se o site é seguro, então os dados são criptografados e o pagamento é protegido”.',
+                pergunta: 'Qual alternativa é equivalente?',
+                alternativas: [
+                    'Se os dados não forem criptografados ou o pagamento não for protegido, então o site não é seguro.',
+                    'O site é seguro, os dados são criptografados e o pagamento é protegido.',
+                    'Se os dados forem criptografados ou o pagamento for protegido, então o site é seguro.',
+                    'O site é seguro ou os dados são criptografados e o pagamento é protegido.'
+                ],
+                gabarito: 0,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = site seguro, Q = dados criptografados, R = pagamento protegido.<br>
+                    Temos P → (Q ∧ R). A contrapositiva é ¬(Q ∧ R) → ¬P.<br>
+                    Por De Morgan: (¬Q ∨ ¬R) → ¬P.<br>
+                    Ou seja: <strong>se os dados não forem criptografados OU o pagamento não for protegido, então o site não é seguro</strong>.<br><br>
+                    <span class="macete">🧠 Contrapositiva de P → (Q∧R) = (¬Q∨¬R) → ¬P.</span>
+                `
+            },
+            {
+                id: 10,
+                texto: '(IDECAN – UNILAB – 2026 – Q4013442) “O pagamento foi feito por Pix ou a compra foi parcelada no cartão.”',
+                pergunta: 'Qual é a negação da proposição?',
+                alternativas: [
+                    'Se foi Pix, então foi parcelado.',
+                    'Não foi Pix ou não foi parcelado.',
+                    'Se não foi Pix, então não foi parcelado.',
+                    'Não foi Pix e não foi parcelado.'
+                ],
+                gabarito: 3,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = Pix, Q = compra parcelada. Temos P ∨ Q.<br>
+                    Negação: ¬(P ∨ Q) ≡ ¬P ∧ ¬Q.<br>
+                    Portanto: <strong>não foi Pix E não foi parcelado</strong>.<br><br>
+                    <span class="macete">🧠 Negou OU → E.</span>
+                `
+            },
+            {
+                id: 11,
+                texto: '(IDECAN – UNILAB – 2026 – Q4013441) P = o usuário compartilha notícias falsas. Q = a plataforma bane o usuário.',
+                pergunta: 'A proposição “Q se, e somente se, P” equivale a:',
+                alternativas: [
+                    'Q ∧ P',
+                    'P → Q',
+                    'P ↔ Q',
+                    'Q → P'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    “Q se, e somente se, P” = Q ↔ P, que é equivalente a P ↔ Q.<br><br>
+                    <span class="macete">🧠 Bicondicional é comutativa: Q↔P ≡ P↔Q.</span>
+                `
+            },
+            {
+                id: 12,
+                texto: '(IDECAN – UNILAB – 2026 – Q4011649) As proposições P e Q são verdadeiras: P = o som é uma onda. Q = a onda transporta energia.',
+                pergunta: 'Qual alternativa necessariamente apresenta uma proposição verdadeira?',
+                alternativas: [
+                    'P ∨ ¬Q',
+                    'P → ¬Q',
+                    '¬P ∨ ¬Q',
+                    '¬P ↔ Q'
+                ],
+                gabarito: 0,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = V, Q = V. Avaliamos cada uma:<br>
+                    A) V ∨ F = V → <strong>verdadeira</strong>.<br>
+                    B) V → F = F.<br>
+                    C) F ∨ F = F.<br>
+                    D) F ↔ V = F.<br>
+                    Logo, a única verdadeira é a A.<br><br>
+                    <span class="macete">🧠 Aqui o foco é valor lógico, não equivalência.</span>
+                `
+            },
+            {
+                id: 13,
+                texto: '(IDECAN – PC-SC – 2026 – Q3972304) Considere: “Se o suspeito for encontrado no local do crime, então será interrogado”.',
+                pergunta: 'Qual é a negação?',
+                alternativas: [
+                    'Não encontrado e não interrogado.',
+                    'Não encontrado ou interrogado.',
+                    'Encontrado e não interrogado.',
+                    'Se for interrogado, então foi encontrado.',
+                    'Se não for encontrado, então não será interrogado.'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = encontrado, Q = interrogado. Temos P → Q.<br>
+                    Negação: ¬(P → Q) ≡ P ∧ ¬Q.<br>
+                    Portanto: <strong>encontrado E não interrogado</strong>.<br><br>
+                    <span class="macete">🚨 Pegadinha: muita gente responde “não encontrado e não interrogado” – errado! A negação da condicional é P ∧ ¬Q.</span>
+                `
+            },
+            {
+                id: 14,
+                texto: '(IDECAN – PC-SC – 2026 – Q3962952) Considere: “O rádio funciona e a bateria está carregada”.',
+                pergunta: 'A negação é equivalente a:',
+                alternativas: [
+                    'Rádio não funciona e bateria não está carregada.',
+                    'Se rádio não funciona, bateria não está carregada.',
+                    'Rádio funciona ou bateria está carregada.',
+                    'Se bateria não está carregada, rádio não funciona.',
+                    'Rádio não funciona ou bateria não está carregada.'
+                ],
+                gabarito: 4,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = rádio funciona, Q = bateria carregada. Temos P ∧ Q.<br>
+                    Negação: ¬(P ∧ Q) ≡ ¬P ∨ ¬Q.<br>
+                    Ou seja: <strong>rádio não funciona OU bateria não está carregada</strong>.<br><br>
+                    <span class="macete">🧠 Negação do E = OU.</span>
+                `
+            },
+            {
+                id: 15,
+                texto: '(IDECAN – CBM-SC – 2026 – Q3938594) Considere: P = policiamento preventivo é reforçado. Q = taxa de furtos diminui.',
+                pergunta: 'Qual expressão é uma tautologia que representa a equivalência de P → Q?',
+                alternativas: [
+                    '(P ∧ Q) ↔ (¬P ∨ ¬Q)',
+                    '(P → Q) ↔ (P ∧ ¬Q)',
+                    '(P → Q) ↔ (¬P ∨ Q)',
+                    '(P → Q) ↔ (Q → P)',
+                    '(P → Q) ↔ ¬(¬P ∧ P)'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    A equivalência fundamental da condicional é P → Q ≡ ¬P ∨ Q.<br>
+                    Portanto, (P → Q) ↔ (¬P ∨ Q) é sempre verdadeiro (tautologia).<br><br>
+                    <span class="macete">🔥 Decore: P → Q = ¬P ∨ Q. É a equivalência mais importante.</span>
+                `
+            },
+            {
+                id: 16,
+                texto: '(IDECAN – SEE-PB – 2025 – Q3504621) Um diagnóstico afirma: “A placa-mãe está queimada ou a memória é incompatível”. O técnico informa que essa afirmação é falsa.',
+                pergunta: 'Qual conclusão corresponde a isso?',
+                alternativas: [
+                    'Placa não queimada ou memória incompatível.',
+                    'Placa queimada e memória compatível.',
+                    'Placa não queimada ou memória compatível.',
+                    'Placa queimada e memória incompatível.',
+                    'Placa não queimada e memória compatível.'
+                ],
+                gabarito: 4,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = placa queimada, Q = memória incompatível. Afirmação: P ∨ Q.<br>
+                    O técnico diz que é falsa → ¬(P ∨ Q) ≡ ¬P ∧ ¬Q.<br>
+                    ¬P = placa não queimada; ¬Q = memória compatível.<br>
+                    Logo: <strong>placa não queimada E memória compatível</strong>.<br><br>
+                    <span class="macete">🧠 ¬(P∨Q) = ¬P ∧ ¬Q.</span>
+                `
+            },
+            {
+                id: 17,
+                texto: '(IDECAN – PM-MS – 2022 – Q2059380) Considere: “Se o soldado for flagrado dormindo na viatura, então deverá ser conduzido preso ao quartel”.',
+                pergunta: 'Qual é uma forma logicamente equivalente?',
+                alternativas: [
+                    'P ∨ Q',
+                    '¬P ∧ ¬Q',
+                    '¬P ∨ ¬Q',
+                    '¬P ∧ Q',
+                    '¬P ∨ Q'
+                ],
+                gabarito: 4,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = flagrado, Q = conduzido. Temos P → Q.<br>
+                    Equivalência: P → Q ≡ ¬P ∨ Q.<br>
+                    Ou seja: <strong>não foi flagrado OU será conduzido</strong>.<br><br>
+                    <span class="macete">🔥 Se P → Q, troque por ¬P ∨ Q.</span>
+                `
+            },
+            {
+                id: 18,
+                texto: '(IDECAN – SEFAZ-RR – 2023 – Q2084613) Considere: “Se eu não desenvolvo um programa que atenda às necessidades do cliente, então não sou um profissional de excelência”.',
+                pergunta: 'Qual alternativa é equivalente?',
+                alternativas: [
+                    'Não desenvolvo e não sou excelente.',
+                    'Não desenvolvo se, e somente se, não sou excelente.',
+                    'Se sou profissional de excelência, então desenvolvo o programa.',
+                    'Desenvolvo o programa ou não sou excelente.',
+                    'Se não sou excelente, então não desenvolvo.'
+                ],
+                gabarito: 2,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = não desenvolvo, Q = não sou excelente. Temos P → Q.<br>
+                    Contrapositiva: ¬Q → ¬P.<br>
+                    ¬Q = sou excelente; ¬P = desenvolvo.<br>
+                    Portanto: <strong>Se sou profissional de excelência, então desenvolvo o programa</strong>.<br><br>
+                    <span class="macete">🧠 Contrapositiva de P→Q é ¬Q→¬P. Cuidado com a recíproca (Q→P), que não é equivalente.</span>
+                `
+            },
+            {
+                id: 19,
+                texto: '(IDECAN – Câmara de Nova Europa – 2018 – Q1563441) [Questão anulada pela banca – use apenas para treino]',
+                pergunta: 'Determine uma equivalência para: ¬(P ∨ Q)',
+                alternativas: [
+                    '¬P ∨ ¬Q',
+                    '¬P ∧ ¬Q',
+                    'P ∧ Q',
+                    'P ∨ ¬Q'
+                ],
+                gabarito: 1,
+                comentario: `
+                    <strong>Resolução (regra lógica):</strong><br>
+                    ¬(P ∨ Q) ≡ ¬P ∧ ¬Q (De Morgan).<br>
+                    Portanto, a alternativa B é a correta.<br><br>
+                    <span class="macete">🧠 ¬(P∨Q) = ¬P ∧ ¬Q.</span><br>
+                    <em>Observação: esta questão foi anulada pela banca, mas a regra permanece válida para estudo.</em>
+                `
+            },
+            {
+                id: 20,
+                texto: '(IDECAN – Prefeitura de São Caetano do Sul – 2023 – Q2295493) Considere a afirmação: “Natanael é bonito e Daniel é irritado”.',
+                pergunta: 'Qual alternativa representa a negação lógica?',
+                alternativas: [
+                    'Natanael não é bonito ou Daniel não é irritado.',
+                    'Natanael não é bonito e Daniel é irritado.',
+                    'Natanael é irritado e Daniel é bonito.',
+                    'Natanael não é bonito e Daniel não é irritado.'
+                ],
+                gabarito: 0,
+                comentario: `
+                    <strong>Resolução:</strong><br>
+                    P = Natanael é bonito, Q = Daniel é irritado. Temos P ∧ Q.<br>
+                    Negação: ¬(P ∧ Q) ≡ ¬P ∨ ¬Q.<br>
+                    Logo: <strong>Natanael não é bonito OU Daniel não é irritado</strong>.<br><br>
+                    <span class="macete">🧠 ¬(P∧Q) = ¬P ∨ ¬Q.</span>
+                `
+            }
+        ];
+
+        // ================================================================
+        // RENDERIZAÇÃO (mesmo padrão do site original, com comentário extra)
+        // ================================================================
+        const letras = ['A', 'B', 'C', 'D', 'E'];
+
+        function renderQuestoes() {
+            const container = document.getElementById('questoesContainer');
+            container.innerHTML = '';
+            questoes.forEach((q, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'questao-wrapper';
+                wrapper.dataset.index = idx;
+
+                const header = document.createElement('div');
+                header.className = 'questao-header';
+                header.innerHTML = `
+                    <span class="numero">Q${q.id}</span>
+                    <span class="badge">${q.texto.split(')')[0].replace('(','')}</span>
+                `;
+                wrapper.appendChild(header);
+
+                if (q.texto) {
+                    const textoDiv = document.createElement('div');
+                    textoDiv.className = 'questao-texto';
+                    textoDiv.textContent = q.texto;
+                    wrapper.appendChild(textoDiv);
+                }
+
+                const pergunta = document.createElement('div');
+                pergunta.className = 'questao-pergunta';
+                pergunta.textContent = q.pergunta;
+                wrapper.appendChild(pergunta);
+
+                const altDiv = document.createElement('div');
+                altDiv.className = 'alternativas';
+                q.alternativas.forEach((alt, i) => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `q${idx}`;
+                    radio.value = i;
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(`${letras[i]}) ${alt}`));
+                    altDiv.appendChild(label);
+                });
+                wrapper.appendChild(altDiv);
+
+                const actions = document.createElement('div');
+                actions.className = 'questao-actions';
+
+                const btn = document.createElement('button');
+                btn.className = 'btn-verificar';
+                btn.innerHTML = '<i class="fas fa-check"></i> Verificar';
+                btn.addEventListener('click', () => verificarQuestao(idx));
+
+                const feedback = document.createElement('span');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${idx}`;
+
+                const gabDiv = document.createElement('span');
+                gabDiv.className = 'gabarito-revelado';
+                gabDiv.id = `gabarito-revelado-${idx}`;
+
+                // Div para o comentário
+                const comentDiv = document.createElement('div');
+                comentDiv.className = 'comentario';
+                comentDiv.id = `comentario-${idx}`;
+                comentDiv.innerHTML = q.comentario; // insere o HTML do comentário
+
+                actions.appendChild(btn);
+                actions.appendChild(feedback);
+                actions.appendChild(gabDiv);
+                wrapper.appendChild(actions);
+                wrapper.appendChild(comentDiv);
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        function verificarQuestao(idx) {
+            const q = questoes[idx];
+            const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+            let selecionado = null;
+            radios.forEach(r => { if (r.checked) selecionado = parseInt(r.value); });
+
+            const feedback = document.getElementById(`feedback-${idx}`);
+            const gabDiv = document.getElementById(`gabarito-revelado-${idx}`);
+            const comentDiv = document.getElementById(`comentario-${idx}`);
+
+            if (selecionado === null) {
+                feedback.textContent = '⚠️ Selecione uma alternativa.';
+                feedback.className = 'feedback';
+                feedback.style.color = '#f0a030';
+                gabDiv.textContent = '';
+                comentDiv.classList.remove('visivel');
+                return;
+            }
+
+            const correta = q.gabarito;
+            if (selecionado === correta) {
+                feedback.textContent = '✅ Correta!';
+                feedback.className = 'feedback correto';
+                gabDiv.textContent = '';
+            } else {
+                feedback.textContent = '❌ Incorreta.';
+                feedback.className = 'feedback incorreto';
+                gabDiv.textContent = `Resposta correta: ${letras[correta]}`;
+            }
+
+            // Exibe o comentário (sempre após verificar)
+            comentDiv.classList.add('visivel');
+        }
+
+        function renderGabarito() {
+            const container = document.getElementById('gabaritoContainer');
+            let html = `
+                <table class="gabarito-tabela">
+                    <thead><tr><th>Questão</th><th>Resposta</th></tr></thead>
+                    <tbody>
+            `;
+            questoes.forEach(q => {
+                html += `<tr><td>Q${q.id}</td><td class="resp">${letras[q.gabarito]}</td></tr>`;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        // ================================================================
+        // NAVEGAÇÃO ENTRE ABAS
+        // ================================================================
+        function navegarPara(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page${page.charAt(0).toUpperCase() + page.slice(1)}`).classList.add('active');
+
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            if (page === 'questoes') {
+                document.getElementById('menuQuestoes').classList.add('active');
+            } else {
+                document.getElementById('menuGabarito').classList.add('active');
+            }
+
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('menuQuestoes').addEventListener('click', () => navegarPara('questoes'));
+        document.getElementById('menuGabarito').addEventListener('click', () => navegarPara('gabarito'));
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // ================================================================
+        // INICIALIZAÇÃO
+        // ================================================================
+        renderQuestoes();
+        renderGabarito();
+    </script>
+
+</body>
+</html>
