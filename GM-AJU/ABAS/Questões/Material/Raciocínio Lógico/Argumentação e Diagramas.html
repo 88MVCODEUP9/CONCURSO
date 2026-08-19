@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Argumentação + Diagramas</title>
+    <link rel="icon" type="image/x-icon" href="https://github.com/88MVcode9/ARQUIVOS/blob/main/IMAGENS/POLICIAIS/GMA.jpeg?raw=true">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">    
+    <link rel="stylesheet" href="https://88mvcode9.github.io/ARQUIVOS/ESTILOS/GMA/QUESTÕES.css?v=3">
+    <style>
+        .comentario {
+            margin-top: 12px;
+            padding: 14px 16px;
+            background: #f0f4f8;
+            border-left: 4px solid #2d9d5e;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #1e2a3a;
+            display: none;
+        }
+        .comentario.visivel {
+            display: block;
+        }
+        .comentario strong {
+            color: #1a5a3a;
+        }
+        .comentario .macete {
+            background: #e6f0fa;
+            padding: 6px 12px;
+            border-radius: 4px;
+            display: inline-block;
+            margin: 6px 0;
+            font-weight: 600;
+            color: #0056a7;
+        }
+        .badge-arg {
+            background: #2d9d5e;
+        }
+        .badge-diag {
+            background: #d98c2d;
+        }
+        .badge-misto {
+            background: #6f42c1;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- OVERLAY MOBILE -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="fas fa-robot"></i> Lógica
+        </div>
+        <button class="menu-item active" data-page="questoes" id="menuQuestoes">
+            <i class="fas fa-list-ul"></i> Questões
+        </button>
+        <button class="menu-item" data-page="gabarito" id="menuGabarito">
+            <i class="fas fa-check-circle"></i> Gabarito
+        </button>
+        <div class="menu-bottom">
+            <div style="color:#484F58; font-size:0.75rem; padding:0.5rem 0;">
+                <i class="fas fa-graduation-cap"></i> 45 questões • IDECAN
+            </div>
+        </div>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+        <!-- TOPBAR -->
+        <div class="topbar">
+            <h1>
+                <i class="fas fa-puzzle-piece" style="color:#2d9d5e;"></i>
+                Argumentação + Diagramas
+                <small>45 questões – com gabarito comentado</small>
+            </h1>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- PÁGINA QUESTÕES -->
+        <div class="page active" id="pageQuestoes">
+            <div id="questoesContainer"></div>
+        </div>
+
+        <!-- PÁGINA GABARITO -->
+        <div class="page" id="pageGabarito">
+            <h2 style="margin-bottom:1.5rem; font-weight:600; display:flex; align-items:center; gap:10px;">
+                <i class="fas fa-check-double" style="color:#2d9d5e;"></i> Gabarito Oficial
+            </h2>
+            <div id="gabaritoContainer"></div>
+        </div>
+    </main>
+
+    <script>
+        // ================================================================
+        // 45 QUESTÕES – ARGUMENTAÇÃO LÓGICA, DIAGRAMAS E MISTAS
+        // Comentários resumidos baseados nas respostas fornecidas.
+        // ================================================================
+        const questoes = [
+            // ---------- ARGUMENTAÇÃO (1 a 15) ----------
+            {
+                id: 1,
+                texto: 'Considere o argumento: Premissa 1: Todo professor é dedicado. Premissa 2: Maria é professora. Conclusão: Maria é dedicada. Esse argumento é:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Válido, pois a conclusão decorre necessariamente das premissas.',
+                    'Inválido, pois a conclusão pode ser falsa.',
+                    'Válido somente se Maria for realmente dedicada.',
+                    'Inválido, pois a primeira premissa é geral.',
+                    'Não é possível determinar a validade sem conhecer Maria.'
+                ],
+                gabarito: 0,
+                comentario: 'Argumento dedutivo válido: silogismo categórico (Modus Barbara). Todo professor é dedicado; Maria é professora → Maria é dedicada.'
+            },
+            {
+                id: 2,
+                texto: 'Assinale a alternativa que apresenta uma falácia de Afirmação do Consequente:',
+                pergunta: 'Qual alternativa contém a falácia?',
+                alternativas: [
+                    'Se chove, a rua molha. Choveu, logo a rua molhou.',
+                    'Se chove, a rua molha. A rua molhou, logo choveu.',
+                    'Se chove, a rua molha. Não choveu, logo a rua não molhou.',
+                    'Se chove, a rua molha. A rua não molhou, logo não choveu.',
+                    'Se chove, a rua molha. Choveu, logo a rua não molhou.'
+                ],
+                gabarito: 1,
+                comentario: 'Afirmação do consequente: P→Q, Q, logo P. É a falácia da alternativa B.'
+            },
+            {
+                id: 3,
+                texto: 'Em um argumento dedutivo válido, se as premissas são verdadeiras, a conclusão é:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Provavelmente verdadeira.',
+                    'Necessariamente verdadeira.',
+                    'Pode ser verdadeira ou falsa.',
+                    'Sempre falsa.',
+                    'Independente das premissas.'
+                ],
+                gabarito: 1,
+                comentario: 'Em dedução válida, a conclusão segue logicamente das premissas; se as premissas são verdadeiras, a conclusão é necessariamente verdadeira.'
+            },
+            {
+                id: 4,
+                texto: 'A frase “Se estudo, então passo” é logicamente equivalente a:',
+                pergunta: 'Qual alternativa é equivalente?',
+                alternativas: [
+                    'Se não estudo, então não passo.',
+                    'Se passo, então estudo.',
+                    'Se não passo, então não estudo.',
+                    'Estudo e não passo.',
+                    'Estudo ou passo.'
+                ],
+                gabarito: 2,
+                comentario: 'A contrapositiva da condicional P→Q é ¬Q→¬P. Portanto, “Se não passo, então não estudo”.'
+            },
+            {
+                id: 5,
+                texto: 'Um argumento que parte de observações particulares para chegar a uma conclusão geral é chamado de:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Dedutivo.',
+                    'Hipotético.',
+                    'Indutivo.',
+                    'Analógico.',
+                    'Falacioso.'
+                ],
+                gabarito: 2,
+                comentario: 'Raciocínio indutivo: do particular para o geral (generalização).'
+            },
+            {
+                id: 6,
+                texto: 'Identifique a falácia presente na frase: “Não aceito sua opinião sobre política, pois você não tem diploma universitário.”',
+                pergunta: 'Qual é a falácia?',
+                alternativas: [
+                    'Apelo à autoridade.',
+                    'Ad hominem.',
+                    'Falsa dicotomia.',
+                    'Petição de princípio.',
+                    'Generalização precipitada.'
+                ],
+                gabarito: 1,
+                comentario: 'Ataque à pessoa (ad hominem): desqualifica o argumento com base em característica pessoal irrelevante.'
+            },
+            {
+                id: 7,
+                texto: 'Considere: P1: Se bebo, não dirijo. P2: Bebi. Conclusão: Não dirigi. Esse argumento é:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Válido e sólido.',
+                    'Válido, mas não sólido.',
+                    'Inválido.',
+                    'Falacioso por negar o antecedente.',
+                    'Indutivo.'
+                ],
+                gabarito: 0,
+                comentario: 'Modus Ponens: P→Q, P, logo Q. É válido e, se as premissas forem verdadeiras, é sólido.'
+            },
+            {
+                id: 8,
+                texto: 'A negação de “Todos os alunos são estudiosos” é:',
+                pergunta: 'Qual é a negação correta?',
+                alternativas: [
+                    'Nenhum aluno é estudioso.',
+                    'Algum aluno não é estudioso.',
+                    'Algum aluno é estudioso.',
+                    'Todos os alunos não são estudiosos.',
+                    'Pelo menos um aluno é estudioso.'
+                ],
+                gabarito: 1,
+                comentario: 'Negação de “Todo A é B” = “Algum A não é B”.'
+            },
+            {
+                id: 9,
+                texto: 'Qual das alternativas apresenta um argumento inválido?',
+                pergunta: 'Assinale a alternativa que contém um argumento inválido.',
+                alternativas: [
+                    'Se corro, canso. Corri, logo cansei.',
+                    'Se corro, canso. Não cansei, logo não corri.',
+                    'Se corro, canso. Cansei, logo corri.',
+                    'Se corro, canso. Não corro, logo não canso.',
+                    'Se corro, canso. Correr é cansativo.'
+                ],
+                gabarito: 2,
+                comentario: 'Afirmação do consequente: P→Q, Q, logo P – é inválido. (A D também é inválida, mas a C é o exemplo clássico.)'
+            },
+            {
+                id: 10,
+                texto: 'A frase “Se o time vencer, então haverá festa” é logicamente equivalente a:',
+                pergunta: 'Qual alternativa é equivalente?',
+                alternativas: [
+                    'O time vence e há festa.',
+                    'O time não vence ou há festa.',
+                    'Se não há festa, o time venceu.',
+                    'Se há festa, o time venceu.',
+                    'O time vence ou não há festa.'
+                ],
+                gabarito: 1,
+                comentario: 'Equivalência material: P→Q ≡ ¬P ∨ Q. Portanto, “time não vence OU há festa”.'
+            },
+            {
+                id: 11,
+                texto: 'Um argumento é sólido quando:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'É válido e as premissas são verdadeiras.',
+                    'É válido, independentemente da verdade das premissas.',
+                    'Possui conclusão verdadeira.',
+                    'É indutivo e bem fundamentado.',
+                    'Não contém falácias.'
+                ],
+                gabarito: 0,
+                comentario: 'Solidez = validade + premissas verdadeiras.'
+            },
+            {
+                id: 12,
+                texto: 'A falácia que consiste em apresentar apenas duas alternativas quando existem outras é:',
+                pergunta: 'Qual é a falácia?',
+                alternativas: [
+                    'Ad populum.',
+                    'Falsa dicotomia.',
+                    'Ad ignorantiam.',
+                    'Non sequitur.',
+                    'Anfibologia.'
+                ],
+                gabarito: 1,
+                comentario: 'Falsa dicotomia: redução artificial do número de opções.'
+            },
+            {
+                id: 13,
+                texto: 'Considere as premissas: P1: Alguns poetas são sonhadores. P2: Todos os sonhadores são criativos. Podemos concluir logicamente que:',
+                pergunta: 'Assinale a conclusão correta.',
+                alternativas: [
+                    'Todos os poetas são criativos.',
+                    'Nenhum poeta é criativo.',
+                    'Alguns poetas são criativos.',
+                    'Todos os criativos são poetas.',
+                    'Nenhum sonhador é poeta.'
+                ],
+                gabarito: 2,
+                comentario: 'Alguns poetas (que são sonhadores) estão dentro do conjunto dos criativos. Logo, alguns poetas são criativos.'
+            },
+            {
+                id: 14,
+                texto: 'A proposição “Se não chove, então vou à praia” é equivalente a:',
+                pergunta: 'Qual alternativa é equivalente?',
+                alternativas: [
+                    'Chove ou vou à praia.',
+                    'Chove e vou à praia.',
+                    'Não chove e não vou à praia.',
+                    'Chove e não vou à praia.',
+                    'Vou à praia ou chove.'
+                ],
+                gabarito: 0,
+                comentario: '¬P → Q ≡ P ∨ Q. Portanto, “chove OU vou à praia” (a ordem não importa).'
+            },
+            {
+                id: 15,
+                texto: 'Assinale a alternativa que contém uma falácia de apelo à emoção:',
+                pergunta: 'Qual alternativa contém a falácia?',
+                alternativas: [
+                    '“O aquecimento global é real porque a maioria dos cientistas concorda.”',
+                    '“Se você não me ajudar, ficarei muito triste.”',
+                    '“Todo mundo usa esse produto, então ele é bom.”',
+                    '“Se não chover, a colheita será perdida.”',
+                    '“A pena de morte é justa porque está na lei.”'
+                ],
+                gabarito: 1,
+                comentario: 'Apelo à piedade/emoção: tenta convencer por meio de sentimentos, não de razão.'
+            },
+
+            // ---------- DIAGRAMAS LÓGICOS (16 a 25) ----------
+            {
+                id: 16,
+                texto: 'Dado que “Todo A é B” e “Nenhum B é C”, qual diagrama representa corretamente a relação entre A, B e C?',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'A dentro de B, B separado de C.',
+                    'A dentro de B, B dentro de C.',
+                    'A separado de B, B intersectando C.',
+                    'A intersectando B, B dentro de C.',
+                    'A dentro de C, C dentro de B.'
+                ],
+                gabarito: 0,
+                comentario: 'Todo A é B (A subconjunto de B); nenhum B é C (B e C disjuntos). Portanto, A dentro de B, B separado de C.'
+            },
+            {
+                id: 17,
+                texto: 'Se “Algum A é B” e “Todo B é C”, então é correto afirmar que:',
+                pergunta: 'Qual afirmação é correta?',
+                alternativas: [
+                    'Todo A é C.',
+                    'Nenhum A é C.',
+                    'Algum A é C.',
+                    'Nenhum B é A.',
+                    'Algum C não é A.'
+                ],
+                gabarito: 2,
+                comentario: 'Existe pelo menos um A que é B, e todo B é C → esse A também é C. Logo, algum A é C.'
+            },
+            {
+                id: 18,
+                texto: 'A negação de “Nenhum político é honesto” é:',
+                pergunta: 'Qual é a negação correta?',
+                alternativas: [
+                    'Todo político é honesto.',
+                    'Algum político é honesto.',
+                    'Algum político não é honesto.',
+                    'Nenhum não-político é honesto.',
+                    'Pelo menos um político não é honesto.'
+                ],
+                gabarito: 1,
+                comentario: 'Negação de “Nenhum A é B” = “Algum A é B”.'
+            },
+            {
+                id: 19,
+                texto: 'Considere as proposições: Todo gato é felino. Algum felino é preto. Com base nos diagramas, qual conclusão é necessariamente verdadeira?',
+                pergunta: 'Assinale a conclusão correta.',
+                alternativas: [
+                    'Todo gato é preto.',
+                    'Nenhum gato é preto.',
+                    'Algum gato é preto.',
+                    'Algum felino é gato.',
+                    'Nenhum felino é preto.'
+                ],
+                gabarito: 3,
+                comentario: 'Todo gato é felino garante que existe felino que é gato (a menos que o conjunto gato seja vazio, mas em lógica clássica considera-se existência). Portanto, algum felino é gato.'
+            },
+            {
+                id: 20,
+                texto: 'Se “Algum A é B” é verdadeira, então:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Todo A é B.',
+                    'Nenhum A é B.',
+                    'Existe pelo menos um elemento na interseção de A e B.',
+                    'A e B são disjuntos.',
+                    'A é subconjunto de B.'
+                ],
+                gabarito: 2,
+                comentario: '“Algum A é B” significa que a interseção A∩B não é vazia.'
+            },
+            {
+                id: 21,
+                texto: 'Qual diagrama representa “Todo A é B e algum B é C”?',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'A dentro de B, B intersectando C.',
+                    'A intersectando B, B dentro de C.',
+                    'A dentro de C, B separado de C.',
+                    'A separado de B, B intersectando C.',
+                    'A dentro de B, B dentro de C.'
+                ],
+                gabarito: 0,
+                comentario: 'Todo A é B → A subconjunto de B. Algum B é C → interseção B∩C não vazia.'
+            },
+            {
+                id: 22,
+                texto: 'A afirmação “Nenhum aluno é desatento” é falsa se:',
+                pergunta: 'Em que situação a afirmação é falsa?',
+                alternativas: [
+                    'Todos os alunos são atentos.',
+                    'Pelo menos um aluno é desatento.',
+                    'Nenhum aluno é atento.',
+                    'Alguns alunos são atentos.',
+                    'Todos são desatentos.'
+                ],
+                gabarito: 1,
+                comentario: 'A negação de “Nenhum A é B” é “Algum A é B”. Se pelo menos um aluno é desatento, a afirmação original é falsa.'
+            },
+            {
+                id: 23,
+                texto: 'Suponha que “Todo X é Y” e “Algum Z é Y”. Podemos concluir que:',
+                pergunta: 'Assinale a conclusão correta.',
+                alternativas: [
+                    'Todo Z é X.',
+                    'Algum X é Z.',
+                    'Nenhum Z é X.',
+                    'Não é possível determinar relação entre X e Z.',
+                    'Todo Y é Z.'
+                ],
+                gabarito: 3,
+                comentario: 'Z pode intersectar Y em uma região fora de X. Portanto, não há relação determinada entre X e Z.'
+            },
+            {
+                id: 24,
+                texto: 'Se “Algum A não é B” é verdadeira, qual diagrama é consistente?',
+                pergunta: 'Assinale o diagrama consistente.',
+                alternativas: [
+                    'A dentro de B.',
+                    'B dentro de A.',
+                    'A e B disjuntos.',
+                    'A intersectando B, com parte de A fora de B.',
+                    'A e B coincidem.'
+                ],
+                gabarito: 3,
+                comentario: '“Algum A não é B” significa que existe elemento de A fora de B. Diagrama: A∩B não vazio e A tem parte fora de B (ou A e B disjuntos também, mas a interseção com parte fora é a representação mais típica).'
+            },
+            {
+                id: 25,
+                texto: 'Dado: “Todo livro é fonte de conhecimento” e “Algum livro é caro”. É correto afirmar que:',
+                pergunta: 'Assinale a afirmação correta.',
+                alternativas: [
+                    'Tudo que é fonte de conhecimento é caro.',
+                    'Algum caro é fonte de conhecimento.',
+                    'Nenhum caro é fonte de conhecimento.',
+                    'Todo caro é livro.',
+                    'Nenhum livro é caro.'
+                ],
+                gabarito: 1,
+                comentario: 'Algum livro (que é caro) é fonte de conhecimento. Logo, algum caro é fonte de conhecimento.'
+            },
+
+            // ---------- MISTAS (26 a 45) ----------
+            {
+                id: 26,
+                texto: 'Considere: P1: Todo A é B. P2: Algum C é A. Conclusão: Algum C é B. O argumento é:',
+                pergunta: 'Assinale a alternativa correta.',
+                alternativas: [
+                    'Válido, e pode ser provado por diagramas.',
+                    'Inválido, pois C pode estar fora de B.',
+                    'Válido somente se C = B.',
+                    'Inválido, pois A não está contido em C.',
+                    'Não é possível avaliar.'
+                ],
+                gabarito: 0,
+                comentario: 'Se algum C está em A, e todo A está em B, então esse C também está em B. Válido.'
+            },
+            {
+                id: 27,
+                texto: 'Se “Todo político é rico” e “Nenhum rico é humilde”, então:',
+                pergunta: 'Assinale a conclusão correta.',
+                alternativas: [
+                    'Algum político é humilde.',
+                    'Nenhum político é humilde.',
+                    'Todo humilde é político.',
+                    'Algum humilde é político.',
+                    'Nenhum rico é político.'
+                ],
+                gabarito: 1,
+                comentario: 'Político ⊆ Rico e Rico ∩ Humilde = ∅ → Político ∩ Humilde = ∅.'
+            },
+            {
+                id: 28,
+                texto: 'Qual a negação de “Algum gato não é preto”?',
+                pergunta: 'Assinale a negação correta.',
+                alternativas: [
+                    'Todo gato é preto.',
+                    'Nenhum gato é preto.',
+                    'Algum gato é preto.',
+                    'Todo gato não é preto.',
+                    'Nenhum gato não é preto.'
+                ],
+                gabarito: 0,
+                comentario: 'Negação de “Algum A não é B” = “Todo A é B”.'
+            },
+            {
+                id: 29,
+                texto: 'Dado que “Todo A é B” e “Nenhum B é C”, qual das conclusões é válida?',
+                pergunta: 'Assinale a conclusão válida.',
+                alternativas: [
+                    'Algum A é C.',
+                    'Nenhum A é C.',
+                    'Todo C é A.',
+                    'Algum C é A.',
+                    'Nenhum C é A.'
+                ],
+                gabarito: 1,
+                comentario: 'A ⊆ B, B ∩ C = ∅ → A ∩ C = ∅ → Nenhum A é C.'
+            },
+            {
+                id: 30,
+                texto: 'A frase “Se estudo, passo” é falsa quando:',
+                pergunta: 'Em que situação a frase é falsa?',
+                alternativas: [
+                    'Estudo e passo.',
+                    'Estudo e não passo.',
+                    'Não estudo e passo.',
+                    'Não estudo e não passo.',
+                    'Estudo ou passo.'
+                ],
+                gabarito: 1,
+                comentario: 'A condicional P→Q é falsa apenas quando P é verdadeiro e Q é falso (estudo e não passo).'
+            },
+            {
+                id: 31,
+                texto: 'Considere as premissas: Todo médico é formado. Algum médico é atleta. Conclui-se que:',
+                pergunta: 'Assinale a conclusão correta.',
+                alternativas: [
+                    'Todo atleta é formado.',
+                    'Algum atleta é formado.',
+                    'Nenhum atleta é formado.',
+                    'Todo formado é atleta.',
+                    'Nenhum médico é atleta.'
+                ],
+                gabarito: 1,
+                comentario: 'Existe médico que é atleta; esse médico é formado. Logo, algum atleta é formado.'
+            },
+            {
+                id: 32,
+                texto: 'Um argumento que usa a regra “Se P então Q; não Q; logo não P” é chamado de:',
+                pergunta: 'Assinale o nome da regra.',
+                alternativas: [
+                    'Modus Ponens.',
+                    'Modus Tollens.',
+                    'Silogismo disjuntivo.',
+                    'Dilema.',
+                    'Contrapositiva.'
+                ],
+                gabarito: 1,
+                comentario: 'Modus Tollens: P→Q, ¬Q ⊢ ¬P.'
+            },
+            {
+                id: 33,
+                texto: 'Se “Algum A é B” é verdadeira, qual diagrama é possível?',
+                pergunta: 'Assinale o diagrama possível.',
+                alternativas: [
+                    'A dentro de B.',
+                    'A separado de B.',
+                    'A intersectando B.',
+                    'B dentro de A.',
+                    'A e B sem relação.'
+                ],
+                gabarito: 2,
+                comentario: '“Algum A é B” exige interseção não vazia. A interseção é a representação mais direta (também poderia ser A dentro de B ou B dentro de A, mas a interseção é a mínima).'
+            },
+            {
+                id: 34,
+                texto: 'Qual a equivalência lógica de “Se não há luz, então não há fotossíntese”?',
+                pergunta: 'Assinale a alternativa equivalente.',
+                alternativas: [
+                    'Há luz ou não há fotossíntese.',
+                    'Não há luz e há fotossíntese.',
+                    'Há luz e não há fotossíntese.',
+                    'Se há fotossíntese, então há luz.',
+                    'Se não há fotossíntese, então não há luz.'
+                ],
+                gabarito: 3,
+                comentario: 'Contrapositiva: ¬L → ¬F ≡ F → L (se há fotossíntese, então há luz).'
+            },
+            {
+                id: 35,
+                texto: 'Dado que “Todo X é Y” e “Nenhum Y é Z”, podemos inferir:',
+                pergunta: 'Assinale a inferência correta.',
+                alternativas: [
+                    'Algum X é Z.',
+                    'Nenhum X é Z.',
+                    'Todo Z é X.',
+                    'Algum Z é X.',
+                    'Nenhum Z é Y.'
+                ],
+                gabarito: 1,
+                comentario: 'X ⊆ Y, Y ∩ Z = ∅ → X ∩ Z = ∅ → Nenhum X é Z.'
+            },
+            {
+                id: 36,
+                texto: 'A negação de “Se chove, então faz frio” é:',
+                pergunta: 'Assinale a negação correta.',
+                alternativas: [
+                    'Chove e não faz frio.',
+                    'Chove e faz frio.',
+                    'Não chove e faz frio.',
+                    'Se não faz frio, então não chove.',
+                    'Chove ou faz frio.'
+                ],
+                gabarito: 0,
+                comentario: 'Negação de P→Q = P ∧ ¬Q.'
+            },
+            {
+                id: 37,
+                texto: 'Um silogismo válido com premissas “Todo mamífero é vertebrado” e “Baleia é mamífero” resulta em:',
+                pergunta: 'Assinale a conclusão correta.',
+                alternativas: [
+                    'Baleia é vertebrado.',
+                    'Todo vertebrado é mamífero.',
+                    'Baleia pode não ser vertebrado.',
+                    'Nenhum mamífero é baleia.',
+                    'Algum vertebrado não é baleia.'
+                ],
+                gabarito: 0,
+                comentario: 'Silogismo categórico: Mamífero ⊆ Vertebrado; Baleia ∈ Mamífero → Baleia ∈ Vertebrado.'
+            },
+            {
+                id: 38,
+                texto: 'Considere “Algum engenheiro é professor” e “Todo professor é estudioso”. É correto concluir:',
+                pergunta: 'Assinale a conclusão correta.',
+                alternativas: [
+                    'Todo engenheiro é estudioso.',
+                    'Algum engenheiro é estudioso.',
+                    'Nenhum engenheiro é estudioso.',
+                    'Todo estudioso é engenheiro.',
+                    'Nenhum professor é engenheiro.'
+                ],
+                gabarito: 1,
+                comentario: 'Existe engenheiro que é professor; todo professor é estudioso → esse engenheiro é estudioso.'
+            },
+            {
+                id: 39,
+                texto: 'A proposição “Se não corro, então canso” é equivalente a:',
+                pergunta: 'Assinale a alternativa equivalente.',
+                alternativas: [
+                    'Corro ou canso.',
+                    'Corro e canso.',
+                    'Se canso, então não corro.',
+                    'Se não canso, então corro.',
+                    'Não corro e canso.'
+                ],
+                gabarito: 0,
+                comentario: '¬P → Q ≡ P ∨ Q. Portanto, “corro OU canso”.'
+            },
+            {
+                id: 40,
+                texto: 'Dado: “Todo A é B” e “Algum B é C”. O que podemos afirmar com certeza?',
+                pergunta: 'Assinale a afirmação correta.',
+                alternativas: [
+                    'Algum A é C.',
+                    'Nenhum A é C.',
+                    'Todo A é C.',
+                    'Existe B que é A.',
+                    'Nada se pode afirmar sobre A e C.'
+                ],
+                gabarito: 3,
+                comentario: 'Todo A é B garante que existe B que é A (a menos que A seja vazio, mas a lógica clássica admite existência).'
+            },
+            {
+                id: 41,
+                texto: 'A falácia de negação do antecedente ocorre em:',
+                pergunta: 'Em qual alternativa ocorre a falácia?',
+                alternativas: [
+                    'Se P então Q; P; logo Q.',
+                    'Se P então Q; Q; logo P.',
+                    'Se P então Q; não P; logo não Q.',
+                    'Se P então Q; não Q; logo não P.',
+                    'Se P então Q; P; logo não Q.'
+                ],
+                gabarito: 2,
+                comentario: 'Negação do antecedente: P→Q, ¬P ⊢ ¬Q (inválido).'
+            },
+            {
+                id: 42,
+                texto: 'Se “Nenhum A é B” e “Algum C é A”, então:',
+                pergunta: 'Assinale a conclusão correta.',
+                alternativas: [
+                    'Algum C é B.',
+                    'Nenhum C é B.',
+                    'Algum C não é B.',
+                    'Todo C é B.',
+                    'Nenhum C é A.'
+                ],
+                gabarito: 2,
+                comentario: 'O elemento de C que está em A não pode estar em B (pois A∩B=∅). Logo, existe C que não é B.'
+            },
+            {
+                id: 43,
+                texto: 'Qual a negação de “Todo aluno que estuda passa”?',
+                pergunta: 'Assinale a negação correta.',
+                alternativas: [
+                    'Algum aluno que estuda não passa.',
+                    'Nenhum aluno que estuda passa.',
+                    'Algum aluno que não estuda passa.',
+                    'Todo aluno que não estuda passa.',
+                    'Nenhum aluno que não estuda passa.'
+                ],
+                gabarito: 0,
+                comentario: 'Negação de “Todo A que é B, é C” = “Existe A que é B e não é C”.'
+            },
+            {
+                id: 44,
+                texto: 'Considere o argumento: Se a inflação sobe, o juro sobe. A inflação não subiu. Logo, o juro não subiu. Esse argumento é:',
+                pergunta: 'Assinale a classificação correta.',
+                alternativas: [
+                    'Válido (Modus Ponens).',
+                    'Válido (Modus Tollens).',
+                    'Inválido (negação do antecedente).',
+                    'Válido (silogismo hipotético).',
+                    'Inválido (afirmação do consequente).'
+                ],
+                gabarito: 2,
+                comentario: 'P→Q, ¬P ⊢ ¬Q – falácia da negação do antecedente.'
+            },
+            {
+                id: 45,
+                texto: 'Dado que “Todo funcionário é competente” e “Algum funcionário é líder”, podemos concluir:',
+                pergunta: 'Assinale a conclusão correta.',
+                alternativas: [
+                    'Todo líder é competente.',
+                    'Algum líder é competente.',
+                    'Nenhum líder é competente.',
+                    'Todo competente é líder.',
+                    'Nenhum funcionário é líder.'
+                ],
+                gabarito: 1,
+                comentario: 'Existe funcionário que é líder; todo funcionário é competente → esse líder é competente.'
+            }
+        ];
+
+        // ================================================================
+        // RENDERIZAÇÃO (com comentários)
+        // ================================================================
+        const letras = ['A', 'B', 'C', 'D', 'E'];
+
+        function renderQuestoes() {
+            const container = document.getElementById('questoesContainer');
+            container.innerHTML = '';
+            questoes.forEach((q, idx) => {
+                const wrapper = document.createElement('div');
+                wrapper.className = 'questao-wrapper';
+                wrapper.dataset.index = idx;
+
+                const header = document.createElement('div');
+                header.className = 'questao-header';
+                let tipo = 'Argumentação';
+                if (idx >= 15 && idx < 25) tipo = 'Diagramas';
+                else if (idx >= 25) tipo = 'Mista';
+                header.innerHTML = `
+                    <span class="numero">Q${q.id}</span>
+                    <span class="badge" style="background:${tipo==='Argumentação'?'#2d9d5e':tipo==='Diagramas'?'#d98c2d':'#6f42c1'}">${tipo}</span>
+                `;
+                wrapper.appendChild(header);
+
+                if (q.texto) {
+                    const textoDiv = document.createElement('div');
+                    textoDiv.className = 'questao-texto';
+                    textoDiv.textContent = q.texto;
+                    wrapper.appendChild(textoDiv);
+                }
+
+                const pergunta = document.createElement('div');
+                pergunta.className = 'questao-pergunta';
+                pergunta.textContent = q.pergunta;
+                wrapper.appendChild(pergunta);
+
+                const altDiv = document.createElement('div');
+                altDiv.className = 'alternativas';
+                q.alternativas.forEach((alt, i) => {
+                    const label = document.createElement('label');
+                    const radio = document.createElement('input');
+                    radio.type = 'radio';
+                    radio.name = `q${idx}`;
+                    radio.value = i;
+                    label.appendChild(radio);
+                    label.appendChild(document.createTextNode(`${letras[i]}) ${alt}`));
+                    altDiv.appendChild(label);
+                });
+                wrapper.appendChild(altDiv);
+
+                const actions = document.createElement('div');
+                actions.className = 'questao-actions';
+
+                const btn = document.createElement('button');
+                btn.className = 'btn-verificar';
+                btn.innerHTML = '<i class="fas fa-check"></i> Verificar';
+                btn.addEventListener('click', () => verificarQuestao(idx));
+
+                const feedback = document.createElement('span');
+                feedback.className = 'feedback';
+                feedback.id = `feedback-${idx}`;
+
+                const gabDiv = document.createElement('span');
+                gabDiv.className = 'gabarito-revelado';
+                gabDiv.id = `gabarito-revelado-${idx}`;
+
+                const comentDiv = document.createElement('div');
+                comentDiv.className = 'comentario';
+                comentDiv.id = `comentario-${idx}`;
+                comentDiv.innerHTML = `<strong>💡 Comentário:</strong> ${q.comentario}`;
+
+                actions.appendChild(btn);
+                actions.appendChild(feedback);
+                actions.appendChild(gabDiv);
+                wrapper.appendChild(actions);
+                wrapper.appendChild(comentDiv);
+
+                container.appendChild(wrapper);
+            });
+        }
+
+        function verificarQuestao(idx) {
+            const q = questoes[idx];
+            const radios = document.querySelectorAll(`input[name="q${idx}"]`);
+            let selecionado = null;
+            radios.forEach(r => { if (r.checked) selecionado = parseInt(r.value); });
+
+            const feedback = document.getElementById(`feedback-${idx}`);
+            const gabDiv = document.getElementById(`gabarito-revelado-${idx}`);
+            const comentDiv = document.getElementById(`comentario-${idx}`);
+
+            if (selecionado === null) {
+                feedback.textContent = '⚠️ Selecione uma alternativa.';
+                feedback.className = 'feedback';
+                feedback.style.color = '#f0a030';
+                gabDiv.textContent = '';
+                comentDiv.classList.remove('visivel');
+                return;
+            }
+
+            const correta = q.gabarito;
+            if (selecionado === correta) {
+                feedback.textContent = '✅ Correta!';
+                feedback.className = 'feedback correto';
+                gabDiv.textContent = '';
+            } else {
+                feedback.textContent = '❌ Incorreta.';
+                feedback.className = 'feedback incorreto';
+                gabDiv.textContent = `Resposta correta: ${letras[correta]}`;
+            }
+
+            comentDiv.classList.add('visivel');
+        }
+
+        function renderGabarito() {
+            const container = document.getElementById('gabaritoContainer');
+            let html = `
+                <table class="gabarito-tabela">
+                    <thead><tr><th>Questão</th><th>Resposta</th></tr></thead>
+                    <tbody>
+            `;
+            questoes.forEach(q => {
+                html += `<tr><td>Q${q.id}</td><td class="resp">${letras[q.gabarito]}</td></tr>`;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        // ================================================================
+        // NAVEGAÇÃO
+        // ================================================================
+        function navegarPara(page) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.getElementById(`page${page.charAt(0).toUpperCase() + page.slice(1)}`).classList.add('active');
+
+            document.querySelectorAll('.menu-item').forEach(m => m.classList.remove('active'));
+            if (page === 'questoes') {
+                document.getElementById('menuQuestoes').classList.add('active');
+            } else {
+                document.getElementById('menuGabarito').classList.add('active');
+            }
+
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        }
+
+        document.getElementById('menuQuestoes').addEventListener('click', () => navegarPara('questoes'));
+        document.getElementById('menuGabarito').addEventListener('click', () => navegarPara('gabarito'));
+
+        document.getElementById('menuToggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('open');
+            document.getElementById('overlay').classList.toggle('active');
+        });
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('overlay').classList.remove('active');
+        });
+
+        // ================================================================
+        // INICIALIZAÇÃO
+        // ================================================================
+        renderQuestoes();
+        renderGabarito();
+    </script>
+
+</body>
+</html>
